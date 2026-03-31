@@ -12,6 +12,7 @@ type Session = {
   auraSeed?: number | null;
   backgroundTheme?: 'aurora' | 'galactic' | 'rain' | 'none';
   isPremium?: boolean;
+  usernameColor?: string;
 };
 
 type State = {
@@ -43,6 +44,7 @@ export const useSessionStore = create<State>()(persist((set) => ({
       auraSeed: state.session.auraSeed,
       backgroundTheme: state.session.backgroundTheme,
       isPremium: state.session.isPremium,
+      usernameColor: state.session.usernameColor,
     }
   })
 }));

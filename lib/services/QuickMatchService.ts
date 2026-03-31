@@ -105,13 +105,23 @@ export class QuickMatchService {
 
                 // Realtime broadcast to the waiting partner
                 // We don't await this because we want it to be fire-and-forget to minimize latency.
-                supabaseAdmin.channel(`quick-match-${partnerId}`).send({
-                    type: 'broadcast',
-                    event: 'match_found',
-                    payload: { room_id: roomId }
-                }).catch(err => {
-                    logger.error('Failed to notify partner via broadcast', { partnerId, error: err });
-                });
+                // WebSockets aren't established server-side, so we stream REST broadcasts explicitely
+                const channel = supabaseAdmin.channel(`quick-match-${partnerId}`);
+                if (typeof channel.httpSend === 'function') {
+                    // @ts-ignore - Supabase type definitions might be lagging behind the implementation
+                    channel.httpSend('match_found', { room_id: roomId }).catch(err => {
+                        logger.error('Failed to notify partner via broadcast', { partnerId, error: err });
+                    });
+                } else {
+                    // Fallback for older SDK
+                    channel.send({
+                        type: 'broadcast',
+                        event: 'match_found',
+                        payload: { room_id: roomId }
+                    }).catch(err => {
+                        logger.error('Failed to notify partner via broadcast', { partnerId, error: err });
+                    });
+                }
 
                 logger.info('In-Memory Room created', { roomId, userId, partnerId });
 
@@ -172,7 +182,7 @@ export class QuickMatchService {
     /**
      * Skip current chat and find a new match.
      */
-    async skipAndRematch(userId: string, currentRoomId: string): Promise<QuickMatchResult> {
+    async skipAndRematch(userId: string, currentRoomId: string, partnerId?: string | null): Promise<QuickMatchResult> {
         try {
             logger.info('User skipping chat (WebRTC Flow)', { userId, currentRoomId });
 
@@ -181,14 +191,16 @@ export class QuickMatchService {
 
             // We STILL optionally record the skip in match history for safety metrics (best effort)
             try {
+                const historyRecord: any = {
+                    user_id: userId,
+                    room_id: currentRoomId,
+                    feedback: 'skipped'
+                };
+                if (partnerId) historyRecord.partner_id = partnerId;
+
                 await supabaseAdmin
                     .from('match_history')
-                    .insert({
-                        user_id: userId,
-                        partner_id: userId, // Mock partner for now
-                        room_id: currentRoomId,
-                        feedback: 'skipped'
-                    });
+                    .insert(historyRecord);
             } catch {
                 // ignore
             }

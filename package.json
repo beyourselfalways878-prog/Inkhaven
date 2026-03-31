@@ -14,7 +14,6 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.2.2",
-    "@marsidev/react-turnstile": "^1.4.2",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@radix-ui/react-slot": "^1.2.3",
     "@react-three/drei": "^10.7.7",
@@ -45,7 +44,9 @@
     "tailwindcss": "^4.0.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.183.1",
+    "twilio": "^5.12.2",
     "unique-names-generator": "^4.7.1",
+    "web-push": "^3.6.7",
     "zod": "^4.0.0",
     "zustand": "^4.4.0"
   },
@@ -56,9 +57,11 @@
     "@types/paypal__checkout-server-sdk": "^1.0.8",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/web-push": "^3.6.4",
     "dotenv": "^17.2.3",
     "eslint": "^8.0.0",
     "eslint-config-next": "^15.1.0",
+    "playwright": "^1.58.2",
     "typescript": "^5.0.0"
   }
 }

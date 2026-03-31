@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
                     { status: 400 }
                 );
             }
-            const result = await quickMatchService.skipAndRematch(user.id, currentRoomId);
+            const result = await quickMatchService.skipAndRematch(user.id, currentRoomId, body.partnerId);
             return NextResponse.json({ ok: true, data: result });
         }
 

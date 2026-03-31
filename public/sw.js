@@ -36,3 +36,46 @@ self.addEventListener('fetch', (event) => {
   }
   event.respondWith(fetch(event.request));
 });
+
+// --- Web Push Notification Handlers ---
+
+self.addEventListener('push', (event) => {
+  if (!event.data) return;
+
+  try {
+    const data = event.data.json();
+    const title = data.title || 'InkHaven';
+    const options = {
+      body: data.body || 'You have a new message',
+      icon: '/favicon.ico', // Update with real icon path if available
+      badge: '/favicon.ico',
+      data: data.data || { url: '/' },
+      vibrate: [200, 100, 200],
+      requireInteraction: true
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+  } catch (err) {
+    console.error('Service Worker: Error parsing push payload', err);
+  }
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const targetUrl = event.notification.data?.url || '/';
+
+  // Opens the URL or focuses the window if it's already there
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
+      for (let i = 0; i < windowClients.length; i++) {
+        const client = windowClients[i];
+        if (client.url === targetUrl && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(targetUrl);
+      }
+    })
+  );
+});

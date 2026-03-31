@@ -1,79 +1,55 @@
-/**
- * GET /api/stats
- * Returns real-time platform statistics for the landing page.
- * Falls back to reasonable defaults if queries fail.
- */
-
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '../../../lib/supabaseAdmin';
-import { createLogger } from '../../../lib/logger/Logger';
+import { createClient } from '@supabase/supabase-js';
 
-const logger = createLogger('StatsAPI');
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
-// Cache stats for 60 seconds to avoid hitting DB on every page load
-let cachedStats: { data: any; timestamp: number } | null = null;
-const CACHE_TTL_MS = 60_000;
+export const revalidate = 20; // ISR: revalidate every 20 seconds
 
 export async function GET() {
-    try {
-        // Return cached stats if fresh
-        if (cachedStats && Date.now() - cachedStats.timestamp < CACHE_TTL_MS) {
-            return NextResponse.json({ ok: true, data: cachedStats.data });
-        }
+  try {
+    // ── Online now: discover_sessions active in last 3 minutes ──────────────
+    const stale = new Date(Date.now() - 3 * 60 * 1000).toISOString();
+    const { count: onlineNow } = await supabaseAdmin
+      .from('discover_sessions')
+      .select('*', { count: 'exact', head: true })
+      .gt('last_seen_at', stale);
 
-        // Count total users
-        const { count: userCount } = await supabaseAdmin
-            .from('profiles')
-            .select('*', { count: 'exact', head: true });
+    // ── Chats today: room_participants joined in the last 24h ────────────────
+    const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { count: chatsToday } = await supabaseAdmin
+      .from('room_participants')
+      .select('*', { count: 'exact', head: true })
+      .gte('joined_at', since24h);
 
-        // Count total messages
-        const { count: messageCount } = await supabaseAdmin
-            .from('messages')
-            .select('*', { count: 'exact', head: true })
-            .eq('is_deleted', false);
+    // ── Total profiles (all-time users) ────────────────────────────────────
+    const { count: totalUsers } = await supabaseAdmin
+      .from('profiles')
+      .select('*', { count: 'exact', head: true });
 
-        // Count active rooms (rooms with messages in last 24h)
-        const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-        const { count: activeRooms } = await supabaseAdmin
-            .from('rooms')
-            .select('*', { count: 'exact', head: true })
-            .gte('last_message_at', yesterday);
+    // ── Active rooms ────────────────────────────────────────────────────────
+    const { count: activeRooms } = await supabaseAdmin
+      .from('room_participants')
+      .select('room_id', { count: 'exact', head: true })
+      .eq('is_active', true)
+      .gte('last_seen_at', stale);
 
-        // Count flagged messages for safety percentage
-        const { count: flaggedCount } = await supabaseAdmin
-            .from('messages')
-            .select('*', { count: 'exact', head: true })
-            .eq('moderation_status', 'flagged');
-
-        const totalMessages = messageCount || 0;
-        const flagged = flaggedCount || 0;
-        const safePercentage = totalMessages > 0
-            ? Math.round(((totalMessages - flagged) / totalMessages) * 100)
-            : 99;
-
-        const stats = {
-            usersConnected: userCount || 0,
-            safePercentage: Math.max(safePercentage, 95), // floor at 95%
-            activeRooms: activeRooms || 0,
-            totalMessages: totalMessages,
-        };
-
-        // Cache the result
-        cachedStats = { data: stats, timestamp: Date.now() };
-
-        return NextResponse.json({ ok: true, data: stats });
-    } catch (error) {
-        logger.error('Failed to fetch stats', { error });
-
-        // Return fallback stats on error
-        return NextResponse.json({
-            ok: true,
-            data: {
-                usersConnected: 0,
-                safePercentage: 99,
-                activeRooms: 0,
-                totalMessages: 0,
-            }
-        });
-    }
+    return NextResponse.json({
+      ok: true,
+      data: {
+        onlineNow:   onlineNow  ?? 0,
+        chatsToday:  chatsToday ?? 0,
+        totalUsers:  totalUsers ?? 0,
+        activeRooms: activeRooms ?? 0,
+      },
+    });
+  } catch (err) {
+    console.error('Stats API error:', err);
+    return NextResponse.json({
+      ok: true,
+      data: { onlineNow: 0, chatsToday: 0, totalUsers: 0, activeRooms: 0 },
+    });
+  }
 }

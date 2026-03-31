@@ -69,6 +69,18 @@ export class ProfileService {
                 .single();
 
             if (error || !data) {
+                // Potential race condition: Profile was created microseconds ago by a parallel API req
+                const { data: existingProfile } = await supabaseAdmin
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', userId)
+                    .single();
+                
+                if (existingProfile) {
+                    logger.info('Profile already existed due to race condition, returning existing', { userId });
+                    return this.mapDatabaseProfileToProfile(existingProfile);
+                }
+
                 throw new ValidationError('Failed to create profile');
             }
 

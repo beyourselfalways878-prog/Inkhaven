@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useToast } from '../../components/ui/toast';
-import { Settings, User, SlidersHorizontal, Shield, Volume2, Eye, Keyboard, Info, LogIn, LogOut } from 'lucide-react';
+import { Settings, User, SlidersHorizontal, Shield, Volume2, Eye, Keyboard, Info, LogIn, LogOut, EyeOff, Palette } from 'lucide-react';
 import { useSessionStore } from '../../stores/useSessionStore';
 import { supabase } from '../../lib/supabase';
 import AuthModal from '../../components/Profile/AuthModal';
@@ -19,14 +19,31 @@ export default function SettingsPage() {
 
   const [showAuth, setShowAuth] = useState(false);
   const clearSession = useSessionStore((s) => s.clearSession);
+  const session = useSessionStore((s) => s.session);
+  const setSession = useSessionStore((s) => s.setSession);
   const [isRealUser, setIsRealUser] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [discoverable, setDiscoverable] = useState(false);
+  const [savingDiscover, setSavingDiscover] = useState(false);
+  const [pushEnabled, setPushEnabled] = useState(false);
+  const [pushLoading, setPushLoading] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      // If it's not anonymous, they hold a real email account
       setIsRealUser(!!data.session?.user?.email);
     });
+
+    // Check if push is already enabled in this browser
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window) {
+      navigator.serviceWorker.getRegistration().then(reg => {
+        if (reg) {
+          reg.pushManager.getSubscription().then(sub => {
+            if (sub) setPushEnabled(true);
+          });
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -35,11 +52,38 @@ export default function SettingsPage() {
       try {
         const parsed = JSON.parse(stored);
         setPreferences((prev) => ({ ...prev, ...parsed }));
+        if (parsed.discoverable !== undefined) setDiscoverable(parsed.discoverable);
       } catch (_err) {
         // ignore
       }
     }
   }, []);
+
+  const toggleDiscoverable = async () => {
+    setSavingDiscover(true);
+    const next = !discoverable;
+    setDiscoverable(next);
+    try {
+      const { data: sd } = await supabase.auth.getSession();
+      const token = sd?.session?.access_token;
+      if (token && session.userId) {
+        await fetch('/api/discover', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ action: next ? 'join' : 'leave' }),
+        });
+      }
+      const stored = localStorage.getItem('inkhaven:preferences');
+      const parsed = stored ? JSON.parse(stored) : {};
+      localStorage.setItem('inkhaven:preferences', JSON.stringify({ ...parsed, discoverable: next }));
+      toast.success(`Discoverability ${next ? 'enabled — you appear in Discover' : 'disabled — you are invisible'}`);
+    } catch {
+      toast.error('Failed to update discoverability');
+      setDiscoverable(!next);
+    } finally {
+      setSavingDiscover(false);
+    }
+  };
 
   const update = (key: keyof typeof preferences) => {
     setPreferences((prev) => {
@@ -50,12 +94,76 @@ export default function SettingsPage() {
     });
   };
 
+  const togglePushNotifications = async () => {
+    setPushLoading(true);
+    try {
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        toast.error('Push notifications are not supported by your browser.');
+        return;
+      }
+
+      const reg = await navigator.serviceWorker.ready;
+
+      if (pushEnabled) {
+        // Unsubscribe
+        const sub = await reg.pushManager.getSubscription();
+        if (sub) await sub.unsubscribe();
+        setPushEnabled(false);
+        toast.success('Push notifications disabled for this device.');
+      } else {
+        // Subscribe
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+          toast.error('Notification permission denied.');
+          return;
+        }
+
+        const sub = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+        });
+
+        // Send to backend
+        const { data: sd } = await supabase.auth.getSession();
+        const token = sd?.session?.access_token;
+        if (!token) {
+            toast.error('You must be logged in to enable push notifications');
+            return;
+        }
+
+        const res = await fetch('/api/notifications/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify(sub)
+        });
+
+        if (!res.ok) throw new Error('Failed to save subscription');
+
+        setPushEnabled(true);
+        toast.success('Push notifications enabled!');
+      }
+    } catch (err: any) {
+        console.error('Push toggle error:', err);
+        toast.error('Error toggling notifications. Make sure you are not in Incognito mode.');
+    } finally {
+      setPushLoading(false);
+    }
+  };
+
   const settingsMeta = [
     { key: 'readReceipts', title: 'Read receipts', desc: 'Let partners see when you read.', icon: Eye },
     { key: 'typingPrivacy', title: 'Typing privacy', desc: 'Delay typing indicators for calm pacing.', icon: Keyboard },
     { key: 'safetyFilter', title: 'Safety filter', desc: 'Auto-block unsafe content in real time.', icon: Shield },
     { key: 'soundEffects', title: 'Sound effects', desc: 'Subtle audio cues during chat.', icon: Volume2 },
   ] as const;
+
+  const PREMIUM_COLORS = [
+    { name: 'Default', value: '' },
+    { name: 'Neon Green', value: '#39ff14' },
+    { name: 'Cyber Pink', value: '#ff007f' },
+    { name: 'Plasma Blue', value: '#00ffff' },
+    { name: 'Solar Gold', value: '#ffcf00' },
+  ];
 
   return (
     <div className="container mx-auto px-6 py-10">
@@ -147,9 +255,93 @@ export default function SettingsPage() {
               );
             })}
 
+            {/* Custom Username Color (Premium) */}
             <div className="pt-4 pb-2">
-              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs">Visual Experience</h3>
+              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs flex justify-between items-center">
+                  <span>Aesthetics</span>
+                  <span className="text-[10px] bg-amber-500/20 text-amber-500 px-2 py-0.5 rounded uppercase tracking-widest border border-amber-500/30">Premium</span>
+              </h3>
             </div>
+            <div className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 transition">
+              <div className="flex items-center gap-3 mb-3">
+                <Palette className="w-4 h-4 text-amber-400" />
+                <div>
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white">Custom Username Color</div>
+                  <div className="text-xs text-slate-400 dark:text-slate-500">Stand out in the chat rooms</div>
+                </div>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                 {PREMIUM_COLORS.map(color => (
+                     <button
+                        key={color.name}
+                        onClick={() => {
+                            if (!session.isPremium) return toast.info('Custom colors are a Premium feature!');
+                            setSession({...session, usernameColor: color.value});
+                            toast.success(`Username color set to ${color.name}`);
+                        }}
+                        className={`px-3 py-1.5 rounded-xl border text-xs font-semibold shadow-sm transition-all hover:scale-105 active:scale-95 ${session.usernameColor === color.value ? 'ring-2 ring-indigo-500 scale-105' : 'hover:bg-slate-200 dark:hover:bg-white/10'}`}
+                        style={{
+                            borderColor: color.value || 'rgba(150,150,150,0.2)',
+                            color: color.value || 'inherit',
+                            backgroundColor: session.usernameColor === color.value ? (color.value ? `${color.value}15` : 'rgba(150,150,150,0.1)') : 'transparent'
+                        }}
+                     >
+                         {color.name}
+                     </button>
+                 ))}
+                 {!session.isPremium && (
+                     <div className="w-full mt-2 text-xs text-amber-500/80 italic">Unlock these colors by upgrading to Premium.</div>
+                 )}
+              </div>
+            </div>
+
+            {/* Push Notifications */}
+            <div className="pt-4 pb-2">
+              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs">Notifications</h3>
+            </div>
+            <button
+              onClick={togglePushNotifications}
+              disabled={pushLoading}
+              className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/[0.06] transition disabled:opacity-50"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xs shadow-inner shadow-indigo-500/20">🔔</div>
+                  <div>
+                    <div className="text-sm font-semibold text-slate-900 dark:text-white">Push Notifications</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500">Get alerted when someone Resonates with you</div>
+                  </div>
+                </div>
+                <span className={`h-6 w-10 rounded-full ${pushEnabled ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-white/10'} relative transition`}>
+                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${pushEnabled ? 'right-0.5' : 'left-0.5'}`} />
+                </span>
+              </div>
+            </button>
+
+            {/* Discoverability */}
+            <div className="pt-4 pb-2">
+              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs">Discover Grid</h3>
+            </div>
+            <button
+              onClick={toggleDiscoverable}
+              disabled={savingDiscover}
+              className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/[0.06] transition disabled:opacity-50"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  {discoverable
+                    ? <Eye className="w-4 h-4 text-fuchsia-400" />
+                    : <EyeOff className="w-4 h-4 text-slate-300 dark:text-white/20" />}
+                  <div>
+                    <div className="text-sm font-semibold text-slate-900 dark:text-white">Appear in Discover</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500">Let others find and Resonate with you</div>
+                  </div>
+                </div>
+                <span className={`h-6 w-10 rounded-full ${discoverable ? 'bg-fuchsia-500' : 'bg-slate-200 dark:bg-white/10'} relative transition`}>
+                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${discoverable ? 'right-0.5' : 'left-0.5'}`} />
+                </span>
+              </div>
+            </button>
 
             <button
               className="w-full rounded-2xl border border-white/5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 px-4 py-3 text-left hover:from-indigo-500/20 hover:to-purple-500/20 transition group"
@@ -171,44 +363,60 @@ export default function SettingsPage() {
               <h3 className="text-sm font-semibold text-red-400/80 uppercase tracking-wider text-xs">Danger Zone</h3>
             </div>
 
-            <button
-              disabled={isDeleting}
-              className="w-full rounded-2xl border border-red-500/10 bg-red-500/5 px-4 py-3 text-left hover:bg-red-500/10 transition group disabled:opacity-50"
-              onClick={async () => {
-                if (window.confirm("Are you absolutely sure you want to permanently delete your account and all associated data? This cannot be undone.")) {
-                  setIsDeleting(true);
-                  try {
-                    const { data: sessionData } = await supabase.auth.getSession();
-                    const token = sessionData?.session?.access_token;
-                    const res = await fetch('/api/auth/delete-account', {
-                      method: 'POST',
-                      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
-                    });
-                    if (!res.ok) throw new Error("Failed to delete account");
-
-                    toast.success("Account deleted successfully.");
-                    await supabase.auth.signOut();
-                    clearSession();
-                    window.location.href = '/';
-                  } catch (e) {
-                    toast.error("Failed to delete account. Please try again.");
-                    setIsDeleting(false);
-                  }
-                }
-              }}
-            >
-              <div className="flex items-center justify-between">
+            {deleteConfirm ? (
+              <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-4 space-y-3">
+                <p className="text-sm text-red-400 font-medium">This is permanent and cannot be undone.</p>
+                <div className="flex gap-2">
+                  <button
+                    disabled={isDeleting}
+                    onClick={async () => {
+                      setIsDeleting(true);
+                      try {
+                        const { data: sessionData } = await supabase.auth.getSession();
+                        const token = sessionData?.session?.access_token;
+                        const res = await fetch('/api/auth/delete-account', {
+                          method: 'POST',
+                          headers: token ? { Authorization: `Bearer ${token}` } : {},
+                        });
+                        if (!res.ok) throw new Error('Failed to delete account');
+                        toast.success('Account deleted.');
+                        await supabase.auth.signOut();
+                        clearSession();
+                        window.location.href = '/';
+                      } catch {
+                        toast.error('Failed to delete account. Please try again.');
+                        setIsDeleting(false);
+                        setDeleteConfirm(false);
+                      }
+                    }}
+                    className="flex-1 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-semibold disabled:opacity-50 transition"
+                  >
+                    {isDeleting ? 'Deleting...' : 'Yes, delete permanently'}
+                  </button>
+                  <button
+                    onClick={() => setDeleteConfirm(false)}
+                    className="flex-1 py-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 text-sm font-semibold hover:bg-slate-200 transition"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                disabled={isDeleting}
+                className="w-full rounded-2xl border border-red-500/10 bg-red-500/5 px-4 py-3 text-left hover:bg-red-500/10 transition group disabled:opacity-50"
+                onClick={() => setDeleteConfirm(true)}
+              >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">
-                    {isDeleting ? <span className="animate-spin text-xs">⌛</span> : '⚠️'}
-                  </div>
+                  <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">⚠️</div>
                   <div>
-                    <div className="text-sm font-semibold text-red-400 group-hover:text-red-300 transition">Delete Account</div>
+                    <div className="text-sm font-semibold text-red-400">Delete Account</div>
                     <div className="text-xs text-red-400/40">Permanently erase all data</div>
                   </div>
                 </div>
-              </div>
-            </button>
+              </button>
+            )}
+
 
             <div className="mt-6 pt-6 border-t border-slate-200 dark:border-white/5">
               <div className="flex items-center gap-2 mb-3">

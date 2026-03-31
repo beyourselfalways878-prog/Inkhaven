@@ -17,12 +17,13 @@ interface MessageInputProps {
   replyTo?: ReplyMessage | null;
   onCancelReply?: () => void;
   onIntensityChange?: (__intensity: number) => void;
-  onSendMessage: (_content: string, _type?: WebRTCMessage['messageType'], _replyToId?: string, _metadata?: any) => void;
+  onSendMessage: (_content: string, _type?: WebRTCMessage['messageType'], _replyToId?: string, _metadata?: any, _senderColor?: string) => void;
   onTyping: (_isTyping: boolean) => void;
   isPremium?: boolean;
+  myColor?: string;
 }
 
-export default function MessageInput({ myId, replyTo, onCancelReply, onIntensityChange, onSendMessage, onTyping, isPremium = false }: MessageInputProps) {
+export default function MessageInput({ myId, replyTo, onCancelReply, onIntensityChange, onSendMessage, onTyping, isPremium = false, myColor }: MessageInputProps) {
   const [value, setValue] = useState('');
   const [blockedMessage, setBlockedMessage] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
@@ -78,7 +79,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
       }
     }
 
-    onSendMessage(value.trim(), 'text', replyTo?.id);
+    onSendMessage(value.trim(), 'text', replyTo?.id, undefined, myColor);
     setValue('');
     onCancelReply?.();
   };
@@ -100,7 +101,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
       });
       if (!uploadRes.ok) throw new Error('Upload failed');
 
-      onSendMessage(audioUrl, 'audio', replyTo?.id);
+      onSendMessage(audioUrl, 'audio', replyTo?.id, undefined, myColor);
       onCancelReply?.();
     } catch (err) {
       console.error('Audio upload failed:', err);
@@ -112,30 +113,58 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
     setShowFileUpload(false);
     setUploadProgress(0);
     try {
-      // Image Moderation Check
-      if (safetyEnabled && file.type.startsWith('image/')) {
-        setBlockedMessage('Checking image...');
-        setChecking(true);
+      let payloadFile = file;
 
-        // Convert to base64
-        const base64Image = await new Promise<string>((resolve, reject) => {
+      // Aggressive Native Compression for Images (Protects AWS Bandwidth and Database)
+      if (file.type.startsWith('image/') && !file.type.includes('gif')) {
+        setBlockedMessage('Compressing & optimizing image...');
+        setChecking(true);
+        payloadFile = await new Promise<File>((resolve) => {
           const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as string);
-          reader.onerror = reject;
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const MAX_SIZE = 1200; // Limit to 1200px max dimension
+              let { width, height } = img;
+              if (width > height) {
+                if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; }
+              } else {
+                if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; }
+              }
+              canvas.width = width; canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx?.drawImage(img, 0, 0, width, height);
+              canvas.toBlob((blob) => {
+                if (blob) resolve(new File([blob], 'optimized.webp', { type: 'image/webp' }));
+                else resolve(file);
+              }, 'image/webp', 0.75); // Extreme WebP Compression
+            };
+            img.onerror = () => resolve(file);
+            img.src = e.target?.result as string;
+          };
           reader.readAsDataURL(file);
         });
+        setChecking(false);
+        setBlockedMessage(null);
+      }
 
+      // Safety Filter (Using the optimized, tiny WebP file!)
+      if (safetyEnabled && payloadFile.type.startsWith('image/')) {
+        setBlockedMessage('Checking image safety...');
+        setChecking(true);
+        const base64Image = await new Promise<string>((resolve) => {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result as string);
+          r.readAsDataURL(payloadFile);
+        });
+        
         const res = await fetch('/api/moderation', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            action: 'checkImage',
-            image: base64Image,
-            mimeType: file.type
-          })
+          body: JSON.stringify({ action: 'checkImage', image: base64Image, mimeType: payloadFile.type })
         });
         const json = await res.json();
-
         if (json?.data?.flagged === true) {
           setBlockedMessage(`Image blocked by safety filter: ${json.data.reason || 'Content violation'}`);
           setChecking(false);
@@ -145,24 +174,28 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
         setChecking(false);
       }
 
+      setBlockedMessage('Encrypting & Uploading...');
       const urlRes = await fetch('/api/files/upload-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: myId, fileName: file.name, fileSize: file.size, fileMimeType: file.type })
+        body: JSON.stringify({ userId: myId, fileName: payloadFile.name, fileSize: payloadFile.size, fileMimeType: payloadFile.type })
       });
       const { uploadUrl, fileUrl } = await urlRes.json();
+      
       const uploadRes = await fetch(uploadUrl, {
         method: 'PUT',
-        headers: { 'Content-Type': file.type },
-        body: file
+        headers: { 'Content-Type': payloadFile.type },
+        body: payloadFile
       });
       if (!uploadRes.ok) throw new Error('Upload failed');
 
-      onSendMessage(fileUrl, 'file', replyTo?.id, { fileName: file.name, fileSize: file.size, fileMimeType: file.type, fileUrl });
+      onSendMessage(fileUrl, 'file', replyTo?.id, { fileName: payloadFile.name, fileSize: payloadFile.size, fileMimeType: payloadFile.type, fileUrl }, myColor);
+      setBlockedMessage(null);
       onCancelReply?.();
     } catch (err) {
       console.error('File upload failed:', err);
-      setBlockedMessage('Failed to upload file. Please try again.');
+      setBlockedMessage('Failed to secure and upload file.');
+      setChecking(false);
     }
   };
 
@@ -216,7 +249,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
       }
     }
 
-    onSendMessage(base64Image, 'glowpad', replyTo?.id);
+    onSendMessage(base64Image, 'glowpad', replyTo?.id, undefined, myColor);
   };
 
   const handleEmojiSelect = (emoji: string) => {

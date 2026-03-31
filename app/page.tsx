@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '../components/ui/button';
 import { useEffect, useState, useCallback } from 'react';
 import { Shield, Target, Lock, Zap, Palette, Mic } from 'lucide-react';
+import ChatNowModal from '../components/ChatNowModal';
 
 
 
@@ -46,7 +47,8 @@ const FeatureIcon = ({ gradient, children }: { gradient: string; children: React
 
 export default function Page() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [stats, setStats] = useState({ usersConnected: 0, safePercentage: 99 });
+  const [stats, setStats] = useState({ onlineNow: 0, chatsToday: 0, activeRooms: 0, totalUsers: 0 });
+  const [chatNowOpen, setChatNowOpen] = useState(false);
 
   const fetchStats = useCallback(async () => {
     try {
@@ -55,8 +57,10 @@ export default function Page() {
         const json = await res.json();
         if (json.ok && json.data) {
           setStats({
-            usersConnected: json.data.usersConnected || 0,
-            safePercentage: json.data.safePercentage || 99,
+            onlineNow:   json.data.onlineNow   ?? 0,
+            chatsToday:  json.data.chatsToday  ?? 0,
+            activeRooms: json.data.activeRooms ?? 0,
+            totalUsers:  json.data.totalUsers  ?? 0,
           });
         }
       }
@@ -66,6 +70,7 @@ export default function Page() {
   }, []);
 
   useEffect(() => { fetchStats(); }, [fetchStats]);
+
 
   const testimonials = [
     { text: "I feel like I can finally be myself without judgment.", author: "Ink_7f2a", mood: "🌙" },
@@ -116,41 +121,58 @@ export default function Page() {
             A premium space for authentic conversations. No names, no profiles, just <span className="text-indigo-600 dark:text-indigo-400 font-medium">real human connection</span> — protected by AI moderation and designed for your peace of mind.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <Button asChild size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 text-lg rounded-xl shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 transition-all hover:-translate-y-0.5">
-              <Link href="/onboarding">
-                <span className="mr-2">✨</span> Start Chatting
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" size="lg" className="px-8 py-4 text-lg rounded-xl border-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:-translate-y-0.5">
-              <Link href="/quick-match">
-                <span className="mr-2">⚡</span> Quick Match
-              </Link>
-            </Button>
+          {/* CTA Buttons — Primary: instant chat, Secondary: full onboarding */}
+          <div className="flex flex-col items-center gap-4 mb-12">
+            {/* Primary: Zero-friction instant entry */}
+            <button
+              onClick={() => setChatNowOpen(true)}
+              className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:via-violet-500 hover:to-purple-500 text-white px-10 py-5 text-xl font-bold rounded-2xl shadow-2xl shadow-indigo-500/30 hover:shadow-[0_0_50px_rgba(99,102,241,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] active:scale-[0.98]"
+            >
+              <Zap className="w-6 h-6 group-hover:animate-bounce" />
+              Chat Now Instantly
+              <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg animate-bounce">
+                FREE
+              </span>
+            </button>
+
+            {/* Secondary row: onboarding + rooms */}
+            <div className="flex flex-wrap justify-center gap-3 mt-2">
+              <Button asChild variant="secondary" size="lg" className="px-6 py-3 rounded-xl border hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:-translate-y-0.5 text-sm">
+                <Link href="/onboarding">
+                  <span className="mr-2">✨</span> Set Up My Profile
+                </Link>
+              </Button>
+              <Button asChild variant="secondary" size="lg" className="px-6 py-3 rounded-xl border hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:-translate-y-0.5 text-sm">
+                <Link href="/rooms">
+                  <span className="mr-2">🏠</span> Browse Rooms
+                </Link>
+              </Button>
+            </div>
           </div>
 
           {/* Live Stats */}
           <div className="flex flex-wrap justify-center gap-8 text-center">
             <div className="px-6">
-              <div className="text-3xl font-bold text-slate-900 dark:text-white">
-                <AnimatedCounter end={stats.usersConnected} suffix="+" />
+              <div className="text-3xl font-bold text-slate-900 dark:text-white flex items-center justify-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block mr-1" />
+                <AnimatedCounter end={stats.onlineNow} suffix="" />
               </div>
-              <div className="text-sm text-slate-500">Users Connected</div>
+              <div className="text-sm text-slate-500">Online Now</div>
             </div>
             <div className="px-6 border-l border-r border-slate-200 dark:border-slate-700">
               <div className="text-3xl font-bold text-slate-900 dark:text-white">
-                <AnimatedCounter end={stats.safePercentage} suffix="%" />
+                <AnimatedCounter end={stats.chatsToday} suffix="+" />
               </div>
-              <div className="text-sm text-slate-500">Safe Conversations</div>
+              <div className="text-sm text-slate-500">Chats Today</div>
             </div>
             <div className="px-6">
               <div className="text-3xl font-bold text-slate-900 dark:text-white">
-                <AnimatedCounter end={4} suffix=".9★" />
+                <AnimatedCounter end={stats.activeRooms} suffix="" />
               </div>
-              <div className="text-sm text-slate-500">User Rating</div>
+              <div className="text-sm text-slate-500">Live Rooms</div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -256,6 +278,9 @@ export default function Page() {
       </section>
 
       {/* Footer removed - using global footer */}
+
+      {/* Chat Now Modal */}
+      <ChatNowModal isOpen={chatNowOpen} onClose={() => setChatNowOpen(false)} />
 
       <style jsx>{`
         @keyframes float {

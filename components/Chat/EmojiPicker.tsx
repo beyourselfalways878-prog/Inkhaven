@@ -64,7 +64,11 @@ export function EmojiPicker({ open, onClose, onSelect, position = 'top' }: Emoji
     };
 
     const displayEmojis = search
-        ? ALL_EMOJIS.filter(() => true) // Can't search emoji by text easily; show all when typing
+        ? ALL_EMOJIS.filter(e => {
+            // Functional search checking if the search term matches the category the emoji belongs to
+            const cat = Object.entries(EMOJI_CATEGORIES).find(([, emojis]) => emojis.includes(e))?.[0];
+            return cat?.toLowerCase().includes(search.toLowerCase());
+          })
         : EMOJI_CATEGORIES[activeCategory] || [];
 
     const positionClass = position === 'top' ? 'bottom-full mb-2' : 'top-full mt-2';

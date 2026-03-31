@@ -1,18 +1,18 @@
-# 🎭 InkHaven Chat
+# 🎭 InkHaven: The Art of Anonymous Connection
 
 <div align="center">
 
-![InkHaven Banner](https://img.shields.io/badge/InkHaven-Anonymous%20Chat-8b5cf6?style=for-the-badge&logo=chat&logoColor=white)
+![InkHaven Banner](public/images/readme/banner.png)
 
-**Meet strangers. Stay anonymous. Find your vibe.**
+### **Meet strangers. Stay anonymous. Find your vibe.**
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-61dafb?style=flat-square&logo=react)](https://react.dev/)
-[![Supabase](https://img.shields.io/badge/Supabase-Realtime-3ecf8e?style=flat-square&logo=supabase)](https://supabase.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=flat-square&logo=typescript)](https://typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-Proprietary-red?style=flat-square)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15.1-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
+[![Supabase](https://img.shields.io/badge/Supabase-Realtime-3ecf8e?style=for-the-badge&logo=supabase)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind--CSS-4.0-38b2ac?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=for-the-badge&logo=typescript)](https://typescriptlang.org/)
 
-[🌐 Live Demo](https://www.inkhaven.in) • [📖 Documentation](#features) • [🐛 Report Bug](https://github.com/beyourselfalways878-prog/inkhaven_chat/issues)
+[🌐 Live Demo](https://www.inkhaven.in) • [📖 Documentation](#-key-features) • [🐛 Report Bug](https://github.com/beyourselfalways878-prog/Inkhaven/issues)
 
 </div>
 
@@ -20,44 +20,46 @@
 
 ## ✨ What is InkHaven?
 
-InkHaven is a **privacy-first anonymous chat platform** that connects strangers through meaningful conversations. Unlike traditional chat apps, InkHaven focuses on **mood-based matching** — pairing you with someone who's feeling the same vibe right now.
+InkHaven is a **privacy-first anonymous chat platform** designed for meaningful human connection. We believe that stripping away identities allows for more honest, vulnerable, and profound conversations. 
 
-### 🎯 Key Differentiators
-
-| Feature | InkHaven | Competitors |
-|---------|----------|-------------|
-| **Mood-Based Matching** | ✅ 5 moods | ❌ None |
-| **Dual Moderation** | ✅ Safe + 18+ modes | ❌ One-size-fits-all |
-| **Karma Reputation** | ✅ 4-tier system | ⚠️ Basic |
-| **Icebreaker Generator** | ✅ 20+ prompts | ❌ None |
-| **Text-First Design** | ✅ Focused | ⚠️ Video-centric |
+Unlike traditional "roulette" chats, InkHaven uses **Mood-Based Matching** to pair you with individuals who share your current state of mind—whether you're looking for a deep intellectual dive or just a casual laugh.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
 ### 🌈 Mood-Based Matching
-Select your current vibe before matching:
-- 😌 **Chill** — Relaxed conversations
-- 🌊 **Deep** — Meaningful discussions  
-- 🎉 **Fun** — Games and jokes
-- 💭 **Vent** — When you need to talk
-- 🔮 **Curious** — Explore new ideas
+Before entering the haven, select your vibe. Our algorithm ensures you're matched with someone on the same wavelength.
 
-### 🛡️ Dual Moderation System
-Choose your experience on first visit:
-- **Safe Mode** — Family-friendly, strict AI moderation, no adult content
-- **18+ Mode** — Age-verified, standard moderation, adult conversations allowed
+<div align="center">
+  <img src="public/images/readme/moods_mockup.png" width="80%" alt="Mood Selector Interface" />
+</div>
 
-### ⭐ Karma Reputation
-Earn karma through positive interactions:
-- **Newcomer** (0-49) — Just joined
-- **Trusted** (50-199) — Established member
-- **Veteran** (200-499) — Experienced chatter
-- **Legend** (500+) — Community pillar
+- 😌 **Chill** — For relaxed, low-pressure conversations.
+- 🌊 **Deep** — For soul-searching and philosophical debates.
+- 🎉 **Fun** — For jokes, games, and lighthearted banter.
+- 💭 **Vent** — For when you just need someone to listen.
+- 🔮 **Curious** — For exploring new perspectives and ideas.
 
-### 🎲 Icebreaker Generator
-Never run out of conversation starters with 20+ curated prompts across fun, deep, and creative categories.
+### 🤖 AI Wingman
+Stuck on what to say next? Our **AI Wingman** (powered by Gemini 2.5 Flash) analyzes the conversation context and suggests 3 engaging icebreakers to keep the flow alive.
+
+### 🛡️ Dual-Layer Moderation
+Choose your experience:
+- **Safe Mode**: Family-friendly, strict AI content filtering, and kid-safe environment.
+- **18+ Mode**: Age-verified, standard moderation for mature conversations.
+
+### ⭐ Karma & Reputation
+A 4-tier reputation system that rewards positive interactions and helpfulness, fostering a healthy community of **Newcomers**, **Trusted** members, **Veterans**, and **Legends**.
+
+---
+
+## 📱 Visual Experience
+
+<div align="center">
+  <img src="public/images/readme/chat_mockup.png" width="45%" alt="Chat Interface" />
+  <p><i>Sleek, minimalist, and focused on the conversation.</i></p>
+</div>
 
 ---
 
@@ -65,14 +67,12 @@ Never run out of conversation starters with 20+ curated prompts across fun, deep
 
 | Layer | Technology |
 |-------|------------|
-| **Framework** | Next.js 15.5 (App Router) |
-| **Frontend** | React 19, Tailwind CSS, Framer Motion |
-| **Backend** | Supabase (Postgres, Realtime, Auth) |
-| **State** | Zustand, React Query |
-| **Validation** | Zod |
-| **Animation** | Framer Motion |
-| **Icons** | Lucide React |
-| **Monitoring** | Sentry |
+| **Frontend** | [Next.js 15.1](https://nextjs.org/) (App Router), [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/) |
+| **Backend** | [Supabase](https://supabase.com/) (Postgres, Realtime, Auth, RLS) |
+| **AI Engine** | [Google Gemini 2.5 Flash](https://ai.google.dev/) |
+| **State Management** | [Zustand](https://github.com/pmndrs/zustand), [React Query](https://tanstack.com/query) |
+| **Animation** | [Framer Motion](https://www.framer.com/motion/) |
+| **Security** | [Upstash Redis](https://upstash.com/) (Rate Limiting), [hCaptcha](https://www.hcaptcha.com/) |
 
 ---
 
@@ -80,25 +80,15 @@ Never run out of conversation starters with 20+ curated prompts across fun, deep
 
 ```
 inkhaven-chat/
-├── app/                    # Next.js App Router pages
-│   ├── api/               # Consolidated API routes (12 endpoints)
-│   ├── chat/              # Chat room pages
-│   ├── legal/             # GDPR, Privacy, Terms, Cookies
-│   └── quick-match/       # Mood-based matching page
-├── components/            # React components
-│   ├── Chat/              # MessageBubble, MessageList, etc.
-│   ├── ModerationGate.tsx # Safe/18+ consent modal
-│   ├── MoodSelector.tsx   # 5-mood picker
-│   ├── KarmaBadge.tsx     # Reputation display
-│   └── IcebreakerButton.tsx
-├── lib/                   # Core utilities
-│   ├── services/          # Business logic (ChatService, ModerationService)
-│   ├── supabase.ts        # Database client
-│   └── chatClient.ts      # Facade for real/mock chat
-└── stores/                # Zustand state management
+├── app/                    # Next.js App Router (Pages, API, Layouts)
+│   ├── api/               # AI Wingman, Moderation, Matching, Messages
+│   ├── chat/              # Real-time chat room logic
+│   └── quick-match/       # Mood selection & pairing logic
+├── components/            # Atomic & Modular UI components
+├── lib/                   # Supabase client, Business Logic, Shared Utils
+├── public/                # Static assets & PWA icons
+└── stores/                # Global state (Zustand)
 ```
-
-**Total: ~100 files** — Lean, maintainable codebase
 
 ---
 
@@ -106,90 +96,49 @@ inkhaven-chat/
 
 ### Prerequisites
 - Node.js 18+
-- npm or yarn
-- Supabase account
+- Supabase Project
 
 ### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/beyourselfalways878-prog/inkhaven_chat.git
-cd inkhaven_chat
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your Supabase credentials
-
-# Run development server
-npm run dev
-```
-
-### Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key |
-
-| `SENTRY_AUTH_TOKEN` | Optional: Error tracking |
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/beyourselfalways878-prog/Inkhaven.git
+   cd Inkhaven
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Configure Environment**
+   ```bash
+   cp .env.example .env.local
+   # Fill in your NEXT_PUBLIC_SUPABASE_URL and KEYS
+   ```
+4. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
 
 ---
 
-## 📊 API Endpoints
-
-All APIs are consolidated for maintainability:
-
-| Endpoint | Methods | Description |
-|----------|---------|-------------|
-| `/api/messages` | GET, POST | Fetch/send messages |
-| `/api/matching` | POST | Enqueue/find match (action-based) |
-| `/api/moderation` | GET, POST | Check content, report, ban |
-| `/api/presence` | GET, POST | User presence status |
-| `/api/rooms` | POST | Create/join rooms |
-| `/api/reactions/toggle` | POST | Toggle message reactions |
-
----
-
-## 🔐 Security
-
-- ✅ **Anonymous Auth** — No personal data required
-- ✅ **Mode-Aware Moderation** — Stricter in Safe Mode
-- ✅ **Rate Limiting** — Redis-based protection
-- ✅ **Row Level Security** — Supabase RLS policies
-- ✅ **hCaptcha** — Bot protection
-- ✅ **Self-Harm Detection** — Crisis support integration
-
----
-
-## 📄 Legal
-
-- [Privacy Policy](https://www.inkhaven.in/legal/privacy)
-- [Terms of Service](https://www.inkhaven.in/legal/terms)
-- [GDPR Compliance](https://www.inkhaven.in/legal/gdpr)
-- [Cookie Policy](https://www.inkhaven.in/legal/cookies)
+## 🔐 Security & Privacy
+- **Anonymous-First**: No email or personal data required to chat.
+- **Ephemeral Storage**: Messages are handled with privacy in mind.
+- **End-to-End Logic**: Secure RLS (Row Level Security) on Supabase.
+- **Rate-Limited**: Protection against spam and bots via Upstash.
 
 ---
 
 ## 🤝 Contributing
-
-This is a proprietary project. For inquiries, contact [namamicreations@zenithcryptoai.in](mailto:namamicreations@zenithcryptoai.in).
+Contributions are welcome! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get involved.
 
 ---
 
 ## 📜 License
-
-© 2026 InkHaven. All rights reserved.
+This project is currently **Proprietary**. All rights reserved © 2026 InkHaven.
 
 ---
 
 <div align="center">
-
-**Built with 💜 for meaningful anonymous connections**
-
-[Visit InkHaven](https://www.inkhaven.in)
-
+  <p>Built with 💜 for meaningful human connections.</p>
+  <a href="https://www.inkhaven.in"><b>inkhaven.in</b></a>
 </div>

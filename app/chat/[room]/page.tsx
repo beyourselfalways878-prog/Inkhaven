@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { SkipForward, Loader2, Save, ShieldAlert, Ban } from 'lucide-react';
+import { SkipForward, Loader2, Save, ShieldAlert, Ban, Sparkles } from 'lucide-react';
 import MessageList from '../../../components/Chat/MessageList';
 import MessageInput from '../../../components/Chat/MessageInput';
 import PresenceIndicator from '../../../components/Chat/PresenceIndicator';
@@ -40,6 +40,64 @@ export default function ChatRoomPage() {
 
   const [partnerProfile, setPartnerProfile] = useState<PartnerProfile | null>(null);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'pending' | 'mutual'>('idle');
+
+  // AI Wingman State
+  const [wingmanSuggestions, setWingmanSuggestions] = useState<string[]>([]);
+  const [isWingmanLoading, setIsWingmanLoading] = useState(false);
+  const [lastMessageTime, setLastMessageTime] = useState<number>(Date.now());
+
+  // Track latest message arrival for Wingman resetting
+  useEffect(() => {
+     if (messages.length > 0) {
+        setLastMessageTime(Date.now());
+        setWingmanSuggestions([]);
+     }
+  }, [messages.length]);
+
+  const triggerWingman = useCallback(async () => {
+      setIsWingmanLoading(true);
+      try {
+          const contextMessages = messages.slice(-5).map(m => ({
+              sender: m.senderId === myId ? 'Me' : 'Partner',
+              text: m.content
+          }));
+
+          const res = await fetch('/api/ai-wingman', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ messages: contextMessages, tone: 'friendly' })
+          });
+
+          if (res.ok) {
+              const data = await res.json();
+              setWingmanSuggestions(data.suggestions);
+          }
+      } catch (err) {
+          console.error("Wingman failed:", err);
+      } finally {
+          setIsWingmanLoading(false);
+      }
+  }, [messages, myId]); // Add dependencies to memoize triggerWingman
+
+  // AI Wingman Logic: Check for stalled conversation
+  useEffect(() => {
+      if (!ready || messages.length === 0 || connectionState !== 'connected') return;
+
+      const interval = setInterval(() => {
+          const timeSinceLastMessage = Date.now() - lastMessageTime;
+          // Trigger after 20s if no suggestions visible
+          if (timeSinceLastMessage > 20000 && wingmanSuggestions.length === 0 && !isWingmanLoading) {
+              triggerWingman();
+          }
+      }, 10000);
+
+      return () => clearInterval(interval);
+  }, [ready, messages.length, lastMessageTime, wingmanSuggestions.length, isWingmanLoading, connectionState, triggerWingman]);
+
+  const handleUseSuggestion = (text: string) => {
+      sendMessage(text);
+      setWingmanSuggestions([]);
+  };
 
   useEffect(() => {
     const initAuth = async () => {
@@ -182,7 +240,7 @@ export default function ChatRoomPage() {
           'Content-Type': 'application/json',
           ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
-        body: JSON.stringify({ action: 'skip', currentRoomId: roomId })
+        body: JSON.stringify({ action: 'skip', currentRoomId: roomId, partnerId: partnerId || null })
       });
       const data = await res.json();
       if (data.ok && data.data?.matchFound && data.data?.roomId) {
@@ -353,12 +411,35 @@ export default function ChatRoomPage() {
             onReact={reactToMessage}
           />
 
+          {/* ── AI Wingman Suggestions ── */}
+          {wingmanSuggestions.length > 0 && (
+              <div className="px-4 py-2 bg-gradient-to-t from-white/90 dark:from-slate-900/90 to-transparent backdrop-blur-sm z-10 bottom-0 mb-2 mt-auto">
+                 <div className="flex items-center gap-2 mb-2">
+                     <Sparkles size={14} className="text-purple-500" />
+                     <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-widest font-mono shadow-sm">Wingman Suggestions</span>
+                 </div>
+                 <div className="flex flex-wrap gap-2">
+                     {wingmanSuggestions.map((sug, idx) => (
+                         <button
+                            key={idx}
+                            onClick={() => handleUseSuggestion(sug)}
+                            className="text-xs bg-white/95 dark:bg-slate-900/95 border border-purple-200/80 dark:border-purple-500/30 text-purple-700 dark:text-purple-300 px-3 py-1.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/20 transition-all shadow-md text-left truncate max-w-full hover:scale-105 active:scale-95"
+                         >
+                             {sug}
+                         </button>
+                     ))}
+                     <button onClick={() => setWingmanSuggestions([])} className="text-xs text-slate-500 hover:text-slate-800 dark:text-white/50 dark:hover:text-white/80 px-2 transition-colors">Dismiss</button>
+                 </div>
+              </div>
+          )}
+
           <MessageInput
             myId={myId}
             onIntensityChange={setMyIntensity}
             onSendMessage={sendMessage}
             onTyping={sendTyping}
             isPremium={session.isPremium}
+            myColor={session.usernameColor}
           />
         </AuraBlendBackground>
 

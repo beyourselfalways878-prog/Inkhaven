@@ -51,13 +51,7 @@ export default function Onboarding() {
       router.push('/onboarding/preferences');
     } catch (err) {
       console.error('Onboarding auth failed:', err);
-      // Show error but still allow proceeding with limited functionality
-      const uid = `guest_${Math.random().toString(36).slice(2, 9)}`;
-      const ink = `ink_${Math.random().toString(36).slice(2, 5)}`;
-      setSession({ userId: uid, inkId: ink, displayName: data.displayName ?? null, interests: data.chosen ?? null, comfortLevel: data.comfortLevel ?? 'balanced' });
-      // Alert the user that some features may not work
-      alert('Could not create a secure session. Some features may be limited. Please refresh and try again.');
-      router.push('/onboarding/preferences');
+      alert('Could not create a secure session. Please check your connection or refresh the page and try again.');
     }
   }
 

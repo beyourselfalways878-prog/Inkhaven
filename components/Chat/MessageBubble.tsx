@@ -132,8 +132,15 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
           </div>
         )}
 
+        {/* Sender Name with Custom Color (Partner only) */}
+        {!isMine && message.senderColor && (
+          <div className="px-3.5 pt-2 pb-0 opacity-90 text-[11px] font-bold uppercase tracking-wider" style={{ color: message.senderColor }}>
+            Partner
+          </div>
+        )}
+
         {/* Content */}
-        <div className="px-3.5 py-2">
+        <div className={`px-3.5 ${(!isMine && message.senderColor) ? 'pt-1 pb-2' : 'py-2'}`}>
           {message.messageType === 'audio' ? (
             <div className="flex items-center gap-2">
               <button

@@ -5,6 +5,7 @@ import { RealtimeChannel } from '@supabase/supabase-js';
 export interface WebRTCMessage {
     id: string;
     senderId: string;
+    senderColor?: string;
     content: string;
     createdAt: string;
     replyToId?: string;
@@ -108,14 +109,33 @@ export function useWebRTC(roomId: string, userId: string) {
     useEffect(() => {
         if (!roomId || !userId) return;
 
-        let pc = new RTCPeerConnection(RTC_CONFIG);
-        pcRef.current = pc;
+        let pc: RTCPeerConnection;
+        let sigChannel: RealtimeChannel;
+        let pingInterval: ReturnType<typeof setInterval> | null = null;
 
-        // 1. Setup Supabase Channel for Signaling
-        const sigChannel = supabase.channel(`webrtc_${roomId}`, {
-            config: { broadcast: { self: false } }
-        });
-        channelRef.current = sigChannel;
+        const initializeWebRTC = async () => {
+            try {
+                // Fetch dynamic ICE servers (Twilio TURN credentials)
+                const res = await fetch('/api/ice-servers');
+                let iceServers = RTC_CONFIG.iceServers; // fallback
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.iceServers && data.iceServers.length > 0) {
+                        iceServers = data.iceServers;
+                    }
+                }
+                
+                pc = new RTCPeerConnection({ 
+                    iceServers,
+                    iceTransportPolicy: 'relay' // FORCE RELAY: 100% Wireshark Immunity (IP Masking)
+                });
+                pcRef.current = pc;
+
+                // 1. Setup Supabase Channel for Signaling
+                sigChannel = supabase.channel(`webrtc_${roomId}`, {
+                    config: { broadcast: { self: false } }
+                });
+                channelRef.current = sigChannel;
 
         pc.oniceconnectionstatechange = () => {
             switch (pc.iceConnectionState) {
@@ -345,20 +365,29 @@ export function useWebRTC(roomId: string, userId: string) {
             }
         });
 
+            } catch (err) {
+                console.error('Failed to initialize WebRTC with dynamic TURN servers:', err);
+                setConnectionState('failed');
+            }
+        };
+
+        initializeWebRTC();
+
         return () => {
-            clearInterval(pingInterval);
+            if (pingInterval) clearInterval(pingInterval);
             dataChannelRef.current?.close();
-            pc.close();
-            supabase.removeChannel(sigChannel);
+            pc?.close();
+            if (sigChannel) supabase.removeChannel(sigChannel);
             if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
         };
     }, [roomId, userId, playNotificationSound]);
 
     // Send Message Over P2P
-    const sendMessage = useCallback((content: string, messageType: WebRTCMessage['messageType'] = 'text', replyToId?: string, metadata?: any) => {
+    const sendMessage = useCallback((content: string, messageType: WebRTCMessage['messageType'] = 'text', replyToId?: string, metadata?: any, senderColor?: string) => {
         const newMsg: WebRTCMessage = {
             id: crypto.randomUUID(),
             senderId: userId,
+            senderColor: senderColor,
             content,
             createdAt: new Date().toISOString(),
             replyToId,
