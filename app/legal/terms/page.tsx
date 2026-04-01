@@ -13,8 +13,8 @@ export default function TermsOfServicePage() {
                 <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
                 <p className="text-slate-500 mb-8">Last updated: January 27, 2026</p>
 
-                <div className="bg-gradient-to-r from-violet-50 to-pink-50 dark:from-violet-950/30 dark:to-pink-950/30 rounded-2xl p-6 mb-8">
-                    <p className="text-lg font-medium text-slate-800 dark:text-slate-200 m-0">
+                <div className="bg-gradient-to-r from-violet-50 to-pink-50 from-violet-950/30 to-pink-950/30 rounded-2xl p-6 mb-8">
+                    <p className="text-lg font-medium text-gray-200 text-slate-200 m-0">
                         Welcome to InkHaven! These Terms govern your use of our anonymous chat platform. By using InkHaven, you agree to these Terms.
                     </p>
                 </div>
@@ -90,7 +90,7 @@ export default function TermsOfServicePage() {
                 <section className="mb-10">
                     <h2 className="text-2xl font-semibold mt-8 mb-4">6. Privacy & Data</h2>
                     <p>
-                        Your use of InkHaven is also governed by our <Link href="/legal/privacy" className="text-indigo-600 hover:underline">Privacy Policy</Link>, which explains how we collect, use, and protect your data.
+                        Your use of InkHaven is also governed by our <Link href="/legal/privacy" className="text-teal-600 hover:underline">Privacy Policy</Link>, which explains how we collect, use, and protect your data.
                     </p>
                 </section>
 
@@ -103,7 +103,7 @@ export default function TermsOfServicePage() {
 
                     <h3 className="text-xl font-medium mt-6 mb-3">7.2 Refunds</h3>
                     <p>
-                        Refund requests are evaluated on a case-by-case basis. Contact <a href="mailto:namamicreations@zenithcryptoai.in" className="text-indigo-600 hover:underline">namamicreations@zenithcryptoai.in</a> within 7 days of purchase for refund inquiries.
+                        Refund requests are evaluated on a case-by-case basis. Contact <a href="mailto:namamicreations@zenithcryptoai.in" className="text-teal-600 hover:underline">namamicreations@zenithcryptoai.in</a> within 7 days of purchase for refund inquiries.
                     </p>
 
                     <h3 className="text-xl font-medium mt-6 mb-3">7.3 Cancellation</h3>
@@ -124,7 +124,7 @@ export default function TermsOfServicePage() {
 
                 <section className="mb-10">
                     <h2 className="text-2xl font-semibold mt-8 mb-4">9. Disclaimers</h2>
-                    <div className="bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 p-4 my-4">
+                    <div className="bg-amber-50 bg-amber-950/30 border-l-4 border-amber-500 p-4 my-4">
                         <p className="m-0">
                             <strong>THE SERVICE IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot;</strong> without warranties of any kind, either express or implied, including but not limited to merchantability, fitness for a particular purpose, and non-infringement.
                         </p>
@@ -186,19 +186,19 @@ export default function TermsOfServicePage() {
 
                 <section className="mb-10">
                     <h2 className="text-2xl font-semibold mt-8 mb-4">15. Contact</h2>
-                    <div className="bg-slate-100 dark:bg-slate-800 rounded-xl p-6">
+                    <div className="bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-800 rounded-xl p-6">
                         <p className="m-0">
-                            <strong>Legal Inquiries:</strong> <a href="mailto:namamicreations@zenithcryptoai.in" className="text-indigo-600 hover:underline">namamicreations@zenithcryptoai.in</a><br />
-                            <strong>Support:</strong> <a href="mailto:namamicreations@zenithcryptoai.in" className="text-indigo-600 hover:underline">namamicreations@zenithcryptoai.in</a><br />
-                            <strong>Website:</strong> <Link href="https://www.inkhaven.in" className="text-indigo-600 hover:underline">www.inkhaven.in</Link>
+                            <strong>Legal Inquiries:</strong> <a href="mailto:namamicreations@zenithcryptoai.in" className="text-teal-600 hover:underline">namamicreations@zenithcryptoai.in</a><br />
+                            <strong>Support:</strong> <a href="mailto:namamicreations@zenithcryptoai.in" className="text-teal-600 hover:underline">namamicreations@zenithcryptoai.in</a><br />
+                            <strong>Website:</strong> <Link href="https://www.inkhaven.in" className="text-teal-600 hover:underline">www.inkhaven.in</Link>
                         </p>
                     </div>
                 </section>
 
-                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-                    <Link href="/legal/privacy" className="text-indigo-600 hover:underline mr-6">Privacy Policy</Link>
-                    <Link href="/legal/cookies" className="text-indigo-600 hover:underline mr-6">Cookie Policy</Link>
-                    <Link href="/legal/gdpr" className="text-indigo-600 hover:underline">GDPR Statement</Link>
+                <div className="mt-12 pt-8 border-t border-slate-200 border-slate-700">
+                    <Link href="/legal/privacy" className="text-teal-600 hover:underline mr-6">Privacy Policy</Link>
+                    <Link href="/legal/cookies" className="text-teal-600 hover:underline mr-6">Cookie Policy</Link>
+                    <Link href="/legal/gdpr" className="text-teal-600 hover:underline">GDPR Statement</Link>
                 </div>
             </div>
         </div>

@@ -55,7 +55,7 @@ export default function InterestSelector({ onSubmit, initialData }: { onSubmit: 
           <button
             type="button"
             onClick={() => setValue('displayName', generateAnimalName(), { shouldValidate: true })}
-            className="text-xs flex items-center gap-1 text-indigo-500 hover:text-indigo-600 transition-colors"
+            className="text-xs flex items-center gap-1 text-teal-500 hover:text-teal-500 transition-colors"
           >
             <Sparkles className="w-3 h-3" />
             Auto-generate
@@ -64,7 +64,7 @@ export default function InterestSelector({ onSubmit, initialData }: { onSubmit: 
         <input
           {...register('displayName')}
           placeholder="Choose a calm alias"
-          className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white shadow-sm focus:border-indigo-400 focus:outline-none"
+          className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-950 text-white/90 dark:bg-slate-950 px-4 py-3 text-sm text-gray-100 dark:text-white shadow-sm focus:border-teal-400 focus:outline-none"
         />
         {errors.displayName && <p className="text-xs text-red-600 mt-2">{errors.displayName.message}</p>}
       </div>
@@ -73,7 +73,7 @@ export default function InterestSelector({ onSubmit, initialData }: { onSubmit: 
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Comfort level</label>
         <select
           {...register('comfortLevel')}
-          className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white shadow-sm"
+          className="mt-2 block w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-950 text-white/90 dark:bg-slate-950 px-4 py-3 text-sm text-gray-100 dark:text-white shadow-sm"
           defaultValue="balanced"
         >
           <option value="gentle">Gentle & slow</option>
@@ -92,8 +92,8 @@ export default function InterestSelector({ onSubmit, initialData }: { onSubmit: 
               <label key={i} className="group cursor-pointer">
                 <input type="checkbox" value={i} {...register('chosen')} className="peer sr-only" />
                 <span className={`flex items-center justify-center rounded-xl border px-3 py-2 text-xs font-medium shadow-sm transition ${isChecked
-                  ? 'border-indigo-400 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10'
-                  : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 bg-white/90 dark:bg-white/5'
+                  ? 'border-teal-400 text-teal-500 dark:text-teal-400 bg-teal-950/30 dark:bg-teal-500/10'
+                  : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 bg-slate-950 text-white/90 dark:bg-slate-950'
                   }`}>
                   {i}
                 </span>

@@ -107,7 +107,7 @@ export function ChemistryMeter({ seed1, seed2, showLabel = true, className = '' 
                     Vibe Chemistry: <span className="text-slate-700 dark:text-white/80">{label}</span>
                 </div>
             )}
-            <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-white/5 overflow-hidden">
+            <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-950 overflow-hidden">
                 <motion.div
                     className="h-full rounded-full"
                     style={{

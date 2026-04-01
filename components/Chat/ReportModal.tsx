@@ -57,7 +57,7 @@ export default function ReportModal({ targetInkId, roomSlug, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div
-        className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-in zoom-in-95 duration-200"
+        className="bg-slate-950 animate-chameleon text-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {done ? (
@@ -65,7 +65,7 @@ export default function ReportModal({ targetInkId, roomSlug, onClose }: Props) {
             <div className="w-14 h-14 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl">✅</span>
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-white mb-1">Report Received</h3>
+            <h3 className="font-bold text-gray-100 dark:text-white mb-1">Report Received</h3>
             <p className="text-sm text-slate-500 dark:text-white/50">Thank you for keeping InkHaven safe.</p>
           </div>
         ) : (
@@ -77,7 +77,7 @@ export default function ReportModal({ targetInkId, roomSlug, onClose }: Props) {
                   <Flag size={18} className="text-red-400" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">Report User</h3>
+                  <h3 className="font-bold text-gray-100 dark:text-white text-sm">Report User</h3>
                   <p className="text-xs text-slate-400 dark:text-white/40 font-mono">{targetInkId}</p>
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default function ReportModal({ targetInkId, roomSlug, onClose }: Props) {
               onChange={(e) => setDetails(e.target.value.slice(0, 300))}
               placeholder="Additional context (optional)..."
               rows={2}
-              className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all resize-none mb-4"
+              className="w-full bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 animate-chameleon border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-sm text-gray-100 dark:text-white placeholder-slate-400 dark:placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all resize-none mb-4"
             />
 
             <div className="flex items-center gap-2 p-3 bg-amber-500/5 border border-amber-500/10 rounded-xl mb-4">

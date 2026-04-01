@@ -25,7 +25,7 @@ const sizeConfig = {
 const statusColors = {
     online: 'bg-emerald-400',
     away: 'bg-amber-400',
-    offline: 'bg-slate-500',
+    offline: 'bg-black/60 backdrop-blur-3xl border border-white/200',
 };
 
 /**
@@ -52,7 +52,7 @@ export function Avatar({
             <div
                 className={`
           ${config.container} rounded-full flex items-center justify-center
-           font-bold text-white shadow-lg ring-2 ring-slate-200 dark:ring-white/10
+           font-bold text-neon shadow-lg ring-2 ring-slate-200 dark:ring-white/10
         `}
                 style={{ background: gradient }}
                 title={displayName || 'Anonymous'}

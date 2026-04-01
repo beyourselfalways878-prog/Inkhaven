@@ -110,7 +110,7 @@ export default function MessageList({ myId, messages, partnerTyping, onReply, on
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={scrollToBottom}
-            className="sticky bottom-4 self-center bg-indigo-600 text-white rounded-full p-2.5 shadow-lg shadow-indigo-500/30 hover:bg-indigo-500 transition-colors z-10"
+            className="sticky bottom-4 self-center bg-teal-600 text-white rounded-full p-2.5 shadow-lg shadow-teal-500/30 hover:bg-teal-950/300 transition-colors z-10"
           >
             <ChevronDown size={20} />
             {unreadCount > 0 && (

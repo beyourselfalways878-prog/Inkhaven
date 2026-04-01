@@ -65,7 +65,7 @@ export default function Glowpad({ onSend, onCancel, color = '#6366f1' }: Glowpad
             <div className="flex items-center justify-between">
                 <button
                     onClick={handleClear}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-white/50 hover:bg-white/5 hover:text-white transition-colors"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-white/50 hover:bg-slate-950 hover:text-white transition-colors"
                 >
                     <Eraser size={14} /> Clear
                 </button>
@@ -74,7 +74,7 @@ export default function Glowpad({ onSend, onCancel, color = '#6366f1' }: Glowpad
                     onClick={handleSend}
                     disabled={!isDrawing}
                     size="sm"
-                    className="bg-indigo-500 hover:bg-indigo-400 text-white rounded-full px-5 flex items-center gap-2 shadow-[0_0_15px_rgba(99,102,241,0.4)] disabled:opacity-50 disabled:shadow-none transition-all"
+                    className="bg-teal-950/300 hover:bg-indigo-400 text-white rounded-full px-5 flex items-center gap-2 shadow-[0_0_15px_rgba(20,184,166,0.4)] disabled:opacity-50 disabled:shadow-none transition-all"
                 >
                     Shoot <SendHorizontal size={14} />
                 </Button>

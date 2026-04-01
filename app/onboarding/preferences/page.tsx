@@ -46,8 +46,8 @@ export default function OnboardingPreferences() {
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] items-start">
         <section className="card p-6">
           <div className="pill">Step 2 of 3</div>
-          <h2 className="mt-4 text-3xl font-semibold text-slate-900 dark:text-white">Set your preferences</h2>
-          <p className="mt-3 text-sm text-slate-500 dark:text-white/50">Fine-tune privacy and experience controls.</p>
+          <h2 className="mt-4 text-3xl font-semibold text-white text-white">Set your preferences</h2>
+          <p className="mt-3 text-sm text-slate-500 text-white/50">Fine-tune privacy and experience controls.</p>
         </section>
 
         <section className="glass p-6">
@@ -58,19 +58,19 @@ export default function OnboardingPreferences() {
               return (
                 <button
                   key={item.key}
-                  className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/[0.06] transition"
+                  className="w-full rounded-2xl border border-slate-200 border-white/5 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 text-left hover:bg-slate-950/40 backdrop-blur-2xl border border-white/10 hover:bg-slate-900 text-white/[0.06] transition"
                   onClick={() => update(item.key)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <Icon className={`w-4 h-4 ${isOn ? 'text-indigo-400' : 'text-slate-300 dark:text-white/20'} transition`} />
+                      <Icon className={`w-4 h-4 ${isOn ? 'text-teal-400' : 'text-slate-300 text-white/20'} transition`} />
                       <div>
-                        <div className="text-sm font-semibold text-slate-900 dark:text-white">{item.title}</div>
-                        <div className="text-xs text-slate-400 dark:text-slate-500">{item.desc}</div>
+                        <div className="text-sm font-semibold text-white text-white">{item.title}</div>
+                        <div className="text-xs text-slate-400 text-slate-500">{item.desc}</div>
                       </div>
                     </div>
-                    <span className={`h-6 w-10 rounded-full ${isOn ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-white/10'} relative transition`}>
-                      <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${isOn ? 'right-0.5' : 'left-0.5'}`} />
+                    <span className={`h-6 w-10 rounded-full ${isOn ? 'bg-teal-500' : 'bg-slate-200 bg-slate-900 text-white/10'} relative transition`}>
+                      <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-slate-900 text-white shadow transition-all ${isOn ? 'right-0.5' : 'left-0.5'}`} />
                     </span>
                   </div>
                 </button>

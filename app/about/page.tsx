@@ -2,84 +2,84 @@ import { BuyMeACoffee } from '../../components/BuyMeACoffee';
 
 export default function AboutPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12 space-y-6">
-      <h1 className="text-3xl font-bold">About InkHaven</h1>
-      <p className="text-slate-700 dark:text-slate-300">
-        InkHaven is a modern anonymous chat platform that prioritizes safety, privacy, and meaningful connections.
-        Created by <strong>Twinkle Tiwari</strong>, our mission is to help millions of users connect with like-minded people worldwide.
-      </p>
+    <main className="max-w-4xl mx-auto px-6 py-16 space-y-12 bg-slate-950 text-white min-h-screen">
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight uppercase">About <span className="text-teal-400">InkHaven</span></h1>
+        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          A high-precision anonymous sanctuary for human resonance. Built for safety, designed for privacy.
+        </p>
+      </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6">
-          <h2 className="text-xl font-semibold mb-3">Our Mission</h2>
-          <p className="text-slate-700 dark:text-slate-300">
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="glass-panel p-8 group hover:border-teal-500/30 transition-all">
+          <h2 className="text-2xl font-bold mb-4 text-teal-400 uppercase tracking-widest text-sm">Our Mission</h2>
+          <p className="text-slate-300 leading-relaxed">
             To create a safe space for anonymous conversations where people can be themselves without judgment.
-            We believe in fostering genuine connections through smart matching and robust safety measures.
+            We believe in fostering genuine connections through smart matching and zero-retention privacy protocols.
           </p>
         </div>
 
-        <div className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6">
-          <h2 className="text-xl font-semibold mb-3">What Sets Us Apart</h2>
-          <ul className="text-slate-700 dark:text-slate-300 space-y-2">
-            <li>• Interest-based matching algorithm</li>
-            <li>• Advanced moderation and reporting</li>
-            <li>• End-to-end anonymous communication</li>
-            <li>• Multi-language support</li>
-            <li>• High-quality video and voice features</li>
+        <div className="glass-panel p-8 group hover:border-cyan-500/30 transition-all">
+          <h2 className="text-2xl font-bold mb-4 text-cyan-400 uppercase tracking-widest text-sm">Aura-Matching</h2>
+          <ul className="text-slate-300 space-y-3">
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500" /> Advanced Vibe Algorithms</li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500" /> P2P Encrypted Handshakes</li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500" /> Identity-Free Discovery</li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500" /> Multi-Layer Moderation</li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-teal-500" /> Zero-Knowledge Architecture</li>
           </ul>
         </div>
       </div>
 
-      <div className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6">
-        <h2 className="text-xl font-semibold mb-3">Our Values</h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div>
-            <h3 className="font-semibold mb-2">Safety First</h3>
-            <p className="text-slate-700 dark:text-slate-300 text-sm">
-              Comprehensive moderation and user protection systems.
+      <div className="glass-panel p-8">
+        <h2 className="text-2xl font-bold mb-6 text-center text-white uppercase tracking-widest text-sm">The Zenith Standard</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <h3 className="font-bold mb-2 text-white">Anonymity First</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              No phone numbers, no emails required for core chat. Pure, filtered connection.
             </p>
           </div>
-          <div>
-            <h3 className="font-semibold mb-2">Privacy by Design</h3>
-            <p className="text-slate-700 dark:text-slate-300 text-sm">
-              No personal data collection, anonymous by default.
+          <div className="text-center">
+            <h3 className="font-bold mb-2 text-white">Encrypted Tunnel</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Your messages travel through a secure P2P mesh, invisible to even our servers.
             </p>
           </div>
-          <div>
-            <h3 className="font-semibold mb-2">Innovation</h3>
-            <p className="text-slate-700 dark:text-slate-300 text-sm">
-              Constantly improving matching and user experience.
+          <div className="text-center">
+            <h3 className="font-bold mb-2 text-white">Human Resonance</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              We focus on the frequency of the conversation, not the profile data behind it.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-2xl p-8 text-center relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-        <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">A Message from the Creator</h2>
-        <div className="max-w-2xl mx-auto space-y-4 text-slate-700 dark:text-slate-300 italic">
+      <div className="bg-gradient-to-br from-teal-500/10 to-transparent border border-teal-500/20 rounded-3xl p-10 text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-500 via-cyan-500 to-emerald-500"></div>
+        <h2 className="text-3xl font-bold mb-8 text-white">A Message from the Creator</h2>
+        <div className="max-w-2xl mx-auto space-y-6 text-slate-300 italic text-lg leading-relaxed">
           <p>
-            &quot;InkHaven was born from a simple belief: in a world of noise, we all deserve a quiet corner to just <em>be</em>.
+            &quot;InkHaven was born from a simple belief: in a world of noise, we all deserve a quiet corner to just <em>be</em>.&quot;
           </p>
           <p>
-            I built this sanctuary not as a product, but as a promise—a promise that your voice matters, your privacy is sacred, and your connection with others can be genuine without the weight of an identity. Every line of code was written with the hope that someone, somewhere, would find a friend, a listener, or a moment of peace here.
+            &quot;I built this sanctuary not as a product, but as a promise—a promise that your voice matters, your privacy is sacred, and your connection with others can be genuine without the weight of an identity.&quot;
           </p>
-          <p>
-            If this space has brought a little light to your day, and you&apos;d like to help keep it glowing, you can support my work below. But more than that, thank you for being here. You are the heartbeat of InkHaven.&quot;
-          </p>
-          <div className="mt-4 font-semibold text-slate-900 dark:text-white not-italic">
-            — Twinkle Tiwari
+          <div className="mt-8 not-italic">
+            <div className="font-bold text-teal-400 uppercase tracking-[0.2em] mb-1">Twinkle Tiwari</div>
+            <div className="text-xs text-slate-500 uppercase tracking-widest font-mono">Architect of The Haven</div>
           </div>
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <BuyMeACoffee />
+        <div className="mt-12 flex flex-col items-center gap-4">
+           <p className="text-xs text-slate-500 uppercase tracking-[0.3em]">Support The Sanctuary</p>
+           <BuyMeACoffee />
         </div>
       </div>
 
-      <div className="text-center">
-        <p className="text-slate-600 dark:text-slate-400">
-          Have questions? Check out our <a href="/faq" className="text-blue-400 hover:underline">FAQ</a> or <a href="mailto:namamicreations@zenithcryptoai.in" className="text-blue-400 hover:underline">contact us</a>.
+      <div className="text-center pt-8">
+        <p className="text-slate-500 text-sm">
+          Have questions? Check out our <a href="/faq" className="text-teal-400 hover:text-teal-300 underline underline-offset-4 decoration-teal-500/30 transition-all">FAQ</a> or <a href="mailto:namamicreations@zenithcryptoai.in" className="text-teal-400 hover:text-teal-300 underline underline-offset-4 decoration-teal-500/30 transition-all">contact us</a>.
         </p>
       </div>
     </main>

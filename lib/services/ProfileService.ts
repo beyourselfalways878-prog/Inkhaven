@@ -8,9 +8,14 @@ import { UserProfile } from '../types/domain';
 import { createLogger } from '../logger/Logger';
 import { ValidationError, NotFoundError } from '../errors/AppError';
 import { updateProfileSchema, UpdateProfileInput } from '../schemas';
-import { computeEmbedding } from '../embeddings';
+const ADJECTIVES = ['cosmic', 'quiet', 'neon', 'midnight', 'silver', 'velvet', 'aurora', 'stellar', 'prism', 'ember', 'lunar', 'void', 'dusk', 'glass', 'static'];
+const NOUNS = ['dreamer', 'storm', 'whisper', 'tide', 'echo', 'haze', 'ink', 'ghost', 'walker', 'shade', 'drift', 'poet', 'signal', 'mind', 'bloom'];
 
-import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
+function generateRandomName(): string {
+    const adj = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
+    const noun = NOUNS[Math.floor(Math.random() * NOUNS.length)];
+    return adj.charAt(0).toUpperCase() + adj.slice(1) + noun.charAt(0).toUpperCase() + noun.slice(1);
+}
 
 const logger = createLogger('ProfileService');
 
@@ -46,11 +51,7 @@ export class ProfileService {
         try {
             logger.info('Creating profile', { userId, displayName });
 
-            const eyeCatchyId = uniqueNamesGenerator({
-                dictionaries: [adjectives, animals],
-                separator: '',
-                style: 'capital'
-            });
+            const eyeCatchyId = generateRandomName();
             const randomDigits = Math.floor(10 + Math.random() * 90);
             const inkId = `${eyeCatchyId}${randomDigits}`;
 
@@ -154,12 +155,7 @@ export class ProfileService {
                 throw new ValidationError('Failed to update profile');
             }
 
-            // Update embeddings if display name or interests changed, AND user is premium
-            if ((validated.displayName !== undefined || validated.interests !== undefined) && data.is_premium) {
-                await this.updateEmbeddings(userId, validated.displayName, validated.interests);
-            }
-
-
+            // Embeddings logic has been removed as part of bloat cleanup
 
             logger.info('Profile updated successfully', { userId });
 
@@ -170,48 +166,7 @@ export class ProfileService {
         }
     }
 
-    /**
-     * Update user embeddings for ML-based matching
-     */
-    private async updateEmbeddings(
-        userId: string,
-        displayName?: string,
-        interests?: string[]
-    ): Promise<void> {
-        try {
-            // Build embedding text
-            const embeddingText = [displayName, ...(interests || [])]
-                .filter(Boolean)
-                .join(' · ');
 
-            if (!embeddingText) {
-                return;
-            }
-
-            // Compute embedding
-            const embedding = await computeEmbedding(embeddingText);
-
-            if (!embedding) {
-                logger.warn('Failed to compute embedding', { userId });
-                return;
-            }
-
-            // Save embedding
-            const { error } = await supabaseAdmin
-                .from('user_embeddings')
-                .upsert({
-                    user_id: userId,
-                    embedding,
-                    updated_at: new Date().toISOString()
-                });
-
-            if (error) {
-                logger.warn('Failed to save embedding', { userId, error });
-            }
-        } catch (error) {
-            logger.error('Failed to update embeddings', { userId, error });
-        }
-    }
 
     /**
      * Get user reputation

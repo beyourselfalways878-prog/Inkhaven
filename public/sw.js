@@ -27,15 +27,8 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  // Only intercept same-origin requests. Let third-party requests
-  // (Sentry, Supabase, AdSense, etc.) pass through natively.
-  const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin) {
-    return; // Don't call respondWith — browser handles it natively
-  }
-  event.respondWith(fetch(event.request));
-});
+// Fetch interception disabled to fix same-origin signaling and API request reliability (Limbo fix)
+// Native browser fetch handling is preferred for dynamic chat and WebRTC signaling.
 
 // --- Web Push Notification Handlers ---
 

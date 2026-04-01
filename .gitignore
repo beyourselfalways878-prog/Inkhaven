@@ -37,3 +37,4 @@ blob-report/
 playwright/.cache/
 playwright-logs.txt
 test-results.json
+.env*.local

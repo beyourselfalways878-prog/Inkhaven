@@ -3,7 +3,7 @@ import { supabaseAdmin } from '../supabaseAdmin';
 import { createLogger } from '../logger/Logger';
 import { AppError } from '../errors/AppError';
 import { MatchingError } from '../errors/AppError';
-import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
+// Removed unique-names-generator dependency
 
 const logger = createLogger('QuickMatchService');
 const QUEUE_KEY = 'quick_match_queue';
@@ -94,11 +94,8 @@ export class QuickMatchService {
 
             if (partnerId) {
                 // We have a match! Generate an eye-catchy string for the WebRTC room.
-                const roomId = uniqueNamesGenerator({
-                    dictionaries: [adjectives, colors, animals],
-                    separator: '-',
-                    length: 3
-                });
+                const randomPart = Math.random().toString(36).substring(2, 10);
+                const roomId = `room-matched-${randomPart}`;
 
                 // Notify the partner by setting their match key (expires in 30 seconds)
                 await redis.setex(`match:${partnerId}`, 30, roomId);
@@ -148,6 +145,9 @@ export class QuickMatchService {
         } catch (error) {
             const errMsg = error instanceof Error ? error.message : String(error);
             logger.error('Quick match failed', { userId, error: errMsg });
+            if (errMsg.toLowerCase().includes('fetch failed')) {
+                throw new AppError('SERVICE_UNAVAILABLE', 'Connection to pairing network unstable. Please try again.', 503);
+            }
             throw error instanceof AppError ? error : new MatchingError(`Quick match failed: ${errMsg}`);
         }
     }

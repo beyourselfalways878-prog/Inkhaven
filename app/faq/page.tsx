@@ -35,13 +35,13 @@ export default function FaqPage() {
   return (
     <main className="max-w-4xl mx-auto px-6 py-16 space-y-10 min-h-screen">
       <div className="text-center space-y-4 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-xs font-bold uppercase tracking-widest mb-2">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-500 text-xs font-bold uppercase tracking-widest mb-2">
           Knowledge Base
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
+        <h1 className="text-4xl md:text-5xl font-bold text-white">
           Frequently Asked Questions
         </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400">
+        <p className="text-lg text-slate-600">
           Everything you need to know about InkHaven&apos;s architecture, privacy policies, and community guidelines. 
           We believe in total transparency about how our anonymous sanctuary operates.
         </p>
@@ -49,11 +49,11 @@ export default function FaqPage() {
 
       <div className="space-y-6 mt-12">
         {FAQ.map((item, index) => (
-          <div key={index} className="bg-white dark:bg-obsidian-900/50 border border-slate-200 dark:border-white/10 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 leading-snug">
+          <div key={index} className="bg-slate-900 animate-chameleon text-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+            <h3 className="text-xl font-bold text-white mb-3 leading-snug">
               {item.q}
             </h3>
-            <div className="text-slate-700 dark:text-slate-300 space-y-3 leading-relaxed">
+            <div className="text-slate-700 space-y-3 leading-relaxed">
               {item.a.split('\n\n').map((paragraph, pIdx) => (
                 <p key={pIdx}>{paragraph}</p>
               ))}
@@ -62,16 +62,16 @@ export default function FaqPage() {
         ))}
       </div>
 
-      <div className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-500/20 rounded-2xl p-8 text-center mt-12">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+      <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-teal-500/10 border border-teal-500/20 rounded-2xl p-8 text-center mt-12">
+        <h2 className="text-2xl font-bold text-white mb-4">
           Still have lingering questions?
         </h2>
-        <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto mb-6">
+        <p className="text-slate-600 max-w-xl mx-auto mb-6">
           Our moderation and support team is dedicated to keeping this sanctuary safe and transparent. If you have concerns about your privacy or need help setting up your account, reach out to us directly.
         </p>
         <a 
           href="mailto:namamicreations@zenithcryptoai.in" 
-          className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-indigo-500/30"
+          className="inline-flex items-center justify-center px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-semibold transition-colors shadow-lg shadow-teal-500/30"
         >
           Contact Support Team
         </a>

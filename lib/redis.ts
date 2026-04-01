@@ -8,5 +8,12 @@ if (!url || !token) {
 }
 
 export const redis = (url && token)
-    ? new Redis({ url, token })
+    ? new Redis({ 
+        url, 
+        token,
+        retry: {
+            retries: 5,
+            backoff: (retryCount) => Math.exp(retryCount) * 50,
+        }
+      })
     : null;

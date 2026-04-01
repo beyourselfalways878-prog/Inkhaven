@@ -28,13 +28,13 @@ function QuickReactions({ onSelect, show }: { onSelect: (_emoji: string) => void
           initial={{ opacity: 0, scale: 0.8, y: 5 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 5 }}
-          className="absolute -top-10 left-0 flex items-center gap-0.5 bg-white dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-2xl px-1.5 py-1 shadow-2xl z-10"
+          className="absolute -top-10 left-0 flex items-center gap-0.5 bg-slate-950 text-white dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-2xl px-1.5 py-1 shadow-2xl z-10"
         >
           {QUICK_REACTIONS.map((emoji) => (
             <button
               key={emoji}
               onClick={() => onSelect(emoji)}
-              className="w-7 h-7 flex items-center justify-center rounded-lg text-base hover:bg-slate-100 dark:hover:bg-white/10 transition-all active:scale-90"
+              className="w-7 h-7 flex items-center justify-center rounded-lg text-base hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 transition-all active:scale-90"
             >
               {emoji}
             </button>
@@ -120,8 +120,8 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
         className={`
           relative max-w-[75%] break-words rounded-2xl shadow-sm
           ${isMine
-            ? 'bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-br-md'
-            : 'bg-slate-100 dark:bg-white/[0.08] text-slate-900 dark:text-white/90 border border-slate-200 dark:border-white/5 rounded-bl-md'
+            ? 'bg-gradient-to-br from-teal-600 to-indigo-700 text-white rounded-br-md'
+            : 'bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 text-white/[0.08] text-gray-100 dark:text-white/90 border border-slate-200 dark:border-white/5 rounded-bl-md'
           }
         `}
       >
@@ -151,7 +151,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
                     setAudioPlaying(!audioPlaying);
                   }
                 }}
-                className="flex-shrink-0 p-2 rounded-full hover:bg-white/20 transition"
+                className="flex-shrink-0 p-2 rounded-full hover:bg-slate-950 text-white/20 transition"
               >
                 {audioPlaying ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -168,14 +168,14 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
               <span className="text-sm">🎤 Audio message</span>
             </div>
           ) : message.messageType === 'glowpad' ? (
-            <div className="relative mt-2 mb-2 p-2 bg-obsidian-950 rounded-xl border border-white/5 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+            <div className="relative mt-2 mb-2 p-2 bg-obsidian-950 rounded-xl border border-white/5 shadow-[0_0_20px_rgba(20,184,166,0.2)]">
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
               <NextImage
                 src={message.content}
                 alt="Ephemeral Neon Stroke"
                 width={200}
                 height={200}
-                className="object-contain drop-shadow-[0_0_15px_rgba(99,102,241,0.8)]"
+                className="object-contain drop-shadow-[0_0_15px_rgba(20,184,166,0.8)]"
               />
             </div>
           ) : (message.messageType === 'file' && message.metadata?.fileMimeType?.startsWith('image/')) ? (
@@ -207,7 +207,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
               <a
                 href={message.metadata?.fileUrl || message.content}
                 download={message.metadata?.fileName}
-                className="flex-shrink-0 p-1 rounded hover:bg-white/20 transition"
+                className="flex-shrink-0 p-1 rounded hover:bg-slate-950 text-white/20 transition"
                 title="Download"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -224,7 +224,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
               <textarea
                 value={editText}
                 onChange={(e) => setEditText(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/10 text-sm text-slate-900 dark:text-white rounded-lg px-2 py-1.5 outline-none border border-slate-200 dark:border-white/10 focus:border-indigo-500/50 resize-none"
+                className="w-full bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 text-white/10 text-sm text-gray-100 dark:text-white rounded-lg px-2 py-1.5 outline-none border border-slate-200 dark:border-white/10 focus:border-teal-500/50 resize-none"
                 rows={2}
                 autoFocus
                 onKeyDown={(e) => {
@@ -234,7 +234,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
               />
               <div className="flex items-center gap-1.5 justify-end">
                 <button onClick={() => { setEditing(false); setEditText(message.content); }} className="text-[10px] text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 px-2 py-0.5">Cancel</button>
-                <button onClick={handleEdit} className="text-[10px] bg-indigo-500/80 hover:bg-indigo-500 text-white px-2 py-0.5 rounded">Save</button>
+                <button onClick={handleEdit} className="text-[10px] bg-teal-950/300/80 hover:bg-teal-950/300 text-white px-2 py-0.5 rounded">Save</button>
               </div>
             </div>
           ) : (
@@ -268,8 +268,8 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
                 className={`
                   inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs transition-colors
                   ${userReacted
-                    ? 'bg-indigo-500/20 border border-indigo-500/30'
-                    : 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-white/10'
+                    ? 'bg-teal-500/20 border border-teal-500/30'
+                    : 'bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 border border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-slate-950 text-white/10'
                   }
                 `}
               >
@@ -289,7 +289,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             className={`
-              absolute top-0 flex items-center gap-0.5 bg-white dark:bg-slate-800/90 backdrop-blur-xl
+              absolute top-0 flex items-center gap-0.5 bg-slate-950 text-white dark:bg-slate-800/90 backdrop-blur-xl
               border border-slate-200 dark:border-white/10 rounded-xl px-1 py-0.5 shadow-xl z-10
               ${isMine ? 'right-auto left-0 -translate-x-full mr-1' : 'left-auto right-0 translate-x-full ml-1'}
             `}
@@ -299,7 +299,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
             {onReact && (
               <button
                 onClick={() => setShowReactions(!showReactions)}
-                className="p-1.5 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/80 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/80 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 transition-colors"
                 title="React"
               >
                 <Smile size={14} />
@@ -308,7 +308,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
             {onReply && (
               <button
                 onClick={handleReply}
-                className="p-1.5 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/80 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/80 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 transition-colors"
                 title="Reply"
               >
                 <Reply size={14} />
@@ -317,7 +317,7 @@ export default function MessageBubble({ message, isMine, onReply, onEdit, onReac
             {isMine && message.messageType !== 'audio' && message.messageType !== 'file' && onEdit && (
               <button
                 onClick={() => { setEditing(true); setEditText(message.content); setShowActions(false); }}
-                className="p-1.5 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/80 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/80 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 transition-colors"
                 title="Edit"
               >
                 <Pencil size={14} />

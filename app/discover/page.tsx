@@ -164,7 +164,7 @@ export default function DiscoverPage() {
 
   const comfortColors: Record<string, string> = {
     gentle:   'ring-emerald-400/40',
-    balanced: 'ring-indigo-400/40',
+    balanced: 'ring-teal-400/40',
     bold:     'ring-rose-400/40',
   };
 
@@ -173,14 +173,14 @@ export default function DiscoverPage() {
       {/* Header */}
       <div className="mb-8 flex items-start justify-between flex-wrap gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 text-fuchsia-400 text-xs font-bold uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-4">
             <Compass size={12} />
             Discover
           </div>
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-white text-white mb-2">
             Auras Online Now
           </h1>
-          <p className="text-slate-500 dark:text-white/50">
+          <p className="text-slate-500 text-white/50">
             {total} {total === 1 ? 'soul' : 'souls'} in the field. Resonate to connect.
           </p>
         </div>
@@ -190,8 +190,8 @@ export default function DiscoverPage() {
           onClick={toggleDiscoverable}
           className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl border transition-all duration-300 font-semibold text-sm ${
             isDiscoverable
-              ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/20'
-              : 'bg-white dark:bg-white/[0.03] border-slate-200 dark:border-white/10 text-slate-500 dark:text-white/50 hover:border-indigo-500/40 hover:text-indigo-400'
+              ? 'bg-teal-500/10 border-teal-500/30 text-teal-400 hover:bg-teal-500/20'
+              : 'bg-slate-900 text-white border border-white/10 text-slate-500 hover:border-teal-500/40 hover:text-teal-400'
           }`}
         >
           {isDiscoverable ? <Eye size={16} /> : <EyeOff size={16} />}
@@ -204,7 +204,7 @@ export default function DiscoverPage() {
 
       {/* Info banner */}
       {!isDiscoverable && (
-        <div className="mb-6 p-4 rounded-2xl bg-fuchsia-500/5 border border-fuchsia-500/10 flex items-center gap-3 text-sm text-fuchsia-400/80">
+        <div className="mb-6 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/10 flex items-center gap-3 text-sm text-cyan-400/80">
           <EyeOff size={16} className="shrink-0" />
           <span>You are invisible right now. Toggle <strong>Go Visible</strong> above to appear in the grid and receive Resonate requests.</span>
         </div>
@@ -214,16 +214,16 @@ export default function DiscoverPage() {
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {Array.from({ length: 10 }).map((_, i) => (
-            <div key={i} className="aspect-square rounded-2xl bg-slate-100 dark:bg-white/[0.03] animate-pulse" />
+            <div key={i} className="aspect-square rounded-2xl bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/[0.03] animate-pulse" />
           ))}
         </div>
       ) : users.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-fuchsia-500/20 to-indigo-500/20 border border-fuchsia-500/20 flex items-center justify-center mb-6">
-            <Users className="w-9 h-9 text-fuchsia-400/60" />
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-500/20 flex items-center justify-center mb-6">
+            <Users className="w-9 h-9 text-cyan-400/60" />
           </div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No auras visible</h3>
-          <p className="text-slate-500 dark:text-white/40 max-w-xs text-sm">
+          <h3 className="text-xl font-bold text-white mb-2">No auras visible</h3>
+          <p className="text-slate-500 max-w-xs text-sm">
             Be the first to go visible. Others who toggle discoverability will appear here.
           </p>
         </div>
@@ -234,23 +234,23 @@ export default function DiscoverPage() {
             return (
               <div
                 key={user.userId}
-                className="group flex flex-col items-center gap-3 p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-fuchsia-500/30 hover:shadow-lg dark:hover:shadow-fuchsia-500/5 transition-all duration-300 cursor-pointer"
+                className="group flex flex-col items-center gap-3 p-5 rounded-2xl bg-slate-900 text-white text-white/[0.02] border border-slate-200 border-white/5 hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-300 cursor-pointer"
                 onClick={() => handleResonate(user)}
               >
                 {/* Aura */}
-                <div className={`relative ring-4 ${comfortColors[user.comfortLevel] ?? 'ring-indigo-400/40'} rounded-full group-hover:ring-fuchsia-400/60 transition-all duration-300`}>
+                <div className={`relative ring-4 ${comfortColors[user.comfortLevel] ?? 'ring-teal-400/40'} rounded-full group-hover:ring-cyan-400/60 transition-all duration-300`}>
                   <AuraSphere inkId={user.inkId} size="md" comfortLevel={user.comfortLevel} isPulsing />
                 </div>
 
                 {/* Name */}
                 <div className="text-center">
-                  <p className="text-xs font-mono text-slate-500 dark:text-white/40 truncate max-w-[90px]">{user.inkId}</p>
+                  <p className="text-xs font-mono text-slate-500 text-white/40 truncate max-w-[90px]">{user.inkId}</p>
                 </div>
 
                 {/* Resonate button */}
                 <button
                   disabled={!!resonating}
-                  className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl bg-fuchsia-500/10 hover:bg-fuchsia-500/20 border border-fuchsia-500/20 text-fuchsia-400 text-xs font-semibold transition-all hover:scale-105 active:scale-95 disabled:opacity-50 group-hover:bg-fuchsia-500/20"
+                  className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-400 text-xs font-semibold transition-all hover:scale-105 active:scale-95 disabled:opacity-50 group-hover:bg-cyan-500/20"
                 >
                   {isResonating ? (
                     <Loader2 size={13} className="animate-spin" />

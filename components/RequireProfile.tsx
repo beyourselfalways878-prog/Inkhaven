@@ -75,7 +75,7 @@ export default function RequireProfile({ children }: { children: React.ReactNode
     if (isVerifying) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+                <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
             </div>
         );
     }

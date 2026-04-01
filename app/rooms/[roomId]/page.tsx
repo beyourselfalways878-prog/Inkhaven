@@ -28,9 +28,9 @@ const ROOM_REGISTRY: Record<string, RoomInfo> = {
 };
 
 const TOPIC_GRADIENT: Record<string, string> = {
-  vibes: 'from-indigo-500 to-blue-500', music: 'from-pink-500 to-rose-500',
-  gaming: 'from-emerald-500 to-teal-500', latenight: 'from-violet-600 to-indigo-700',
-  confessions: 'from-amber-500 to-orange-500', random: 'from-fuchsia-500 to-purple-600',
+  vibes: 'from-teal-500 to-cyan-500', music: 'from-cyan-500 to-emerald-500',
+  gaming: 'from-emerald-500 to-teal-500', latenight: 'from-teal-600 to-cyan-700',
+  confessions: 'from-amber-500 to-orange-500', random: 'from-cyan-500 to-teal-600',
   india: 'from-orange-500 to-green-500',
 };
 
@@ -59,7 +59,7 @@ export default function GroupChatRoomPage() {
   const roomInfo = ROOM_REGISTRY[roomId] ?? {
     id: roomId, name: '💬 Chat Room', topic: 'random', description: 'An InkHaven chat room',
   };
-  const gradient = TOPIC_GRADIENT[roomInfo.topic] ?? 'from-indigo-500 to-purple-500';
+  const gradient = TOPIC_GRADIENT[roomInfo?.topic as keyof typeof TOPIC_GRADIENT] ?? 'from-teal-500 to-cyan-500';
 
   const scrollToBottom = useCallback((smooth = true) => {
     messagesEndRef.current?.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant' });
@@ -321,7 +321,7 @@ export default function GroupChatRoomPage() {
   if (!ready) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
       </div>
     );
   }
@@ -329,16 +329,16 @@ export default function GroupChatRoomPage() {
   return (
     <div className="flex flex-col h-screen md:h-[calc(100vh-65px)]">
       {/* ── Header ── */}
-      <div className="relative flex items-center gap-4 px-6 py-4 border-b border-slate-200 dark:border-white/5 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl shrink-0">
+      <div className="relative flex items-center gap-4 px-6 py-4 border-b border-slate-200 dark:border-white/5 bg-slate-950 animate-chameleon text-white/90 dark:bg-slate-950/90 backdrop-blur-xl shrink-0">
         <div className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${gradient}`} />
-        <button onClick={() => router.push('/rooms')} className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-all">
+        <button onClick={() => router.push('/rooms')} className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 animate-chameleon text-white/5 transition-all">
           <ArrowLeft size={18} />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-slate-900 dark:text-white truncate">{roomInfo.name}</h1>
+          <h1 className="text-lg font-bold text-gray-100 dark:text-white truncate">{roomInfo.name}</h1>
           <p className="text-xs text-slate-400 dark:text-white/40 truncate">{roomInfo.description}</p>
         </div>
-        <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-white/[0.04] px-3 py-1.5 rounded-full">
+        <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 animate-chameleon text-white/[0.04] px-3 py-1.5 rounded-full">
           <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
           <span className="text-xs font-semibold text-slate-600 dark:text-white/60"><Users size={12} className="inline mr-1" />{onlineCount}</span>
         </div>
@@ -351,7 +351,7 @@ export default function GroupChatRoomPage() {
             <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-3xl shadow-lg mb-4`}>
               {roomInfo.name.split(' ')[0]}
             </div>
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Welcome to {roomInfo.name}</h3>
+            <h3 className="text-lg font-bold text-gray-100 dark:text-white mb-2">Welcome to {roomInfo.name}</h3>
             <p className="text-sm text-slate-500 dark:text-white/40 max-w-xs mb-2">{roomInfo.description}</p>
             <p className="text-xs text-slate-400 dark:text-white/30">Be the first to say something. 👋</p>
           </div>
@@ -362,7 +362,7 @@ export default function GroupChatRoomPage() {
           if (msg.is_system) {
             return (
               <div key={msg.id} className="flex justify-center">
-                <span className="text-xs text-slate-400 dark:text-white/30 bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">{msg.content}</span>
+                <span className="text-xs text-slate-400 dark:text-white/30 bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 animate-chameleon text-white/5 px-3 py-1 rounded-full">{msg.content}</span>
               </div>
             );
           }
@@ -403,7 +403,7 @@ export default function GroupChatRoomPage() {
                 ) : (
                   <div className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap break-words ${isMe
                     ? `bg-gradient-to-br ${gradient} text-white rounded-br-sm shadow-md`
-                    : 'bg-slate-100 dark:bg-white/[0.06] text-slate-900 dark:text-white rounded-bl-sm'
+                    : 'bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 animate-chameleon text-white/[0.06] text-gray-100 dark:text-white rounded-bl-sm'
                   }`}>
                     {msg.content}
                   </div>
@@ -421,7 +421,7 @@ export default function GroupChatRoomPage() {
           <div className="flex items-center gap-2 px-4 py-2">
             <div className="flex gap-1">
               {[0, 1, 2].map(i => (
-                <div key={i} className="w-1.5 h-1.5 bg-slate-400 dark:bg-white/40 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
+                <div key={i} className="w-1.5 h-1.5 bg-slate-400 dark:bg-slate-950 animate-chameleon text-white/40 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
               ))}
             </div>
             <span className="text-xs text-slate-400 dark:text-white/30 font-mono">
@@ -434,7 +434,7 @@ export default function GroupChatRoomPage() {
 
       {/* ── AI Wingman Suggestions ── */}
       {wingmanSuggestions.length > 0 && (
-          <div className="px-4 py-2 bg-gradient-to-t from-white dark:from-slate-950 to-transparent">
+          <div className="px-4 py-2 bg-gradient-to-t from-[#050505] dark:from-slate-950 to-transparent">
              <div className="flex items-center gap-2 mb-2">
                  <Sparkles size={14} className="text-purple-500" />
                  <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-widest font-mono">Wingman Suggestions</span>
@@ -444,7 +444,7 @@ export default function GroupChatRoomPage() {
                      <button
                         key={idx}
                         onClick={() => handleUseSuggestion(sug)}
-                        className="text-xs bg-white dark:bg-slate-900 border border-purple-200 dark:border-purple-500/30 text-purple-700 dark:text-purple-300 px-3 py-1.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-colors shadow-sm text-left truncate max-w-full"
+                        className="text-xs bg-slate-950 animate-chameleon text-white dark:bg-slate-900 border border-purple-200 dark:border-purple-500/30 text-purple-700 dark:text-purple-300 px-3 py-1.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-colors shadow-sm text-left truncate max-w-full"
                      >
                          {sug}
                      </button>
@@ -455,7 +455,7 @@ export default function GroupChatRoomPage() {
       )}
 
       {/* ── Input ── */}
-      <div className="border-t border-slate-200 dark:border-white/5 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl px-4 py-3 shrink-0">
+      <div className="border-t border-slate-200 dark:border-white/5 bg-slate-950 animate-chameleon text-white/90 dark:bg-slate-950/90 backdrop-blur-xl px-4 py-3 shrink-0">
         <div className="flex items-end gap-3 max-w-4xl mx-auto">
           {/* Media Toolbar */}
           <div className="flex items-center gap-1 shrink-0 pb-1">
@@ -477,7 +477,7 @@ export default function GroupChatRoomPage() {
               placeholder={`Message ${roomInfo.name}…`}
               rows={1}
               maxLength={500}
-              className="w-full bg-slate-100 dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 rounded-2xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/20 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none leading-relaxed"
+              className="w-full bg-slate-900 backdrop-blur-2xl border border-white/10 animate-chameleon text-white/[0.05] rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all resize-none leading-relaxed"
               style={{ minHeight: '44px', maxHeight: '120px' }}
               onInput={(e) => {
                 const t = e.currentTarget;

@@ -18,13 +18,13 @@ export default function MinigameHub() {
           {/* Memory Game */}
           <button 
             onClick={() => setActiveGame('memory')}
-            className="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/50 border border-purple-500/20 hover:border-purple-500/50 hover:bg-purple-500/10 transition-all group backdrop-blur-md"
+            className="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/50 border border-teal-500/20 hover:border-teal-500/50 hover:bg-teal-500/10 transition-all group backdrop-blur-md"
           >
-            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-500/30 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all">
-              <Puzzle className="w-6 h-6 text-purple-400 group-hover:scale-110 transition-transform" />
+            <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center border border-teal-500/30 group-hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all">
+              <Puzzle className="w-6 h-6 text-teal-400 group-hover:scale-110 transition-transform" />
             </div>
              <div className="text-left">
-                <h4 className="font-bold text-white tracking-wide uppercase font-mono">Synapse Link</h4>
+                <h4 className="font-bold text-neon tracking-wide uppercase font-mono">Synapse Link</h4>
                 <p className="text-xs text-slate-400">Visual Memory Protocol</p>
              </div>
           </button>
@@ -38,7 +38,7 @@ export default function MinigameHub() {
               <Lightbulb className="w-6 h-6 text-amber-400 group-hover:scale-110 transition-transform" />
             </div>
              <div className="text-left">
-                <h4 className="font-bold text-white tracking-wide uppercase font-mono">The Oracle</h4>
+                <h4 className="font-bold text-neon tracking-wide uppercase font-mono">The Oracle</h4>
                 <p className="text-xs text-slate-400">Cryptic Logic Sequences</p>
              </div>
           </button>
@@ -46,13 +46,13 @@ export default function MinigameHub() {
           {/* IQ Test */}
           <button 
             onClick={() => setActiveGame('iq')}
-            className="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/50 border border-indigo-500/20 hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all group backdrop-blur-md"
+            className="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/50 border border-teal-500/20 hover:border-teal-500/50 hover:bg-teal-500/10 transition-all group backdrop-blur-md"
           >
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 group-hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all">
-              <Brain className="w-6 h-6 text-indigo-400 group-hover:scale-110 transition-transform" />
+            <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center border border-teal-500/30 group-hover:shadow-[0_0_15px_rgba(20,184,166,0.4)] transition-all">
+              <Brain className="w-6 h-6 text-teal-400 group-hover:scale-110 transition-transform" />
             </div>
              <div className="text-left">
-                <h4 className="font-bold text-white tracking-wide uppercase font-mono">Cognitive Test</h4>
+                <h4 className="font-bold text-neon tracking-wide uppercase font-mono">Cognitive Test</h4>
                 <p className="text-xs text-slate-400">Pattern Recognition</p>
              </div>
           </button>

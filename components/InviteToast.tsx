@@ -72,30 +72,30 @@ export default function InviteToast() {
       {invites.map((invite, i) => (
         <div
           key={invite.id}
-          className="pointer-events-auto flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl p-4 shadow-2xl shadow-black/10 dark:shadow-black/40 animate-in slide-in-from-right-8 fade-in duration-300"
+          className="pointer-events-auto flex items-start gap-4 bg-slate-950 text-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl p-4 shadow-2xl shadow-black/10 dark:shadow-black/40 animate-in slide-in-from-right-8 fade-in duration-300"
           style={{ transform: `translateY(${i * -4}px)`, zIndex: 9999 - i }}
         >
           {/* Icon */}
-          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-fuchsia-500 to-indigo-600 flex items-center justify-center shadow-md">
+          <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-indigo-600 flex items-center justify-center shadow-md">
             <Zap size={18} className="text-white" />
           </div>
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-slate-900 dark:text-white mb-0.5">Resonate Request ✨</p>
+            <p className="text-sm font-semibold text-gray-100 dark:text-white mb-0.5">Resonate Request ✨</p>
             <p className="text-xs text-slate-500 dark:text-white/50 truncate">
               <span className="font-mono text-fuchsia-500">{invite.inviterName}</span> wants to connect
             </p>
             <div className="flex gap-2 mt-3">
               <button
                 onClick={() => accept(invite)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-fuchsia-500 to-indigo-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-teal-500 to-indigo-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity"
               >
                 Accept <ArrowRight size={12} />
               </button>
               <button
                 onClick={() => dismiss(invite.id)}
-                className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white/40 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 text-slate-500 dark:text-white/40 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-950 transition-colors"
               >
                 Decline
               </button>

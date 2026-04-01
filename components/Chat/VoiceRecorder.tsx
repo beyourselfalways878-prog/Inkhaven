@@ -144,7 +144,7 @@ export default function VoiceRecorder({ roomId, onAudioUploaded, disabled }: Voi
         <button
           onClick={uploadAudio}
           disabled={isUploading}
-          className="p-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl shadow transition disabled:opacity-50"
+          className="p-2 bg-teal-500 hover:bg-teal-600 text-white rounded-xl shadow transition disabled:opacity-50"
         >
           {isUploading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
         </button>
@@ -156,7 +156,7 @@ export default function VoiceRecorder({ roomId, onAudioUploaded, disabled }: Voi
     <div className="relative">
       {isRecording && (
         <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 flex items-center gap-3 bg-red-500 text-white px-3 py-1.5 rounded-full shadow-lg shadow-red-500/20 whitespace-nowrap animate-pulse">
-            <div className="w-2 h-2 rounded-full bg-white animate-ping" />
+            <div className="w-2 h-2 rounded-full bg-slate-950 text-white animate-ping" />
             <span className="text-xs font-bold font-mono">{formatTime(duration)}</span>
         </div>
       )}
@@ -167,7 +167,7 @@ export default function VoiceRecorder({ roomId, onAudioUploaded, disabled }: Voi
         className={`p-2 rounded-xl transition-all ${
           isRecording 
             ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse' 
-            : 'text-slate-400 dark:text-white/40 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-indigo-500 disabled:opacity-50'
+            : 'text-slate-400 dark:text-white/40 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 text-white/10 hover:text-teal-500 disabled:opacity-50'
         }`}
         title={isRecording ? 'Stop Recording' : 'Record Voice Note'}
       >

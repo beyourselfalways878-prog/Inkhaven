@@ -13,9 +13,9 @@ body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   background-image:
-    radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, 0.12), transparent 55%),
-    radial-gradient(800px 500px at 50% 100%, rgba(14, 165, 233, 0.12), transparent 50%);
+    radial-gradient(1200px 600px at 10% -10%, rgba(20, 184, 166, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, 0.10), transparent 55%),
+    radial-gradient(800px 500px at 50% 100%, rgba(6, 182, 212, 0.10), transparent 50%);
 
   /* Mobile Optimizations */
   overscroll-behavior-y: none;
@@ -38,18 +38,18 @@ select {
 /* Dark mode background - explicit data-theme */
 [data-theme="dark"] body {
   background-image:
-    radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, 0.15), transparent 60%),
-    radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, 0.1), transparent 55%),
-    radial-gradient(800px 500px at 50% 100%, rgba(14, 165, 233, 0.1), transparent 50%);
+    radial-gradient(1200px 600px at 10% -10%, rgba(20, 184, 166, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, 0.08), transparent 55%),
+    radial-gradient(800px 500px at 50% 100%, rgba(6, 182, 212, 0.08), transparent 50%);
 }
 
 /* Dark mode background - system preference fallback */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) body {
     background-image:
-      radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, 0.15), transparent 60%),
-      radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, 0.1), transparent 55%),
-      radial-gradient(800px 500px at 50% 100%, rgba(14, 165, 233, 0.1), transparent 50%);
+      radial-gradient(1200px 600px at 10% -10%, rgba(20, 184, 166, 0.10), transparent 60%),
+      radial-gradient(900px 500px at 90% 0%, rgba(16, 185, 129, 0.08), transparent 55%),
+      radial-gradient(800px 500px at 50% 100%, rgba(6, 182, 212, 0.08), transparent 50%);
   }
 }
 
@@ -204,6 +204,32 @@ select {
   animation: shimmer 2s ease-in-out infinite;
 }
 
+/* Zenith Theme Utilities */
+.zenith-glow {
+  box-shadow: 0 0 50px -12px rgba(20, 184, 166, 0.35);
+}
+
+.animate-zenith-pulse {
+  animation: zenith-pulse 8s ease-in-out infinite;
+}
+
+@keyframes zenith-pulse {
+  0%, 100% { background-color: #020817; }
+  50% { background-color: #0a0f1e; }
+}
+
+@keyframes chameleon {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-chameleon {
+  background: linear-gradient(-45deg, #020817, #0f172a, #0a0f1d, #020617);
+  background-size: 400% 400%;
+  animation: chameleon 15s ease infinite;
+}
+
 /* Custom scrollbar */
 .scrollbar-thin {
   scrollbar-width: thin;
@@ -233,4 +259,16 @@ select {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* override removed — single .animate-chameleon definition above */
+
+.text-neon {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(20, 184, 166, 0.6);
+}
+
+.border-neon {
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(20, 184, 166, 0.5), inset 0 0 10px rgba(20, 184, 166, 0.2);
 }

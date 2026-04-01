@@ -71,7 +71,7 @@ export default function PresenceIndicator({
                 <motion.div
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800"
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-800"
                 >
                     <motion.div
                         className={`w-2 h-2 rounded-full ${statusColors[partnerStatus]}`}
@@ -89,7 +89,7 @@ export default function PresenceIndicator({
                 <motion.div
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800"
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-800"
                 >
                     <div className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span className="text-xs font-medium text-slate-600 dark:text-slate-300">

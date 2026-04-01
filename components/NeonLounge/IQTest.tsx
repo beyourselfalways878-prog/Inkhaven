@@ -77,7 +77,7 @@ export default function IQTest() {
 
   if (!difficulty) {
     return (
-      <div className="flex flex-col items-center justify-center p-6 bg-slate-900/50 rounded-2xl border border-indigo-500/20 backdrop-blur-md">
+      <div className="flex flex-col items-center justify-center p-6 bg-slate-900/50 rounded-2xl border border-teal-500/20 backdrop-blur-md">
         <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 mb-6 font-mono tracking-widest uppercase">Select Intelligence Level</h3>
         <div className="flex gap-4">
           <Button onClick={() => startTest('easy')} className="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/40 border border-emerald-500/50">Initiate Level 1</Button>
@@ -97,13 +97,13 @@ export default function IQTest() {
     else if (percentage > 60) rank = 'Advanced Cognitive';
 
     return (
-      <div className="flex flex-col items-center justify-center p-8 bg-slate-900/50 rounded-2xl border border-indigo-500/20 backdrop-blur-md animate-in zoom-in-95 duration-500 w-full max-w-md mx-auto text-center">
-        <h3 className="text-3xl font-bold text-white mb-2">Test Complete</h3>
-        <p className="text-indigo-400 font-mono text-xl mb-6">Score: {score} / {questions.length}</p>
+      <div className="flex flex-col items-center justify-center p-8 bg-slate-900/50 rounded-2xl border border-teal-500/20 backdrop-blur-md animate-in zoom-in-95 duration-500 w-full max-w-md mx-auto text-center">
+        <h3 className="text-3xl font-bold text-neon mb-2">Test Complete</h3>
+        <p className="text-teal-400 font-mono text-xl mb-6">Score: {score} / {questions.length}</p>
         
-        <div className="relative mb-8 p-6 rounded-full border border-dashed border-indigo-500/50">
-           <div className="absolute inset-[-20%] rounded-full border border-indigo-500/20 animate-[spin_8s_linear_infinite]" />
-           <p className="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">{rank}</p>
+        <div className="relative mb-8 p-6 rounded-full border border-dashed border-teal-500/50">
+           <div className="absolute inset-[-20%] rounded-full border border-teal-500/20 animate-[spin_8s_linear_infinite]" />
+           <p className="text-2xl font-black bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">{rank}</p>
         </div>
 
         <Button onClick={reset} variant="secondary" className="w-full">
@@ -116,9 +116,9 @@ export default function IQTest() {
   const currentQ = questions[currentQuestionIdx];
 
   return (
-    <div className="flex flex-col p-6 bg-slate-900/50 rounded-2xl border border-indigo-500/20 backdrop-blur-md w-full max-w-md mx-auto">
+    <div className="flex flex-col p-6 bg-slate-900/50 rounded-2xl border border-teal-500/20 backdrop-blur-md w-full max-w-md mx-auto">
        <div className="flex justify-between items-center mb-6">
-         <span className="text-xs font-mono text-indigo-400 uppercase tracking-widest">Question {currentQuestionIdx + 1}/{questions.length}</span>
+         <span className="text-xs font-mono text-teal-400 uppercase tracking-widest">Question {currentQuestionIdx + 1}/{questions.length}</span>
          <span className="text-xs font-mono text-slate-500 uppercase">Class: {difficulty}</span>
        </div>
 
@@ -126,7 +126,7 @@ export default function IQTest() {
 
        <div className="space-y-3">
          {currentQ.options.map((opt, idx) => {
-           let stateClass = "bg-slate-800/50 border-slate-700 hover:border-indigo-500/50 text-slate-300";
+           let stateClass = "bg-slate-800/50 border-slate-700 hover:border-teal-500/50 text-slate-300";
            
            if (showResult) {
              if (idx === currentQ.correctAnswer) {
@@ -137,7 +137,7 @@ export default function IQTest() {
                stateClass = "bg-slate-800/30 border-slate-800 text-slate-500 opacity-50"; // Neutral unselected
              }
            } else if (idx === selectedOption) {
-             stateClass = "bg-indigo-500/20 border-indigo-500 text-white"; // Just selected, before result shows (instant)
+             stateClass = "bg-teal-500/20 border-teal-500 text-white"; // Just selected, before result shows (instant)
            }
 
            return (

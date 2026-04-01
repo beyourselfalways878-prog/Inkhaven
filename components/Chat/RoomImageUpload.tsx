@@ -72,7 +72,7 @@ export default function RoomImageUpload({ roomSlug, onUploadComplete }: Props) {
         onClick={() => inputRef.current?.click()}
         disabled={uploading}
         title="Share image"
-        className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-400 hover:text-indigo-500 hover:bg-indigo-500/10 transition-all disabled:opacity-40"
+        className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-400 hover:text-teal-500 hover:bg-teal-500/10 transition-all disabled:opacity-40"
       >
         {uploading ? <Loader2 size={18} className="animate-spin" /> : <ImageIcon size={18} />}
       </button>
@@ -80,10 +80,10 @@ export default function RoomImageUpload({ roomSlug, onUploadComplete }: Props) {
       {/* Upload preview overlay */}
       {preview && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-2xl">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-2xl max-w-xs w-full mx-4">
+          <div className="bg-slate-950 text-white dark:bg-slate-900 rounded-2xl p-4 shadow-2xl max-w-xs w-full mx-4">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-sm font-semibold text-slate-900 dark:text-white">Uploading image...</p>
-              <Loader2 size={16} className="animate-spin text-indigo-500" />
+              <p className="text-sm font-semibold text-gray-100 dark:text-white">Uploading image...</p>
+              <Loader2 size={16} className="animate-spin text-teal-500" />
             </div>
             <img src={preview} alt="Preview" className="w-full rounded-xl object-cover max-h-48" />
           </div>

@@ -352,7 +352,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
 
   return (
     <div
-      className="relative border-t border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/80 backdrop-blur-sm"
+      className="relative border-t border-slate-200 dark:border-white/5 bg-slate-950 text-white dark:bg-slate-900/80 backdrop-blur-sm"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -363,10 +363,10 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 bg-indigo-500/10 backdrop-blur-sm border-2 border-dashed border-indigo-500 rounded-t-xl flex items-center justify-center flex-col gap-2"
+            className="absolute inset-0 z-50 bg-teal-500/10 backdrop-blur-sm border-2 border-dashed border-teal-500 rounded-t-xl flex items-center justify-center flex-col gap-2"
           >
-            <Paperclip className="w-8 h-8 text-indigo-400 animate-bounce" />
-            <span className="text-sm font-medium text-indigo-300">Drop file to upload</span>
+            <Paperclip className="w-8 h-8 text-teal-400 animate-bounce" />
+            <span className="text-sm font-medium text-teal-300">Drop file to upload</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -385,7 +385,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
             exit={{ opacity: 0, height: 0 }}
             className="px-4 pt-3"
           >
-            <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/5">
+            <div className="p-3 bg-black/60 backdrop-blur-3xl border border-white/20 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-white/5">
               <AudioRecorder onRecordingComplete={handleAudioRecordingComplete} />
             </div>
           </motion.div>
@@ -397,7 +397,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
             exit={{ opacity: 0, height: 0 }}
             className="px-4 pt-3"
           >
-            <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/5">
+            <div className="p-3 bg-black/60 backdrop-blur-3xl border border-white/20 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-white/5">
               <FileUpload onFileSelected={handleFileSelected} />
             </div>
           </motion.div>
@@ -426,7 +426,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
                 if (!isPremium) return alert('Glowpad Drawings are a Premium feature! Please upgrade to access.');
                 setShowGlowpad(!showGlowpad); setShowAudioRecorder(false); setShowFileUpload(false);
               }}
-              className={`p-2 rounded-xl transition-colors ${showGlowpad ? 'bg-indigo-500/20 text-indigo-400' : 'text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 hover:bg-slate-100 dark:hover:bg-white/5'}`}
+              className={`p-2 rounded-xl transition-colors ${showGlowpad ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950'}`}
               title={isPremium ? "Draw Ephemeral Neon" : "Premium: Draw Ephemeral Neon"}
             >
               <PenTool size={20} className={!isPremium ? "opacity-30" : ""} />
@@ -437,7 +437,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
                 if (!isPremium) return alert('Voice Notes are a Premium feature! Please upgrade to access.');
                 setShowAudioRecorder(!showAudioRecorder); setShowFileUpload(false); setShowGlowpad(false);
               }}
-              className={`p-2 rounded-xl transition-colors ${showAudioRecorder ? 'bg-red-500/20 text-red-400' : 'text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 hover:bg-slate-100 dark:hover:bg-white/5'}`}
+              className={`p-2 rounded-xl transition-colors ${showAudioRecorder ? 'bg-red-500/20 text-red-400' : 'text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950'}`}
               title={isPremium ? "Record audio" : "Premium: Record Audio"}
             >
               <Mic size={20} className={!isPremium ? "opacity-30" : ""} />
@@ -448,7 +448,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
                 if (!isPremium) return alert('File Uploads are a Premium feature! Please upgrade to access.');
                 setShowFileUpload(!showFileUpload); setShowAudioRecorder(false); setShowGlowpad(false);
               }}
-              className={`p-2 rounded-xl transition-colors ${showFileUpload ? 'bg-indigo-500/20 text-indigo-400' : 'text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 hover:bg-slate-100 dark:hover:bg-white/5'}`}
+              className={`p-2 rounded-xl transition-colors ${showFileUpload ? 'bg-teal-500/20 text-teal-400' : 'text-slate-400 dark:text-white/40 hover:text-slate-600 dark:hover:text-white/60 hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950'}`}
               title={isPremium ? "Upload file" : "Premium: Upload File"}
             >
               <Paperclip size={20} className={!isPremium ? "opacity-30" : ""} />
@@ -461,7 +461,7 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
             value={value}
             onChange={onChange}
             onKeyDown={handleKeyDown}
-            className="flex-1 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+            className="flex-1 rounded-xl border border-slate-200 dark:border-white/10 bg-black/60 backdrop-blur-3xl border border-white/20 dark:bg-slate-950 px-4 py-2.5 text-sm text-gray-100 dark:text-white placeholder:text-slate-400 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 transition-all"
             placeholder={replyTo ? 'Type your reply...' : 'Type a message...'}
           />
 
@@ -471,8 +471,8 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
             className={`
               p-2.5 rounded-xl transition-all
               ${value.trim()
-                ? 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-500/20'
-                : 'bg-slate-100 dark:bg-white/5 text-slate-300 dark:text-white/20 cursor-not-allowed'
+                ? 'bg-teal-600 text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20'
+                : 'bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 text-slate-300 dark:text-white/20 cursor-not-allowed'
               }
             `}
           >
@@ -494,9 +494,9 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
         </AnimatePresence>
 
         {uploadProgress > 0 && uploadProgress < 100 && (
-          <div className="mt-2 h-1 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
+          <div className="mt-2 h-1 bg-black/40 backdrop-blur-2xl border border-white/10 dark:bg-slate-950 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-indigo-500 rounded-full"
+              className="h-full bg-teal-950/300 rounded-full"
               animate={{ width: `${uploadProgress}%` }}
               transition={{ duration: 0.3 }}
             />

@@ -20,7 +20,7 @@ export function Skeleton({
     height,
     lines = 1,
 }: SkeletonProps) {
-    const baseClass = 'animate-pulse bg-gradient-to-r from-white/5 via-white/10 to-white/5 bg-[length:200%_100%] animate-shimmer';
+    const baseClass = 'animate-pulse bg-gradient-to-r from-[#050505]/5 via-white/10 to-white/5 bg-[length:200%_100%] animate-shimmer';
 
     const variantClass = {
         text: 'rounded h-4',

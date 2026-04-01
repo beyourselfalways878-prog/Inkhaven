@@ -13,8 +13,8 @@ export default function CookiePolicyPage() {
                 <h1 className="text-4xl font-bold mb-2">Cookie Policy</h1>
                 <p className="text-slate-500 mb-8">Last updated: January 27, 2026</p>
 
-                <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-2xl p-6 mb-8">
-                    <p className="text-lg font-medium text-slate-800 dark:text-slate-200 m-0">
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 from-amber-950/30 to-orange-950/30 rounded-2xl p-6 mb-8">
+                    <p className="text-lg font-medium text-gray-200 text-slate-200 m-0">
                         This Cookie Policy explains how InkHaven uses cookies and similar technologies to recognize you when you visit our platform.
                     </p>
                 </div>
@@ -34,72 +34,72 @@ export default function CookiePolicyPage() {
 
                     <h3 className="text-xl font-medium mt-6 mb-3">2.1 Essential Cookies</h3>
                     <p>Required for the platform to function properly. Cannot be disabled.</p>
-                    <table className="w-full border-collapse border border-slate-300 dark:border-slate-700 mt-4">
+                    <table className="w-full border-collapse border border-slate-300 border-slate-700 mt-4">
                         <thead>
-                            <tr className="bg-slate-100 dark:bg-slate-800">
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Cookie</th>
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Purpose</th>
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Duration</th>
+                            <tr className="bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-800">
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Cookie</th>
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Purpose</th>
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Duration</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 font-mono text-sm">sb-*-auth-token</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">Authentication session</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">Session</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2 font-mono text-sm">sb-*-auth-token</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">Authentication session</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">Session</td>
                             </tr>
-                            <tr className="bg-slate-50 dark:bg-slate-800/50">
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 font-mono text-sm">theme</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">Dark/Light mode preference</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">1 year</td>
+                            <tr className="bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-800/50">
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2 font-mono text-sm">theme</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">Dark/Light mode preference</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">1 year</td>
                             </tr>
                             <tr>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 font-mono text-sm">cookie_consent</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">Cookie consent preferences</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">1 year</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2 font-mono text-sm">cookie_consent</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">Cookie consent preferences</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">1 year</td>
                             </tr>
                         </tbody>
                     </table>
 
                     <h3 className="text-xl font-medium mt-6 mb-3">2.2 Functional Cookies</h3>
                     <p>Enhance functionality and personalization.</p>
-                    <table className="w-full border-collapse border border-slate-300 dark:border-slate-700 mt-4">
+                    <table className="w-full border-collapse border border-slate-300 border-slate-700 mt-4">
                         <thead>
-                            <tr className="bg-slate-100 dark:bg-slate-800">
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Cookie</th>
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Purpose</th>
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Duration</th>
+                            <tr className="bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-800">
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Cookie</th>
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Purpose</th>
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Duration</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 font-mono text-sm">user_preferences</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">UI preferences</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">1 year</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2 font-mono text-sm">user_preferences</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">UI preferences</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">1 year</td>
                             </tr>
-                            <tr className="bg-slate-50 dark:bg-slate-800/50">
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 font-mono text-sm">notification_settings</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">Notification preferences</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">1 year</td>
+                            <tr className="bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-800/50">
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2 font-mono text-sm">notification_settings</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">Notification preferences</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">1 year</td>
                             </tr>
                         </tbody>
                     </table>
 
                     <h3 className="text-xl font-medium mt-6 mb-3">2.3 Analytics Cookies</h3>
                     <p>Help us understand how visitors interact with our platform. Optional.</p>
-                    <table className="w-full border-collapse border border-slate-300 dark:border-slate-700 mt-4">
+                    <table className="w-full border-collapse border border-slate-300 border-slate-700 mt-4">
                         <thead>
-                            <tr className="bg-slate-100 dark:bg-slate-800">
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Cookie</th>
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Purpose</th>
-                                <th className="border border-slate-300 dark:border-slate-700 px-4 py-2 text-left">Duration</th>
+                            <tr className="bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-800">
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Cookie</th>
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Purpose</th>
+                                <th className="border border-slate-300 border-slate-700 px-4 py-2 text-left">Duration</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2 font-mono text-sm">_ga</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">Google Analytics (if enabled)</td>
-                                <td className="border border-slate-300 dark:border-slate-700 px-4 py-2">2 years</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2 font-mono text-sm">_ga</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">Google Analytics (if enabled)</td>
+                                <td className="border border-slate-300 border-slate-700 px-4 py-2">2 years</td>
                             </tr>
                         </tbody>
                     </table>
@@ -124,7 +124,7 @@ export default function CookiePolicyPage() {
                         <li><strong>Privacy Settings:</strong> Access cookie preferences in your account settings</li>
                     </ul>
 
-                    <div className="bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 p-4 my-4">
+                    <div className="bg-amber-50 bg-amber-950/30 border-l-4 border-amber-500 p-4 my-4">
                         <p className="m-0">
                             <strong>Note:</strong> Disabling essential cookies may break core functionality of InkHaven.
                         </p>
@@ -154,18 +154,18 @@ export default function CookiePolicyPage() {
 
                 <section className="mb-10">
                     <h2 className="text-2xl font-semibold mt-8 mb-4">7. Contact Us</h2>
-                    <div className="bg-slate-100 dark:bg-slate-800 rounded-xl p-6">
+                    <div className="bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-800 rounded-xl p-6">
                         <p className="m-0">
                             For questions about our use of cookies:<br />
-                            <strong>Email:</strong> <a href="mailto:namamicreations@zenithcryptoai.in" className="text-indigo-600 hover:underline">namamicreations@zenithcryptoai.in</a>
+                            <strong>Email:</strong> <a href="mailto:namamicreations@zenithcryptoai.in" className="text-teal-600 hover:underline">namamicreations@zenithcryptoai.in</a>
                         </p>
                     </div>
                 </section>
 
-                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-                    <Link href="/legal/privacy" className="text-indigo-600 hover:underline mr-6">Privacy Policy</Link>
-                    <Link href="/legal/terms" className="text-indigo-600 hover:underline mr-6">Terms of Service</Link>
-                    <Link href="/legal/gdpr" className="text-indigo-600 hover:underline">GDPR Statement</Link>
+                <div className="mt-12 pt-8 border-t border-slate-200 border-slate-700">
+                    <Link href="/legal/privacy" className="text-teal-600 hover:underline mr-6">Privacy Policy</Link>
+                    <Link href="/legal/terms" className="text-teal-600 hover:underline mr-6">Terms of Service</Link>
+                    <Link href="/legal/gdpr" className="text-teal-600 hover:underline">GDPR Statement</Link>
                 </div>
             </div>
         </div>

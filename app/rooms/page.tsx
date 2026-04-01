@@ -16,12 +16,12 @@ interface PublicRoom {
 }
 
 const TOPIC_COLORS: Record<string, string> = {
-  vibes:       'from-indigo-500 to-blue-500',
+  vibes:       'from-teal-500 to-blue-500',
   music:       'from-pink-500 to-rose-500',
   gaming:      'from-emerald-500 to-teal-500',
-  latenight:   'from-violet-600 to-indigo-700',
+  latenight:   'from-violet-600 to-teal-700',
   confessions: 'from-amber-500 to-orange-500',
-  random:      'from-fuchsia-500 to-purple-600',
+  random:      'from-cyan-500 to-cyan-600',
   india:       'from-orange-500 to-green-500',
 };
 
@@ -95,27 +95,27 @@ export default function RoomsPage() {
     <div className="container mx-auto px-6 py-10">
       {/* Header */}
       <div className="mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-400 text-xs font-bold uppercase tracking-widest mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
           Live Rooms
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-3">
+        <h1 className="text-4xl md:text-5xl font-bold text-white text-white mb-3">
           Open Your World
         </h1>
-        <p className="text-lg text-slate-500 dark:text-white/50 max-w-xl">
+        <p className="text-lg text-slate-400 max-w-xl">
           Jump into a public room. No introductions needed — just show up and vibe.
         </p>
       </div>
 
       {/* Quick Match CTA */}
-      <div className="mb-8 p-5 rounded-2xl bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-600/10 border border-indigo-500/20 flex items-center justify-between gap-4 flex-wrap">
+      <div className="mb-8 p-5 rounded-2xl bg-gradient-to-r from-teal-600/10 via-cyan-600/10 to-pink-600/10 border border-teal-500/20 flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <p className="font-semibold text-slate-900 dark:text-white mb-0.5">Rather go 1-on-1?</p>
-          <p className="text-sm text-slate-500 dark:text-white/50">Instantly match with one person privately.</p>
+          <p className="font-semibold text-white mb-0.5">Rather go 1-on-1?</p>
+          <p className="text-sm text-slate-400">Instantly match with one person privately.</p>
         </div>
         <button
           onClick={() => session.userId ? router.push('/quick-match') : setShowChatNow(true)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl font-semibold text-sm transition-all hover:scale-105 shadow-lg shadow-indigo-500/25 shrink-0"
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white rounded-xl font-semibold text-sm transition-all hover:scale-105 shadow-lg shadow-teal-500/25 shrink-0"
         >
           <Zap size={16} />
           Quick Match
@@ -125,13 +125,13 @@ export default function RoomsPage() {
       {/* Discovery Filters */}
       <div className="mb-8 space-y-4">
         <div className="relative max-w-md">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-white/30 pointer-events-none" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
           <input
             type="text"
             placeholder="Search rooms by name or vibe..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all shadow-sm"
+            className="w-full bg-slate-900 backdrop-blur-2xl border border-white/10 text-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all shadow-sm"
           />
         </div>
 
@@ -141,8 +141,8 @@ export default function RoomsPage() {
               onClick={() => setFilterTopic(null)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 ${
                 filterTopic === null
-                  ? 'bg-slate-800 text-white dark:bg-white dark:text-slate-900 shadow-md'
-                  : 'bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white/50 hover:bg-slate-200 dark:hover:bg-white/10'
+                  ? 'bg-slate-900 text-white shadow-md'
+                  : 'bg-slate-900 backdrop-blur-2xl border border-white/10 text-slate-400 hover:bg-slate-800'
               }`}
             >
               All Rooms
@@ -153,8 +153,8 @@ export default function RoomsPage() {
                 onClick={() => setFilterTopic(topic)}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold capitalize transition-all border ${
                   filterTopic === topic
-                    ? `bg-indigo-500/20 border-indigo-500/40 text-indigo-500 shadow-sm`
-                    : 'bg-transparent border-slate-200 dark:border-white/10 text-slate-500 dark:text-white/40 hover:border-slate-300 dark:hover:border-white/20'
+                    ? `bg-teal-500/20 border-teal-500/40 text-teal-500 shadow-sm`
+                    : 'bg-transparent border-slate-200 text-slate-400 hover:border-slate-300'
                 }`}
               >
                 {topic}
@@ -168,23 +168,23 @@ export default function RoomsPage() {
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-44 rounded-2xl bg-slate-100 dark:bg-white/[0.03] animate-pulse" />
+            <div key={i} className="h-44 rounded-2xl bg-slate-900 backdrop-blur-2xl border border-white/10 animate-pulse" />
           ))}
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredRooms.length === 0 ? (
             <div className="col-span-full py-16 flex flex-col items-center justify-center text-center">
-              <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center mb-4">
-                <FilterX className="w-8 h-8 text-slate-400 dark:text-white/20" />
+              <div className="w-16 h-16 rounded-full bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/5 flex items-center justify-center mb-4">
+                <FilterX className="w-8 h-8 text-slate-400 text-white/20" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No rooms found</h3>
-              <p className="text-sm text-slate-500 dark:text-white/40 max-w-md mx-auto">
+              <h3 className="text-xl font-bold text-white text-white mb-2">No rooms found</h3>
+              <p className="text-sm text-slate-500 text-white/40 max-w-md mx-auto">
                 No rooms match your current filters. Try searching for something else or clearing the topic filter.
               </p>
               <button
                 onClick={() => { setSearchQuery(''); setFilterTopic(null); }}
-                className="mt-6 text-sm font-semibold text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="mt-6 text-sm font-semibold text-teal-500 hover:text-teal-600 hover:text-teal-400"
               >
                 Clear all filters
               </button>
@@ -203,24 +203,24 @@ export default function RoomsPage() {
                   <div className={`h-1.5 w-full bg-gradient-to-r ${gradient}`} />
 
                   {/* Card body */}
-                  <div className="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 p-6 h-full flex flex-col">
+                  <div className="bg-slate-900 text-white bg-slate-900 text-white/[0.03] border border-slate-200 border-white/5 p-6 h-full flex flex-col">
                     {/* Ambient glow on hover */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none`} />
 
                     <div className="relative z-10 flex-1 flex flex-col">
                       <div className="flex items-start justify-between mb-3">
-                        <h2 className="text-lg font-bold text-slate-900 dark:text-white leading-tight pr-2">
+                        <h2 className="text-lg font-bold text-white text-white leading-tight pr-2">
                           {room.name}
                         </h2>
-                        <div className="flex items-center gap-1.5 shrink-0 bg-slate-100 dark:bg-white/5 px-2 py-1 rounded-lg">
+                        <div className="flex items-center gap-1.5 shrink-0 bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/5 px-2 py-1 rounded-lg">
                           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                          <span className="text-xs font-semibold text-slate-600 dark:text-white/60">
+                          <span className="text-xs font-semibold text-slate-600 text-white/60">
                             {room.onlineCount} online
                           </span>
                         </div>
                       </div>
 
-                      <p className="text-sm text-slate-500 dark:text-white/50 mb-6 leading-relaxed flex-1">
+                      <p className="text-sm text-slate-500 text-white/50 mb-6 leading-relaxed flex-1">
                         {room.description}
                       </p>
 

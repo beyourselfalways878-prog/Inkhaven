@@ -119,29 +119,29 @@ export default function ChatNowModal({ isOpen, onClose }: ChatNowModalProps) {
 
       {/* Modal */}
       <div className="relative w-full max-w-md animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
-        <div className="relative bg-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+        <div className="relative bg-slate-950 animate-chameleon text-white dark:bg-obsidian-950 border border-slate-200 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden">
 
           {/* Top gradient bar */}
-          <div className="h-1 w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+          <div className="h-1 w-full bg-gradient-to-r from-teal-500 via-cyan-500 to-cyan-400" />
 
           {/* Ambient glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-36 bg-indigo-500/10 blur-3xl rounded-full pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-36 bg-teal-500/10 blur-3xl rounded-full pointer-events-none" />
 
           <div className="relative p-8">
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-all"
+              className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-black/40 backdrop-blur-2xl border border-white/10 dark:hover:bg-slate-950 animate-chameleon transition-all"
             >
               <X size={16} />
             </button>
 
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 shadow-lg shadow-teal-500/30 mb-4">
                 <Zap className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+              <h2 className="text-2xl font-bold text-gray-100 dark:text-white tracking-tight">
                 Enter the Haven
               </h2>
               <p className="text-sm text-slate-500 dark:text-white/50 mt-2">
@@ -163,7 +163,7 @@ export default function ChatNowModal({ isOpen, onClose }: ChatNowModalProps) {
                   onKeyDown={handleKeyDown}
                   placeholder={placeholder}
                   maxLength={24}
-                  className="w-full bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 rounded-2xl px-5 py-4 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/20 font-medium text-lg focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  className="w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-4 text-white placeholder-slate-500 font-medium text-lg focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all"
                 />
                 {name && (
                   <button
@@ -183,7 +183,7 @@ export default function ChatNowModal({ isOpen, onClose }: ChatNowModalProps) {
             <button
               onClick={handleGo}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-70 text-white font-semibold py-4 rounded-2xl shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 text-lg"
+              className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 disabled:opacity-70 text-white font-semibold py-4 rounded-2xl shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 text-lg"
             >
               {loading ? (
                 <>
@@ -204,12 +204,12 @@ export default function ChatNowModal({ isOpen, onClose }: ChatNowModalProps) {
                 <ShieldCheck size={12} className="text-emerald-500" />
                 <span>Zero data stored</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-slate-300 dark:bg-white/10" />
+              <div className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-950 " />
               <div className="flex items-center gap-1">
                 <span>🔐</span>
                 <span>E2E encrypted</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-slate-300 dark:bg-white/10" />
+              <div className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-950 " />
               <div className="flex items-center gap-1">
                 <span>👤</span>
                 <span>Anonymous P2P</span>

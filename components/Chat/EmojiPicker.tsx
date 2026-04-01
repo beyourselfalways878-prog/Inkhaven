@@ -92,7 +92,7 @@ export function EmojiPicker({ open, onClose, onSelect, position = 'top' }: Emoji
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Search emoji..."
-                                className="w-full bg-white/5 rounded-lg pl-8 pr-3 py-1.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-indigo-500/50"
+                                className="w-full bg-slate-950 rounded-lg pl-8 pr-3 py-1.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-1 focus:ring-teal-500/50"
                                 autoFocus
                             />
                         </div>
@@ -108,8 +108,8 @@ export function EmojiPicker({ open, onClose, onSelect, position = 'top' }: Emoji
                                     className={`
                     px-2.5 py-1 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors
                     ${activeCategory === cat
-                                            ? 'bg-indigo-500/20 text-indigo-300'
-                                            : 'text-white/40 hover:text-white/60 hover:bg-white/5'
+                                            ? 'bg-teal-500/20 text-teal-300'
+                                            : 'text-white/40 hover:text-white/60 hover:bg-slate-950'
                                         }
                   `}
                                 >
@@ -125,7 +125,7 @@ export function EmojiPicker({ open, onClose, onSelect, position = 'top' }: Emoji
                             <button
                                 key={`${emoji}-${i}`}
                                 onClick={() => handleSelect(emoji)}
-                                className="w-9 h-9 flex items-center justify-center rounded-lg text-xl hover:bg-white/10 transition-colors active:scale-90"
+                                className="w-9 h-9 flex items-center justify-center rounded-lg text-xl hover:bg-slate-950 transition-colors active:scale-90"
                             >
                                 {emoji}
                             </button>
@@ -156,8 +156,8 @@ export function EmojiToggle({ onSelect }: EmojiToggleProps) {
                 className={`
           p-2 rounded-xl transition-colors
           ${open
-                        ? 'bg-indigo-500/20 text-indigo-400'
-                        : 'text-white/40 hover:text-white/60 hover:bg-white/5'
+                        ? 'bg-teal-500/20 text-teal-400'
+                        : 'text-white/40 hover:text-white/60 hover:bg-slate-950'
                     }
         `}
             >

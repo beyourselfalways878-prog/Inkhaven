@@ -121,7 +121,7 @@ export function AudioRecorder({ onRecordingComplete, maxDuration = 600 }: AudioR
             <div className="flex items-center gap-3">
                 <motion.button
                     onClick={isRecording ? stopRecording : startRecording}
-                    className={`rounded-full p-3 text-white transition ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-indigo-600 hover:bg-indigo-700'
+                    className={`rounded-full p-3 text-white transition ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-teal-600 hover:bg-indigo-700'
                         }`}
                     whileTap={{ scale: 0.95 }}
                 >
@@ -142,7 +142,7 @@ export function AudioRecorder({ onRecordingComplete, maxDuration = 600 }: AudioR
                             {waveformData.map((value, idx) => (
                                 <motion.div
                                     key={idx}
-                                    className="w-1 bg-indigo-500 rounded-full"
+                                    className="w-1 bg-teal-950/300 rounded-full"
                                     animate={{ height: `${Math.max(4, (value / 255) * 24)}px` }}
                                     transition={{ duration: 0.1 }}
                                 />

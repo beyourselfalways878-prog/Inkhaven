@@ -4,6 +4,9 @@ import { getAuthenticatedUser } from '../../../lib/auth';
 import { handleApiError, generateRequestId } from '../../../lib/middleware/errorHandler';
 import { createLogger } from '../../../lib/logger/Logger';
 
+// Using Node.js runtime for production stability
+export const runtime = 'nodejs';
+
 const logger = createLogger('QuickMatchAPI');
 
 export async function POST(req: NextRequest) {

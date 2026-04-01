@@ -13,7 +13,7 @@ export default function LegalIndexPage() {
             description: 'How we collect, use, and protect your personal information. Our commitment to your privacy.',
             href: '/legal/privacy',
             icon: '🔒',
-            gradient: 'from-indigo-500 to-emerald-500'
+            gradient: 'from-teal-500 to-emerald-500'
         },
         {
             title: 'Terms of Service',
@@ -41,7 +41,7 @@ export default function LegalIndexPage() {
             description: 'Our commitment to EU data protection regulations and your rights as a data subject.',
             href: '/legal/gdpr',
             icon: '🇪🇺',
-            gradient: 'from-blue-500 to-indigo-500'
+            gradient: 'from-blue-500 to-teal-500'
         }
     ];
 
@@ -49,7 +49,7 @@ export default function LegalIndexPage() {
         <div className="container mx-auto px-6 py-12 max-w-4xl">
             <div className="text-center mb-12">
                 <h1 className="text-4xl font-bold mb-4">Legal & Compliance</h1>
-                <p className="text-lg text-slate-600 dark:text-slate-400">
+                <p className="text-lg text-slate-600 text-slate-400">
                     Transparency and trust are at the core of InkHaven. Explore our legal documents below.
                 </p>
             </div>
@@ -59,39 +59,39 @@ export default function LegalIndexPage() {
                     <Link
                         key={page.href}
                         href={page.href}
-                        className="group block rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 p-6 transition-all hover:shadow-lg hover:-translate-y-1"
+                        className="group block rounded-2xl border border-slate-200 border-slate-700 bg-slate-900 text-white bg-slate-800/50 p-6 transition-all hover:shadow-lg hover:-translate-y-1"
                     >
                         <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${page.gradient} text-2xl mb-4`}>
                             {page.icon}
                         </div>
-                        <h2 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        <h2 className="text-xl font-semibold text-white text-white group-hover:text-teal-600 group-hover:text-teal-400 transition-colors">
                             {page.title}
                         </h2>
-                        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                        <p className="mt-2 text-sm text-slate-600 text-slate-400">
                             {page.description}
                         </p>
-                        <div className="mt-4 text-sm font-medium text-indigo-600 dark:text-indigo-400 group-hover:underline">
+                        <div className="mt-4 text-sm font-medium text-teal-600 text-teal-400 group-hover:underline">
                             Read More →
                         </div>
                     </Link>
                 ))}
             </div>
 
-            <div className="mt-16 rounded-2xl bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900 p-8">
+            <div className="mt-16 rounded-2xl bg-gradient-to-r from-slate-100 to-slate-50 from-slate-800 to-slate-900 p-8">
                 <h2 className="text-2xl font-semibold mb-4">Have Questions?</h2>
-                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                <p className="text-slate-600 text-slate-400 mb-6">
                     If you have any questions about our legal documents or policies, feel free to reach out to our team.
                 </p>
                 <div className="flex flex-wrap gap-4">
                     <a
                         href="mailto:namamicreations@zenithcryptoai.in"
-                        className="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors"
+                        className="inline-flex items-center px-4 py-2 rounded-lg bg-teal-600 text-white font-medium hover:bg-teal-700 transition-colors"
                     >
                         ✉️ namamicreations@zenithcryptoai.in
                     </a>
                     <a
                         href="mailto:namamicreations@zenithcryptoai.in"
-                        className="inline-flex items-center px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-medium hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
+                        className="inline-flex items-center px-4 py-2 rounded-lg bg-slate-900 text-white bg-slate-700 border border-slate-200 border-slate-600 font-medium hover:bg-slate-950/60 backdrop-blur-3xl border border-white/20 hover:bg-slate-600 transition-colors"
                     >
                         🔐 namamicreations@zenithcryptoai.in
                     </a>

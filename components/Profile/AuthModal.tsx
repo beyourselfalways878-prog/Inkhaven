@@ -72,10 +72,10 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
 
             <div className="relative w-full max-w-sm card p-8 border border-slate-200 dark:border-white/5 animate-in fade-in zoom-in-95 duration-200">
                 <div className="text-center mb-6">
-                    <div className="mx-auto w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center mb-4">
-                        <Fingerprint className="w-6 h-6 text-indigo-400" />
+                    <div className="mx-auto w-12 h-12 bg-teal-500/20 rounded-full flex items-center justify-center mb-4">
+                        <Fingerprint className="w-6 h-6 text-teal-400" />
                     </div>
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                    <h2 className="text-xl font-bold text-gray-100 dark:text-white">
                         {isForgotPassword ? 'Reset Password' : (isLogin ? 'Welcome Back' : 'Claim Your Identity')}
                     </h2>
                     <p className="text-sm text-slate-500 dark:text-white/50 mt-1">
@@ -96,7 +96,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                            className="w-full bg-black/60 backdrop-blur-3xl border border-white/20 dark:bg-slate-950 animate-chameleon border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-gray-100 dark:text-white text-sm focus:outline-none focus:border-teal-500 transition-colors"
                             placeholder="vibe@inkhaven.in"
                             required
                         />
@@ -111,7 +111,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                                className="w-full bg-black/60 backdrop-blur-3xl border border-white/20 dark:bg-slate-950 animate-chameleon border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-gray-100 dark:text-white text-sm focus:outline-none focus:border-teal-500 transition-colors"
                                 placeholder="••••••••"
                                 required
                                 minLength={6}
@@ -121,7 +121,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
                                     <button
                                         type="button"
                                         onClick={() => { setIsForgotPassword(true); setError(''); setSuccessMsg(''); }}
-                                        className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+                                        className="text-xs text-teal-400 hover:text-teal-300 transition-colors"
                                     >
                                         Forgot Password?
                                     </button>
@@ -147,7 +147,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white text-sm font-medium transition-colors flex items-center justify-center disabled:opacity-50"
+                        className="w-full py-2.5 px-4 bg-teal-600 hover:bg-teal-950/300 rounded-xl text-white text-sm font-medium transition-colors flex items-center justify-center disabled:opacity-50"
                     >
                         {loading ? (
                             <Loader2 className="w-4 h-4 animate-spin" />

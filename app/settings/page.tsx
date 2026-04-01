@@ -170,35 +170,35 @@ export default function SettingsPage() {
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] items-start">
         <section className="card p-6">
           <div className="flex items-center gap-3 mb-2">
-            <Settings className="w-6 h-6 text-indigo-400" />
-            <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">Settings</h2>
+            <Settings className="w-6 h-6 text-teal-400" />
+            <h2 className="text-3xl font-semibold text-white text-white">Settings</h2>
           </div>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-2 text-sm text-slate-500 text-slate-400">
             Customize your InkHaven experience.
           </p>
 
           <div className="mt-6 space-y-3">
-            <Link href="/profile" className="block rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition group">
+            <Link href="/profile" className="block rounded-xl border border-slate-200 border-white/5 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 hover:bg-slate-950/40 backdrop-blur-2xl border border-white/10 hover:bg-slate-900 text-white/[0.06] transition group">
               <div className="flex items-center gap-3">
-                <User className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300 transition" />
+                <User className="w-5 h-5 text-teal-400 group-hover:text-teal-300 transition" />
                 <div>
-                  <div className="font-semibold text-slate-900 dark:text-white text-sm">Profile</div>
-                  <div className="text-xs text-slate-400 dark:text-slate-500">Manage your identity and interests</div>
+                  <div className="font-semibold text-white text-white text-sm">Profile</div>
+                  <div className="text-xs text-slate-400 text-slate-500">Manage your identity and interests</div>
                 </div>
               </div>
             </Link>
-            <Link href="/onboarding/preferences" className="block rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition group">
+            <Link href="/onboarding/preferences" className="block rounded-xl border border-slate-200 border-white/5 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 hover:bg-slate-950/40 backdrop-blur-2xl border border-white/10 hover:bg-slate-900 text-white/[0.06] transition group">
               <div className="flex items-center gap-3">
-                <SlidersHorizontal className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition" />
+                <SlidersHorizontal className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition" />
                 <div>
-                  <div className="font-semibold text-slate-900 dark:text-white text-sm">Preferences</div>
-                  <div className="text-xs text-slate-400 dark:text-slate-500">Privacy and experience controls</div>
+                  <div className="font-semibold text-white text-white text-sm">Preferences</div>
+                  <div className="text-xs text-slate-400 text-slate-500">Privacy and experience controls</div>
                 </div>
               </div>
             </Link>
           </div>
 
-          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/5 space-y-3">
+          <div className="mt-8 pt-6 border-t border-slate-200 border-white/5 space-y-3">
             {isRealUser ? (
               <button
                 onClick={async () => {
@@ -212,11 +212,11 @@ export default function SettingsPage() {
                 <span className="text-sm font-semibold">Sign Out</span>
               </button>
             ) : (
-              <div className="rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-4 text-center">
-                <p className="text-xs text-indigo-200/60 mb-3">You are currently using a temporary anonymous session. Register to save your settings and chats.</p>
+              <div className="rounded-xl border border-teal-500/20 bg-teal-500/5 p-4 text-center">
+                <p className="text-xs text-teal-200/60 mb-3">You are currently using a temporary anonymous session. Register to save your settings and chats.</p>
                 <button
                   onClick={() => setShowAuth(true)}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-3 text-white hover:bg-indigo-500 transition group shadow-lg shadow-indigo-500/20"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-teal-600 px-4 py-3 text-white hover:bg-teal-500 transition group shadow-lg shadow-teal-500/20"
                 >
                   <LogIn className="w-4 h-4" />
                   <span className="text-sm font-semibold">Register / Sign In</span>
@@ -228,7 +228,7 @@ export default function SettingsPage() {
 
         <section className="glass p-6">
           <div className="card p-6 space-y-4">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">Privacy & Experience</h3>
+            <h3 className="text-lg font-semibold text-white mb-6">Privacy & Experience</h3>
 
             {settingsMeta.map((item) => {
               const Icon = item.icon;
@@ -236,19 +236,19 @@ export default function SettingsPage() {
               return (
                 <button
                   key={item.key}
-                  className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/[0.06] transition"
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 text-left hover:bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/[0.06] transition"
                   onClick={() => update(item.key)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <Icon className={`w-4 h-4 ${isOn ? 'text-indigo-400' : 'text-slate-300 dark:text-white/20'} transition`} />
+                      <Icon className={`w-4 h-4 ${isOn ? 'text-teal-400' : 'text-slate-300 text-white/20'} transition`} />
                       <div>
-                        <div className="text-sm font-semibold text-slate-900 dark:text-white">{item.title}</div>
-                        <div className="text-xs text-slate-400 dark:text-slate-500">{item.desc}</div>
+                        <div className="text-sm font-semibold text-white">{item.title}</div>
+                        <div className="text-xs text-slate-400">{item.desc}</div>
                       </div>
                     </div>
-                    <span className={`h-6 w-10 rounded-full ${isOn ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-white/10'} relative transition`}>
-                      <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${isOn ? 'right-0.5' : 'left-0.5'}`} />
+                    <span className={`h-6 w-10 rounded-full ${isOn ? 'bg-teal-500' : 'bg-slate-200 bg-slate-900 text-white/10'} relative transition`}>
+                      <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-slate-900 text-white shadow transition-all ${isOn ? 'right-0.5' : 'left-0.5'}`} />
                     </span>
                   </div>
                 </button>
@@ -257,17 +257,17 @@ export default function SettingsPage() {
 
             {/* Custom Username Color (Premium) */}
             <div className="pt-4 pb-2">
-              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs flex justify-between items-center">
+              <h3 className="text-sm font-semibold text-slate-500 text-white/80 uppercase tracking-wider text-xs flex justify-between items-center">
                   <span>Aesthetics</span>
                   <span className="text-[10px] bg-amber-500/20 text-amber-500 px-2 py-0.5 rounded uppercase tracking-widest border border-amber-500/30">Premium</span>
               </h3>
             </div>
-            <div className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 transition">
+            <div className="w-full rounded-2xl border border-slate-200 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 transition">
               <div className="flex items-center gap-3 mb-3">
                 <Palette className="w-4 h-4 text-amber-400" />
                 <div>
-                  <div className="text-sm font-semibold text-slate-900 dark:text-white">Custom Username Color</div>
-                  <div className="text-xs text-slate-400 dark:text-slate-500">Stand out in the chat rooms</div>
+                  <div className="text-sm font-semibold text-white">Custom Username Color</div>
+                  <div className="text-xs text-slate-400">Stand out in the chat rooms</div>
                 </div>
               </div>
               <div className="flex gap-2 flex-wrap">
@@ -279,7 +279,7 @@ export default function SettingsPage() {
                             setSession({...session, usernameColor: color.value});
                             toast.success(`Username color set to ${color.name}`);
                         }}
-                        className={`px-3 py-1.5 rounded-xl border text-xs font-semibold shadow-sm transition-all hover:scale-105 active:scale-95 ${session.usernameColor === color.value ? 'ring-2 ring-indigo-500 scale-105' : 'hover:bg-slate-200 dark:hover:bg-white/10'}`}
+                        className={`px-3 py-1.5 rounded-xl border text-xs font-semibold shadow-sm transition-all hover:scale-105 active:scale-95 ${session.usernameColor === color.value ? 'ring-2 ring-teal-500 scale-105' : 'hover:bg-slate-200 hover:bg-slate-900 text-white/10'}`}
                         style={{
                             borderColor: color.value || 'rgba(150,150,150,0.2)',
                             color: color.value || 'inherit',
@@ -297,65 +297,65 @@ export default function SettingsPage() {
 
             {/* Push Notifications */}
             <div className="pt-4 pb-2">
-              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs">Notifications</h3>
+              <h3 className="text-sm font-semibold text-slate-500 text-white/80 uppercase tracking-wider text-xs">Notifications</h3>
             </div>
             <button
               onClick={togglePushNotifications}
               disabled={pushLoading}
-              className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/[0.06] transition disabled:opacity-50"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 text-left hover:bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/[0.06] transition disabled:opacity-50"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xs shadow-inner shadow-indigo-500/20">🔔</div>
+                  <div className="w-8 h-8 rounded-full bg-teal-500/10 flex items-center justify-center text-teal-400 text-xs shadow-inner shadow-teal-500/20">🔔</div>
                   <div>
-                    <div className="text-sm font-semibold text-slate-900 dark:text-white">Push Notifications</div>
-                    <div className="text-xs text-slate-400 dark:text-slate-500">Get alerted when someone Resonates with you</div>
+                    <div className="text-sm font-semibold text-white">Push Notifications</div>
+                    <div className="text-xs text-slate-400">Get alerted when someone Resonates with you</div>
                   </div>
                 </div>
-                <span className={`h-6 w-10 rounded-full ${pushEnabled ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-white/10'} relative transition`}>
-                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${pushEnabled ? 'right-0.5' : 'left-0.5'}`} />
+                <span className={`h-6 w-10 rounded-full ${pushEnabled ? 'bg-teal-500' : 'bg-slate-200 bg-slate-900 text-white/10'} relative transition`}>
+                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-slate-900 text-white shadow transition-all ${pushEnabled ? 'right-0.5' : 'left-0.5'}`} />
                 </span>
               </div>
             </button>
 
             {/* Discoverability */}
             <div className="pt-4 pb-2">
-              <h3 className="text-sm font-semibold text-slate-500 dark:text-white/80 uppercase tracking-wider text-xs">Discover Grid</h3>
+              <h3 className="text-sm font-semibold text-slate-500 text-white/80 uppercase tracking-wider text-xs">Discover Grid</h3>
             </div>
             <button
               onClick={toggleDiscoverable}
               disabled={savingDiscover}
-              className="w-full rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.03] px-4 py-3 text-left hover:bg-slate-100 dark:hover:bg-white/[0.06] transition disabled:opacity-50"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-950/60 backdrop-blur-3xl border border-white/20 bg-slate-900 text-white/[0.03] px-4 py-3 text-left hover:bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/[0.06] transition disabled:opacity-50"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {discoverable
-                    ? <Eye className="w-4 h-4 text-fuchsia-400" />
-                    : <EyeOff className="w-4 h-4 text-slate-300 dark:text-white/20" />}
+                    ? <Eye className="w-4 h-4 text-cyan-400" />
+                    : <EyeOff className="w-4 h-4 text-slate-300 text-white/20" />}
                   <div>
-                    <div className="text-sm font-semibold text-slate-900 dark:text-white">Appear in Discover</div>
-                    <div className="text-xs text-slate-400 dark:text-slate-500">Let others find and Resonate with you</div>
+                    <div className="text-sm font-semibold text-white">Appear in Discover</div>
+                    <div className="text-xs text-slate-400">Let others find and Resonate with you</div>
                   </div>
                 </div>
-                <span className={`h-6 w-10 rounded-full ${discoverable ? 'bg-fuchsia-500' : 'bg-slate-200 dark:bg-white/10'} relative transition`}>
-                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${discoverable ? 'right-0.5' : 'left-0.5'}`} />
+                <span className={`h-6 w-10 rounded-full ${discoverable ? 'bg-cyan-500' : 'bg-slate-200 bg-slate-900 text-white/10'} relative transition`}>
+                  <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-slate-900 text-white shadow transition-all ${discoverable ? 'right-0.5' : 'left-0.5'}`} />
                 </span>
               </div>
             </button>
 
             <button
-              className="w-full rounded-2xl border border-white/5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 px-4 py-3 text-left hover:from-indigo-500/20 hover:to-purple-500/20 transition group"
+              className="w-full rounded-2xl border border-white/5 bg-gradient-to-r from-teal-500/10 to-cyan-500/10 px-4 py-3 text-left hover:from-teal-500/20 hover:to-cyan-500/20 transition group"
               onClick={() => toast.info('Aura intensity is now adaptive to your typing speed!')}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 animate-pulse flex items-center justify-center text-xs">✨</div>
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-teal-500 to-cyan-500 animate-pulse flex items-center justify-center text-xs">✨</div>
                   <div>
-                    <div className="text-sm font-semibold text-slate-900 dark:text-white">Resonant Aura</div>
-                    <div className="text-xs text-slate-400 dark:text-slate-500">Dynamic background reacts to your vibe</div>
+                    <div className="text-sm font-semibold text-white">Resonant Aura</div>
+                    <div className="text-xs text-slate-400">Dynamic background reacts to your vibe</div>
                   </div>
                 </div>
-                <div className="text-xs text-indigo-300 font-medium bg-indigo-500/10 px-2 py-1 rounded-full border border-indigo-500/20">Active</div>
+                <div className="text-xs text-teal-300 font-medium bg-teal-500/10 px-2 py-1 rounded-full border border-teal-500/20">Active</div>
               </div>
             </button>
 
@@ -395,7 +395,7 @@ export default function SettingsPage() {
                   </button>
                   <button
                     onClick={() => setDeleteConfirm(false)}
-                    className="flex-1 py-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white/60 text-sm font-semibold hover:bg-slate-200 transition"
+                    className="flex-1 py-2 rounded-xl bg-slate-950/40 backdrop-blur-2xl border border-white/10 bg-slate-900 text-white/5 text-slate-600 text-white/60 text-sm font-semibold hover:bg-slate-200 transition"
                   >
                     Cancel
                   </button>
@@ -418,17 +418,17 @@ export default function SettingsPage() {
             )}
 
 
-            <div className="mt-6 pt-6 border-t border-slate-200 dark:border-white/5">
+            <div className="mt-6 pt-6 border-t border-slate-200 border-white/5">
               <div className="flex items-center gap-2 mb-3">
-                <Info className="w-4 h-4 text-slate-400 dark:text-white/30" />
-                <h4 className="text-sm font-semibold text-slate-900 dark:text-white">About InkHaven</h4>
+                <Info className="w-4 h-4 text-slate-400 text-white/30" />
+                <h4 className="text-sm font-semibold text-white text-white">About InkHaven</h4>
               </div>
-              <div className="space-y-2 text-xs text-slate-400 dark:text-slate-500">
+              <div className="space-y-2 text-xs text-slate-400 text-slate-500">
                 <p>Version 1.0.0</p>
                 <p>Built with privacy and safety in mind.</p>
                 <div className="mt-4 flex gap-3">
-                  <Link href="/faq" className="text-indigo-400 hover:text-indigo-300 transition">FAQ</Link>
-                  <Link href="/about" className="text-indigo-400 hover:text-indigo-300 transition">About</Link>
+                  <Link href="/faq" className="text-teal-400 hover:text-teal-300 transition">FAQ</Link>
+                  <Link href="/about" className="text-teal-400 hover:text-teal-300 transition">About</Link>
                 </div>
               </div>
             </div>

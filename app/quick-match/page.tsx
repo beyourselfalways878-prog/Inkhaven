@@ -7,7 +7,7 @@ import { supabase } from '../../lib/supabase';
 import { Button } from '../../components/ui/button';
 import AuraSphere from '../../components/Profile/AuraSphere';
 import { useToast } from '../../components/ui/toast';
-import { Loader2, Users, ShieldCheck, Sparkles, Activity } from 'lucide-react';
+import { Loader2, Users, ShieldCheck, Sparkles } from 'lucide-react';
 import MinigameHub from '../../components/NeonLounge/MinigameHub';
 
 export default function QuickMatchPage() {
@@ -15,10 +15,21 @@ export default function QuickMatchPage() {
   const { session } = useSessionStore();
   const [status, setStatus] = useState<'idle' | 'searching' | 'matched' | 'error'>('searching');
   const [errorMsg, setErrorMsg] = useState('');
+  const [secondsWaiting, setSecondsWaiting] = useState(0);
   const toast = useToast();
-  const navigatedRef = useRef(false); // prevent double-navigation
+  const navigatedRef = useRef(false);
 
-  // ── Initial match attempt ──────────────────────────────────────────────────
+  useEffect(() => {
+    if (status !== 'searching') {
+        if (secondsWaiting !== 0) setSecondsWaiting(0);
+        return;
+    }
+    const interval = setInterval(() => {
+      setSecondsWaiting(prev => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [status, secondsWaiting]);
+
   const handleQuickMatch = async () => {
     try {
       setStatus('searching');
@@ -56,21 +67,16 @@ export default function QuickMatchPage() {
         setTimeout(() => router.push(`/chat/${data.data.roomId}`), 800);
       }
     } catch (err: any) {
-      console.error('Quick Match Error:', err);
       setStatus('error');
-      setErrorMsg(err.message || 'Something went wrong. Please try again.');
+      setErrorMsg(err.message || 'Something went wrong.');
       toast.error(err.message || 'Something went wrong.');
     }
   };
 
   useEffect(() => {
     handleQuickMatch().catch(console.error);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ── Supabase Realtime subscription on the connection_queue row ──────────────
-  // This fires immediately when the server updates our matched_with / current_room_id
-  // rather than waiting for the next 3-second poll interval.
   useEffect(() => {
     if (status !== 'searching' || !session.userId) return;
 
@@ -96,7 +102,6 @@ export default function QuickMatchPage() {
       )
       .subscribe();
 
-    // Fallback: retry attempt every 4s in case the Realtime event is missed
     const fallback = setInterval(async () => {
       try {
         const { data: sd } = await supabase.auth.getSession();
@@ -130,105 +135,119 @@ export default function QuickMatchPage() {
 
   if (!session.userId) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
+        <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-slate-950 text-white">
       {/* Background aura glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1.5s' }} />
       </div>
 
       <div className="relative z-10 max-w-2xl w-full text-center space-y-8">
         {/* Header */}
         <div className="space-y-2">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent uppercase tracking-tight">
             {status === 'searching' ? 'The Neon Lounge' : 'Quick Match'}
           </h1>
-          <p className="text-slate-500 dark:text-white/50">
-            {status === 'searching' ? 'Sharpen your mind while we find your match.' : 'Instantly connect with someone available now.'}
+          <p className="text-slate-400 font-medium">
+            {status === 'searching' ? 'Sharpen your mind while we scan the frequencies.' : 'Instantly connect with a resonant partner.'}
           </p>
         </div>
 
         {status === 'searching' && (
           <div className="flex flex-col items-center animate-in fade-in zoom-in duration-700 w-full">
-            {/* Top compact scanning indicator */}
-            <div className="flex items-center gap-4 bg-slate-900/50 border border-indigo-500/20 px-6 py-3 rounded-full backdrop-blur-md mb-8">
-              <div className="relative w-8 h-8">
-                <div className="absolute inset-0 rounded-full border border-dashed border-indigo-500/50 animate-[spin_4s_linear_infinite]" />
-                <div className="absolute inset-[-4px] rounded-full border border-purple-500/20 animate-[spin_8s_linear_infinite_reverse]" />
-                <Activity className="absolute inset-0 m-auto w-4 h-4 text-indigo-400 animate-pulse" />
-              </div>
-              <div className="text-left flex flex-col justify-center">
-                <span className="text-xs font-bold text-slate-300 tracking-widest uppercase">Scanning Frequencies</span>
-                <span className="text-[10px] text-indigo-400 font-mono">Live match detection active...</span>
-              </div>
+            <div className="flex items-center gap-4 bg-slate-900/60 border border-teal-500/20 px-6 py-3 rounded-full backdrop-blur-md mb-8">
+                <div className="relative w-10 h-10 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full border border-dashed border-teal-500/50 animate-[spin_4s_linear_infinite]" />
+                    <Loader2 className="w-5 h-5 text-teal-400 animate-spin" />
+                </div>
+                <div className="text-left">
+                    <p className="text-sm font-bold text-white uppercase tracking-widest">Searching The Haven</p>
+                    <p className="text-[10px] text-teal-500/60 font-mono">P2P TUNNELING ACTIVE...</p>
+                </div>
             </div>
-
-            {/* Minigame Hub */}
             <MinigameHub />
+            {secondsWaiting > 15 && (
+              <div className="mt-8 animate-in slide-in-from-bottom-5 fade-in duration-500 w-full max-w-sm">
+                <div className="bg-slate-900 border border-teal-500/30 p-5 rounded-2xl backdrop-blur-md">
+                  <p className="text-teal-400 font-bold uppercase tracking-widest text-xs mb-2">The Network is Quiet</p>
+                  <p className="text-sm text-slate-300 mb-4">Nobody&apos;s around right now. Want to drop a thought on the wall while you wait?</p>
+                  <Button onClick={() => router.push('/feed')} className="w-full bg-teal-600 hover:bg-teal-500 text-white shadow-lg shadow-teal-500/20">
+                    Go to Feed
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {status === 'matched' && (
           <div className="flex flex-col items-center w-full animate-in slide-in-from-bottom-10 fade-in duration-1000">
             <div className="text-center mb-10">
-              <p className="text-sm font-mono text-emerald-400 mb-2 tracking-widest uppercase">Signal Locked</p>
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Vibe Check</h2>
-              <p className="text-slate-500 dark:text-white/50 text-sm mt-2">A connection is forming. Prepare your energy.</p>
+              <p className="text-sm font-mono text-teal-400 mb-2 tracking-widest uppercase">Signal Locked</p>
+              <h2 className="text-3xl font-bold text-white">Vibe Check</h2>
+              <p className="text-slate-400 text-sm mt-2">A connection is forming. Prepare your energy.</p>
             </div>
 
-            <div className="flex items-center justify-center gap-8 w-full">
+            <div className="flex items-center justify-center gap-12 w-full">
               <div className="flex flex-col items-center">
-                <AuraSphere inkId={session.inkId || 'fallback'} size="md" />
-                <span className="text-xs text-slate-400 dark:text-white/40 mt-4 font-mono">YOU</span>
+                <AuraSphere inkId={session.inkId || 'fallback'} size="lg" />
+                <span className="text-xs text-teal-400 mt-4 font-bold tracking-widest uppercase">You</span>
               </div>
-              <div className="relative flex-1 max-w-[100px] h-[2px] bg-slate-200 dark:bg-white/10">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 animate-[shimmer_2s_infinite]" style={{ backgroundSize: '200% 100%' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-white/20 rounded-full p-2">
-                  <Sparkles className="w-4 h-4 text-indigo-500 dark:text-white" />
-                </div>
+              
+              <div className="relative flex flex-col items-center gap-4">
+                 <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-teal-500 to-transparent" />
+                 <Sparkles className="text-teal-400 animate-pulse" />
+                 <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-teal-500 to-transparent" />
               </div>
+
               <div className="flex flex-col items-center">
-                <AuraSphere inkId="mysterious_stranger" size="md" comfortLevel="bold" isPulsing={true} />
-                <span className="text-xs text-slate-400 dark:text-white/40 mt-4 font-mono tracking-widest">UNKNOWN</span>
+                <AuraSphere inkId="mysterious_stranger" size="lg" comfortLevel="bold" isPulsing={true} />
+                <span className="text-xs text-cyan-400 mt-4 font-bold tracking-widest uppercase">Partner</span>
               </div>
             </div>
 
-            <div className="mt-12 bg-slate-50 dark:bg-white/5 px-6 py-3 rounded-full border border-slate-200 dark:border-white/10 flex items-center gap-3 backdrop-blur-md">
-              <Loader2 className="w-4 h-4 text-emerald-400 animate-spin" />
-              <span className="text-sm text-slate-900 dark:text-white font-medium">Establishing Secure WebRTC Tunnel...</span>
+            <div className="mt-12 bg-teal-500/5 backdrop-blur-2xl border border-teal-500/20 px-8 py-3 rounded-full flex items-center gap-3">
+              <Loader2 className="w-4 h-4 text-teal-400 animate-spin" />
+              <span className="text-sm text-teal-100 font-medium tracking-wide uppercase">Establishing WebRTC Tunnel...</span>
             </div>
           </div>
         )}
 
         {status === 'error' && (
-          <div className="text-center animate-in zoom-in-95 duration-300">
+          <div className="text-center animate-in zoom-in-95 duration-300 max-w-sm mx-auto">
             <div className="bg-red-500/10 border border-red-500/20 p-6 rounded-2xl mb-6 backdrop-blur-md">
-              <p className="text-red-400 font-medium mb-2">Connection Severed</p>
-              <p className="text-sm text-slate-500 dark:text-white/50">{errorMsg}</p>
+              <p className="text-red-400 font-bold uppercase tracking-widest text-xs mb-2">Connection Severed</p>
+              <p className="text-sm text-slate-400">{errorMsg}</p>
             </div>
-            <Button onClick={() => { navigatedRef.current = false; handleQuickMatch(); }} variant="secondary" className="px-8">
-              Recalibrate & Retry
+            <Button onClick={() => { navigatedRef.current = false; handleQuickMatch(); }} variant="secondary" className="w-full py-6 rounded-2xl bg-slate-900 border border-white/10 hover:bg-slate-800 text-white font-bold tracking-widest uppercase">
+              Recalibrate Signal
             </Button>
           </div>
         )}
       </div>
 
       {/* Trust signals */}
-      <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto pt-8 border-t border-slate-200 dark:border-white/5">
-        <div className="flex flex-col items-center glass-panel p-4">
-          <ShieldCheck className="w-6 h-6 text-indigo-400 mb-2" />
-          <span className="text-xs text-slate-500 dark:text-white/60 font-medium tracking-wide">ZERO DATA RETAINED</span>
+      <div className="grid grid-cols-2 gap-6 max-w-lg mx-auto mt-20 pt-8 border-t border-white/5">
+        <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/40 border border-white/5">
+          <ShieldCheck className="w-6 h-6 text-teal-400" />
+          <div className="text-left">
+            <p className="text-[10px] font-bold text-white uppercase tracking-widest">Privacy First</p>
+            <p className="text-[9px] text-slate-500 uppercase tracking-tighter">Zero Data Retained</p>
+          </div>
         </div>
-        <div className="flex flex-col items-center glass-panel p-4">
-          <Users className="w-6 h-6 text-purple-400 mb-2" />
-          <span className="text-xs text-slate-500 dark:text-white/60 font-medium tracking-wide">ANONYMOUS P2P</span>
+        <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/40 border border-white/5">
+          <Users className="w-6 h-6 text-cyan-400" />
+          <div className="text-left">
+            <p className="text-[10px] font-bold text-white uppercase tracking-widest">P2P Mesh</p>
+            <p className="text-[9px] text-slate-500 uppercase tracking-tighter">Encrypted Tunnel</p>
+          </div>
         </div>
       </div>
     </div>

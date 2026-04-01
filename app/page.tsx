@@ -86,11 +86,11 @@ export default function Page() {
   }, [testimonials.length]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-slate-950">
       {/* Animated Background */}
-      <div className="fixed inset-0 -z-10 bg-obsidian-950">
+      <div className="fixed inset-0 -z-10 bg-slate-950 animate-chameleon">
         <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay w-full h-full" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
-        <div className="absolute top-[-10%] left-[-5%] w-96 h-96 rounded-full blur-3xl opacity-40 animate-float-fast" style={{ background: "linear-gradient(135deg, rgba(99, 102, 241, 0.4) 0%, rgba(139, 92, 246, 0.4) 100%)" }} />
+        <div className="absolute top-[-10%] left-[-5%] w-96 h-96 rounded-full blur-3xl opacity-40 animate-float-fast" style={{ background: "linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(139, 92, 246, 0.4) 100%)" }} />
         <div className="absolute top-[20%] right-[-10%] w-80 h-80 rounded-full blur-3xl opacity-40 animate-float-medium" style={{ background: "linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(20, 184, 166, 0.3) 100%)" }} />
         <div className="absolute bottom-[10%] left-[20%] w-72 h-72 rounded-full blur-3xl opacity-40 animate-float-slow" style={{ background: "linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(244, 63, 94, 0.3) 100%)" }} />
       </div>
@@ -99,26 +99,26 @@ export default function Page() {
       <section className="container mx-auto px-6 pt-16 pb-24">
         <div className="text-center max-w-4xl mx-auto">
           {/* Animated Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-200/50 dark:border-indigo-800/50 mb-8 animate-pulse-slow">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-pink-500/10 border border-teal-200/50 border-teal-800/50 mb-8 animate-pulse-slow">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="text-sm font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-sm font-medium bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
               AI-Guarded • Real-Time • Zero-Trust Privacy
             </span>
           </div>
 
           {/* Main Headline with Gradient */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            <span className="block text-slate-900 dark:text-white">Where Anonymity</span>
-            <span className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
+            <span className="block text-white">Where Anonymity</span>
+            <span className="block bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-500 bg-clip-text text-transparent animate-gradient">
               Meets Connection
             </span>
           </h1>
 
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            A premium space for authentic conversations. No names, no profiles, just <span className="text-indigo-600 dark:text-indigo-400 font-medium">real human connection</span> — protected by AI moderation and designed for your peace of mind.
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            A premium space for authentic conversations. No names, no profiles, just <span className="text-teal-400 font-bold">real human connection</span> — protected by AI moderation and designed for your peace of mind.
           </p>
 
           {/* CTA Buttons — Primary: instant chat, Secondary: full onboarding */}
@@ -126,7 +126,7 @@ export default function Page() {
             {/* Primary: Zero-friction instant entry */}
             <button
               onClick={() => setChatNowOpen(true)}
-              className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-500 hover:via-violet-500 hover:to-purple-500 text-white px-10 py-5 text-xl font-bold rounded-2xl shadow-2xl shadow-indigo-500/30 hover:shadow-[0_0_50px_rgba(99,102,241,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] active:scale-[0.98]"
+              className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-600 hover:from-teal-500 hover:via-cyan-500 hover:to-emerald-500 text-white px-10 py-5 text-xl font-bold rounded-2xl shadow-2xl shadow-teal-500/20 hover:shadow-[0_0_50px_rgba(20,184,166,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] active:scale-[0.98]"
             >
               <Zap className="w-6 h-6 group-hover:animate-bounce" />
               Chat Now Instantly
@@ -137,14 +137,14 @@ export default function Page() {
 
             {/* Secondary row: onboarding + rooms */}
             <div className="flex flex-wrap justify-center gap-3 mt-2">
-              <Button asChild variant="secondary" size="lg" className="px-6 py-3 rounded-xl border hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:-translate-y-0.5 text-sm">
+              <Button asChild variant="secondary" size="lg" className="px-6 py-3 rounded-xl transition-all hover:-translate-y-1 text-sm font-bold text-white uppercase tracking-widest">
                 <Link href="/onboarding">
-                  <span className="mr-2">✨</span> Set Up My Profile
+                  <span className="mr-2 text-teal-400">✨</span> Set Up My Profile
                 </Link>
               </Button>
-              <Button asChild variant="secondary" size="lg" className="px-6 py-3 rounded-xl border hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:-translate-y-0.5 text-sm">
+              <Button asChild variant="secondary" size="lg" className="px-6 py-3 rounded-xl transition-all hover:-translate-y-1 text-sm font-bold text-white uppercase tracking-widest">
                 <Link href="/rooms">
-                  <span className="mr-2">🏠</span> Browse Rooms
+                  <span className="mr-2 text-cyan-400">🏠</span> Browse Rooms
                 </Link>
               </Button>
             </div>
@@ -153,20 +153,20 @@ export default function Page() {
           {/* Live Stats */}
           <div className="flex flex-wrap justify-center gap-8 text-center">
             <div className="px-6">
-              <div className="text-3xl font-bold text-slate-900 dark:text-white flex items-center justify-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block mr-1" />
+              <div className="text-3xl font-bold text-teal-400 flex items-center justify-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse inline-block mr-1" />
                 <AnimatedCounter end={stats.onlineNow} suffix="" />
               </div>
               <div className="text-sm text-slate-500">Online Now</div>
             </div>
-            <div className="px-6 border-l border-r border-slate-200 dark:border-slate-700">
-              <div className="text-3xl font-bold text-slate-900 dark:text-white">
+            <div className="px-6 border-l border-r border-white/5">
+              <div className="text-3xl font-bold text-white">
                 <AnimatedCounter end={stats.chatsToday} suffix="+" />
               </div>
               <div className="text-sm text-slate-500">Chats Today</div>
             </div>
             <div className="px-6">
-              <div className="text-3xl font-bold text-slate-900 dark:text-white">
+              <div className="text-3xl font-bold text-white">
                 <AnimatedCounter end={stats.activeRooms} suffix="" />
               </div>
               <div className="text-sm text-slate-500">Live Rooms</div>
@@ -179,49 +179,49 @@ export default function Page() {
       {/* Features Section */}
       <section className="container mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-            Why Choose <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">InkHaven</span>?
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Why Choose <span className="bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent">InkHaven</span>?
           </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+          <p className="text-lg text-slate-400 max-w-xl mx-auto">
             We&apos;ve reimagined anonymous chat from the ground up.
           </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <GlowingCard gradient="from-indigo-500 to-purple-500">
-            <FeatureIcon gradient="from-indigo-500 to-purple-500"><Shield className="w-7 h-7" /></FeatureIcon>
-            <h3 className="text-xl font-semibold mt-5 mb-3 text-slate-900 dark:text-white">AI-Powered Safety</h3>
-            <p className="text-slate-600 dark:text-slate-400">Real-time content moderation protects every conversation. Harmful content is caught before it reaches you.</p>
+          <GlowingCard gradient="from-teal-500 to-cyan-500">
+            <FeatureIcon gradient="from-teal-500 to-cyan-500"><Shield className="w-7 h-7" /></FeatureIcon>
+            <h3 className="text-xl font-semibold mt-5 mb-3 text-white">AI-Powered Safety</h3>
+            <p className="text-slate-400">Real-time content moderation protects every conversation. Harmful content is caught before it reaches you.</p>
           </GlowingCard>
 
           <GlowingCard gradient="from-emerald-500 to-teal-500">
             <FeatureIcon gradient="from-emerald-500 to-teal-500"><Target className="w-7 h-7" /></FeatureIcon>
-            <h3 className="text-xl font-semibold mt-5 mb-3 text-slate-900 dark:text-white">Smart Matching</h3>
-            <p className="text-slate-600 dark:text-slate-400">Our AI learns from your conversations to find people who match your vibe and interests.</p>
-          </GlowingCard>
-
-          <GlowingCard gradient="from-pink-500 to-rose-500">
-            <FeatureIcon gradient="from-pink-500 to-rose-500"><Lock className="w-7 h-7" /></FeatureIcon>
-            <h3 className="text-xl font-semibold mt-5 mb-3 text-slate-900 dark:text-white">Zero-Knowledge Privacy</h3>
-            <p className="text-slate-600 dark:text-slate-400">No emails, no phone numbers, no real names. Your identity stays completely private.</p>
-          </GlowingCard>
-
-          <GlowingCard gradient="from-amber-500 to-orange-500">
-            <FeatureIcon gradient="from-amber-500 to-orange-500"><Zap className="w-7 h-7" /></FeatureIcon>
-            <h3 className="text-xl font-semibold mt-5 mb-3 text-slate-900 dark:text-white">Real-Time Everything</h3>
-            <p className="text-slate-600 dark:text-slate-400">Instant messages, live typing indicators, and presence status. It feels like being in the same room.</p>
+            <h3 className="text-xl font-semibold mt-5 mb-3 text-white">Smart Matching</h3>
+            <p className="text-slate-400">Our AI learns from your conversations to find people who match your vibe and interests.</p>
           </GlowingCard>
 
           <GlowingCard gradient="from-cyan-500 to-blue-500">
-            <FeatureIcon gradient="from-cyan-500 to-blue-500"><Palette className="w-7 h-7" /></FeatureIcon>
-            <h3 className="text-xl font-semibold mt-5 mb-3 text-slate-900 dark:text-white">Premium Design</h3>
-            <p className="text-slate-600 dark:text-slate-400">A beautiful, calming interface that makes chatting a pleasure. Dark mode included.</p>
+            <FeatureIcon gradient="from-cyan-500 to-blue-500"><Lock className="w-7 h-7" /></FeatureIcon>
+            <h3 className="text-xl font-semibold mt-5 mb-3 text-white">Zero-Knowledge Privacy</h3>
+            <p className="text-slate-400">No emails, no phone numbers, no real names. Your identity stays completely private.</p>
           </GlowingCard>
 
-          <GlowingCard gradient="from-violet-500 to-purple-500">
-            <FeatureIcon gradient="from-violet-500 to-purple-500"><Mic className="w-7 h-7" /></FeatureIcon>
-            <h3 className="text-xl font-semibold mt-5 mb-3 text-slate-900 dark:text-white">Voice Messages</h3>
-            <p className="text-slate-600 dark:text-slate-400">Send voice notes when typing isn&apos;t enough. Express yourself naturally.</p>
+          <GlowingCard gradient="from-teal-600 to-emerald-600">
+            <FeatureIcon gradient="from-teal-600 to-emerald-600"><Zap className="w-7 h-7" /></FeatureIcon>
+            <h3 className="text-xl font-semibold mt-5 mb-3 text-white">Real-Time Everything</h3>
+            <p className="text-slate-400">Instant messages, live typing indicators, and presence status. It feels like being in the same room.</p>
+          </GlowingCard>
+
+          <GlowingCard gradient="from-cyan-400 to-teal-400">
+            <FeatureIcon gradient="from-cyan-400 to-teal-400"><Palette className="w-7 h-7" /></FeatureIcon>
+            <h3 className="text-xl font-semibold mt-5 mb-3 text-white">Premium Design</h3>
+            <p className="text-slate-400">A beautiful, calming interface that makes chatting a pleasure. Dark mode included.</p>
+          </GlowingCard>
+
+          <GlowingCard gradient="from-emerald-400 to-cyan-400">
+            <FeatureIcon gradient="from-emerald-400 to-cyan-400"><Mic className="w-7 h-7" /></FeatureIcon>
+            <h3 className="text-xl font-semibold mt-5 mb-3 text-white">Voice Messages</h3>
+            <p className="text-slate-400">Send voice notes when typing isn&apos;t enough. Express yourself naturally.</p>
           </GlowingCard>
         </div>
       </section>
@@ -229,14 +229,14 @@ export default function Page() {
       {/* Testimonial Section */}
       <section className="container mx-auto px-6 py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-1">
-            <div className="bg-white dark:bg-slate-900 rounded-[22px] p-8 md:p-12">
+          <div className="relative bg-gradient-to-br from-teal-500 via-cyan-500 to-emerald-500 rounded-3xl p-1">
+            <div className="bg-slate-950 animate-chameleon text-white rounded-[22px] p-8 md:p-12">
               <div className="text-center">
                 <div className="text-5xl mb-6">{testimonials[activeTestimonial].mood}</div>
-                <p className="text-2xl md:text-3xl font-medium text-slate-900 dark:text-white mb-6 transition-all duration-500">
+                <p className="text-2xl md:text-3xl font-medium text-white mb-6 transition-all duration-500">
                   &quot;{testimonials[activeTestimonial].text}&quot;
                 </p>
-                <p className="text-slate-500">— {testimonials[activeTestimonial].author}</p>
+                <p className="text-slate-400">— {testimonials[activeTestimonial].author}</p>
 
                 {/* Dots */}
                 <div className="flex justify-center gap-2 mt-8">
@@ -245,8 +245,8 @@ export default function Page() {
                       key={i}
                       onClick={() => setActiveTestimonial(i)}
                       className={`w-2 h-2 rounded-full transition-all ${i === activeTestimonial
-                        ? 'w-8 bg-gradient-to-r from-indigo-500 to-purple-500'
-                        : 'bg-slate-300 dark:bg-slate-600 hover:bg-slate-400'
+                        ? 'w-8 bg-gradient-to-r from-teal-400 to-cyan-500'
+                        : 'bg-slate-700 hover:bg-slate-600'
                         }`}
                     />
                   ))}
@@ -261,14 +261,14 @@ export default function Page() {
       <section className="container mx-auto px-6 py-20">
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="hyper-glass p-12 overflow-visible">
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 blur-3xl -z-10" />
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-              Ready to experience <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">real connection</span>?
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-500/5 via-cyan-500/5 to-emerald-500/5 blur-3xl -z-10" />
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+              Ready to experience <span className="bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent">real connection</span>?
             </h2>
-            <p className="text-lg text-slate-600 dark:text-white/60 mb-10 max-w-xl mx-auto">
-              Join thousands of users who have found their space for authentic, anonymous conversations in the ultimate hyper-glass sanctuary.
+            <p className="text-lg text-slate-400 mb-10 max-w-xl mx-auto">
+              Join thousands of users who have found their space for authentic, anonymous conversations in the ultimate Zenith sanctuary.
             </p>
-            <Button asChild size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-10 py-6 text-lg rounded-full shadow-[0_0_40px_rgba(99,102,241,0.4)] hover:shadow-[0_0_60px_rgba(99,102,241,0.6)] transition-all transform hover:scale-105">
+            <Button asChild size="lg" className="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white px-10 py-6 text-lg rounded-full shadow-[0_0_40px_rgba(20,184,166,0.3)] hover:shadow-[0_0_60px_rgba(20,184,166,0.5)] transition-all transform hover:scale-105">
               <Link href="/onboarding">
                 Enter The Sanctuary <span className="ml-2">→</span>
               </Link>

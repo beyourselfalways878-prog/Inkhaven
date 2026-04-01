@@ -122,8 +122,8 @@ export default function FriendsPage() {
         <div className="container mx-auto px-6 py-12 max-w-4xl min-h-[80vh]">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Your Connections</h1>
-                    <p className="text-slate-600 dark:text-white/60 mt-2">People you&apos;ve mutually saved chats with.</p>
+                    <h1 className="text-4xl font-black text-white text-white tracking-tight">Your Connections</h1>
+                    <p className="text-slate-600 text-white/60 mt-2">People you&apos;ve mutually saved chats with.</p>
                 </div>
             </div>
 
@@ -135,20 +135,20 @@ export default function FriendsPage() {
                     className="rounded-3xl min-h-[50vh] p-6 lg:p-10"
                 >
                     {loading ? (
-                        <div className="flex flex-col items-center justify-center h-full text-indigo-400 py-20">
+                        <div className="flex flex-col items-center justify-center h-full text-teal-400 py-20">
                             <Loader2 className="w-10 h-10 animate-spin mb-4" />
                             <p className="font-mono text-sm tracking-widest">LOADING CONNECTIONS...</p>
                         </div>
                     ) : friends.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center h-full text-slate-500 dark:text-white/40 py-20 text-center">
-                            <div className="w-20 h-20 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mb-6">
+                        <div className="flex flex-col items-center justify-center h-full text-slate-500 py-20 text-center">
+                            <div className="w-20 h-20 bg-slate-900/40 backdrop-blur-2xl border border-white/10 text-white/5 rounded-full flex items-center justify-center mb-6">
                                 <UserX className="w-10 h-10 opacity-50" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No friends yet</h3>
+                            <h3 className="text-xl font-bold text-white mb-2">No friends yet</h3>
                             <p className="max-w-md">When you and your anonymous partner both click &quot;Save&quot;, you&apos;ll see each other here.</p>
                             <button
                                 onClick={() => router.push('/quick-match')}
-                                className="mt-8 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-indigo-500/25"
+                                className="mt-8 px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-teal-500/25"
                             >
                                 Find a Match
                             </button>
@@ -156,7 +156,7 @@ export default function FriendsPage() {
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {friends.map((friend) => (
-                                <div key={friend.friendshipId} className="bg-white/90 dark:bg-obsidian-900/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-2xl p-5 flex items-center justify-between group hover:border-indigo-500/50 transition-colors">
+                                <div key={friend.friendshipId} className="bg-slate-900 text-white/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 flex items-center justify-between group hover:border-teal-500/50 transition-colors">
                                     <div className="flex items-center gap-4">
                                         <Avatar
                                             userId={friend.partnerId}
@@ -166,14 +166,14 @@ export default function FriendsPage() {
                                             size="lg"
                                         />
                                         <div>
-                                            <h3 className="font-bold text-slate-900 dark:text-white text-lg">{friend.displayName}</h3>
-                                            <p className="text-xs text-slate-500 dark:text-white/50 font-mono mt-0.5">Matched: {new Date(friend.createdAt).toLocaleDateString()}</p>
+                                            <h3 className="font-bold text-white text-white text-lg">{friend.displayName}</h3>
+                                            <p className="text-xs text-slate-500 text-white/50 font-mono mt-0.5">Matched: {new Date(friend.createdAt).toLocaleDateString()}</p>
                                         </div>
                                     </div>
                                     <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <button
                                             onClick={() => inviteToRoom(friend.partnerId)}
-                                            className="p-2.5 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-500 hover:text-white rounded-xl transition-colors"
+                                            className="p-2.5 bg-teal-500/10 hover:bg-teal-500 text-teal-500 hover:text-white rounded-xl transition-colors"
                                             title="Invite to Private Room"
                                         >
                                             <MessageSquarePlus size={20} />
