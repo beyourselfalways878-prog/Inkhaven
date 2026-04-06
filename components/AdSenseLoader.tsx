@@ -1,34 +1,23 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import Script from 'next/script';
 
-const ALLOWED_ADSENSE_PATHS = [
-    '/',
-    '/about',
-    '/faq',
-    '/legal/privacy',
-    '/legal/terms'
-];
-
+/**
+ * AdSenseLoader — Server Component
+ *
+ * Loads Google AdSense on all pages. Keeping this as a server component
+ * (no 'use client') guarantees the script tag is present in the initial
+ * server-rendered HTML, which is what Googlebot reads for ads.txt validation
+ * and ad eligibility.
+ *
+ * Publisher ID: ca-pub-7229649791586904
+ */
 export default function AdSenseLoader() {
-    const pathname = usePathname();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    // Only load AdSense on content-rich pages to avoid AdSense Policy Violations
-    const isAllowed = ALLOWED_ADSENSE_PATHS.includes(pathname || '') || 
-                     (pathname?.startsWith('/blog'));
-
-    if (!isAllowed || !mounted) {
-        return null;
-    }
-
     return (
-        <div dangerouslySetInnerHTML={{
-            __html: `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7229649791586904" crossorigin="anonymous"></script>`
-        }} />
+        <Script
+            id="adsbygoogle-init"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7229649791586904"
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+        />
     );
 }
