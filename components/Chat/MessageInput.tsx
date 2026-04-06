@@ -4,6 +4,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Mic, Paperclip, PenTool } from 'lucide-react';
+import ModerationToggle from './ModerationToggle';
 import { AudioRecorder } from './AudioRecorder';
 import { FileUpload } from './FileUpload';
 import { EmojiToggle } from './EmojiPicker';
@@ -257,6 +258,17 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
     inputRef.current?.focus();
   };
 
+  // Sync safety state from ModerationToggle
+  const handleModeChange = React.useCallback((isSafe: boolean) => {
+    setSafetyEnabled(isSafe);
+    // Also persist to preferences for compatibility
+    try {
+      const stored = localStorage.getItem('inkhaven:preferences');
+      const prefs = stored ? JSON.parse(stored) : {};
+      localStorage.setItem('inkhaven:preferences', JSON.stringify({ ...prefs, safetyFilter: isSafe }));
+    } catch { /* ignore */ }
+  }, []);
+
   useEffect(() => {
     try {
       const stored = localStorage.getItem('inkhaven:preferences');
@@ -454,6 +466,10 @@ export default function MessageInput({ myId, replyTo, onCancelReply, onIntensity
               <Paperclip size={20} className={!isPremium ? "opacity-30" : ""} />
             </button>
             <EmojiToggle onSelect={handleEmojiSelect} />
+            {/* Moderation mode toggle — replaces the old popup */}
+            <div className="ml-0.5">
+              <ModerationToggle onModeChange={handleModeChange} />
+            </div>
           </div>
 
           <input
