@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, ShieldOff } from 'lucide-react';
+import { useToast } from '../ui/toast';
 import {
   getModerationMode,
   setModerationMode,
@@ -11,7 +12,8 @@ import {
 
 interface ModerationToggleProps {
   /** Called when the mode changes, so parent (MessageInput) can update safetyEnabled */
-  onModeChange?: (isSafe: boolean) => void;
+  // eslint-disable-next-line no-unused-vars
+  onModeChange?: (_isSafe: boolean) => void;
 }
 
 export default function ModerationToggle({ onModeChange }: ModerationToggleProps) {
@@ -19,6 +21,7 @@ export default function ModerationToggle({ onModeChange }: ModerationToggleProps
   const [showTooltip, setShowTooltip] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const confirmTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toast = useToast();
 
   useEffect(() => {
     const current = getModerationMode();
@@ -39,11 +42,20 @@ export default function ModerationToggle({ onModeChange }: ModerationToggleProps
   };
 
   const applyMode = (newMode: ModerationMode) => {
+    const isChanging = mode !== newMode;
     setMode(newMode);
     setModerationMode(newMode);
     setShowConfirm(false);
     onModeChange?.(newMode === 'safe');
     if (confirmTimeout.current) clearTimeout(confirmTimeout.current);
+    
+    if (isChanging) {
+      if (newMode === 'adult') {
+        toast.warning('Switched to 18+ Mode. Your next match will be from the unrestricted pool.');
+      } else {
+        toast.success('Switched to Safe Mode. Next match will be from the moderated pool.');
+      }
+    }
   };
 
   const isSafe = mode === 'safe';
@@ -178,7 +190,7 @@ export default function ModerationToggle({ onModeChange }: ModerationToggleProps
                   onClick={() => applyMode('adult')}
                   className="flex-1 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-400 text-[11px] font-bold transition-all hover:scale-105 active:scale-95"
                 >
-                  Yes, I'm 18+
+                  Yes, I&apos;m 18+
                 </button>
                 <button
                   type="button"

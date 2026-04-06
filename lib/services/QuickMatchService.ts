@@ -6,7 +6,6 @@ import { MatchingError } from '../errors/AppError';
 // Removed unique-names-generator dependency
 
 const logger = createLogger('QuickMatchService');
-const QUEUE_KEY = 'quick_match_queue';
 
 export interface QuickMatchResult {
     matchFound: boolean;
@@ -19,7 +18,7 @@ export class QuickMatchService {
      * Find a match or enqueue the user purely in memory using Redis.
      * Optionally takes an array of interests to prioritized targeted matching.
      */
-    async findMatch(userId: string, interests: string[] = []): Promise<QuickMatchResult> {
+    async findMatch(userId: string, interests: string[] = [], mode: 'safe' | 'adult' = 'safe'): Promise<QuickMatchResult> {
         if (!redis) {
             throw new AppError('SERVICE_UNAVAILABLE', 'Matching service unavailable', 503);
         }
@@ -47,7 +46,7 @@ export class QuickMatchService {
                 const tags = [...new Set(interests.map(t => t.toLowerCase().trim()).filter(Boolean))];
 
                 for (const tag of tags) {
-                    const tagKey = `interest:${tag}`;
+                    const tagKey = `interest:${mode}:${tag}`;
                     const potentialPartner = await redis.spop(tagKey) as string | null;
                     if (potentialPartner && potentialPartner !== userId) {
                         partnerId = potentialPartner;
@@ -63,14 +62,14 @@ export class QuickMatchService {
                 if (!partnerId) {
                     const multi = redis.multi();
                     for (const tag of tags) {
-                        multi.sadd(`interest:${tag}`, userId);
+                        multi.sadd(`interest:${mode}:${tag}`, userId);
                     }
                     // Keep track of which tags the user is in so we can clean them up on 'leave'
                     if (tags.length > 0) {
-                        multi.sadd(`userTags:${userId}`, ...(tags as [string, ...string[]]));
+                        multi.sadd(`userTags:${userId}`, ...(tags.map(t => `${mode}:${t}`) as [string, ...string[]]));
                     }
                     await multi.exec();
-                    logger.info('User added to interest matching pools', { userId, tags });
+                    logger.info('User added to interest matching pools', { userId, tags, mode });
 
                     // We don't immediately add them to the global queue yet if they specified interests.
                     // The frontend will re-poll without interests as a 'fallback' later if needed.
@@ -83,7 +82,8 @@ export class QuickMatchService {
 
             // 2b. If no interests provided, try the global quick match queue
             if (!partnerId) {
-                const popped = await redis.rpop(QUEUE_KEY) as string | null;
+                const currentQueueKey = `quick_match_queue:${mode}`;
+                const popped = await redis.rpop(currentQueueKey) as string | null;
                 if (popped && popped !== userId) {
                     partnerId = popped;
                     logger.info('Partner popped from global queue', { userId, partnerId });
@@ -134,8 +134,9 @@ export class QuickMatchService {
             }
 
             // 3. No match found, enqueue self
-            await redis.lpush(QUEUE_KEY, userId);
-            logger.info('User enqueued in Redis', { userId });
+            const currentQueueKey = `quick_match_queue:${mode}`;
+            await redis.lpush(currentQueueKey, userId);
+            logger.info('User enqueued in Redis', { userId, mode });
 
             return {
                 matchFound: false,
@@ -159,15 +160,16 @@ export class QuickMatchService {
         if (!redis) return;
         try {
             const multi = redis.multi();
-            multi.lrem(QUEUE_KEY, 0, userId);
+            multi.lrem(`quick_match_queue:safe`, 0, userId);
+            multi.lrem(`quick_match_queue:adult`, 0, userId);
             multi.del(`match:${userId}`); // Also clear any pending matches
 
             // Cleanup interest sets
             const userTagsKey = `userTags:${userId}`;
             const tags = await redis.smembers(userTagsKey);
             if (tags && tags.length > 0) {
-                for (const tag of tags) {
-                    multi.srem(`interest:${tag}`, userId);
+                for (const tagMode of tags) {
+                    multi.srem(`interest:${tagMode}`, userId);
                 }
                 multi.del(userTagsKey);
             }
@@ -182,7 +184,7 @@ export class QuickMatchService {
     /**
      * Skip current chat and find a new match.
      */
-    async skipAndRematch(userId: string, currentRoomId: string, partnerId?: string | null): Promise<QuickMatchResult> {
+    async skipAndRematch(userId: string, currentRoomId: string, partnerId?: string | null, mode: 'safe' | 'adult' = 'safe'): Promise<QuickMatchResult> {
         try {
             logger.info('User skipping chat (WebRTC Flow)', { userId, currentRoomId });
 
@@ -207,7 +209,7 @@ export class QuickMatchService {
 
             // Leave current queue state just in case, then find new match
             await this.leaveQueue(userId);
-            return await this.findMatch(userId);
+            return await this.findMatch(userId, [], mode);
         } catch (error) {
             const errMsg = error instanceof Error ? error.message : String(error);
             logger.error('Skip and rematch failed', { userId, error: errMsg });

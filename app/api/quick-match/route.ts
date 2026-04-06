@@ -20,6 +20,8 @@ export async function POST(req: NextRequest) {
         // But we could accept an 'action' if we want to support 'leave' later
         const body = await req.json().catch(() => ({})); // Handle empty body safely
 
+        const mode = body.mode === 'adult' ? 'adult' : 'safe';
+
         if (body.action === 'leave') {
             await quickMatchService.leaveQueue(user.id);
             return NextResponse.json({ ok: true });
@@ -33,7 +35,7 @@ export async function POST(req: NextRequest) {
                     { status: 400 }
                 );
             }
-            const result = await quickMatchService.skipAndRematch(user.id, currentRoomId, body.partnerId);
+            const result = await quickMatchService.skipAndRematch(user.id, currentRoomId, body.partnerId, mode);
             return NextResponse.json({ ok: true, data: result });
         }
 
@@ -41,7 +43,7 @@ export async function POST(req: NextRequest) {
         // and throwing 403 here breaks because Turnstile tokens are single-use.
 
         const interests = Array.isArray(body.interests) ? body.interests : [];
-        const result = await quickMatchService.findMatch(user.id, interests);
+        const result = await quickMatchService.findMatch(user.id, interests, mode);
 
         return NextResponse.json({
             ok: true,

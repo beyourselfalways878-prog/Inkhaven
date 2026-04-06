@@ -16,6 +16,7 @@ import { useSessionStore } from '../../../stores/useSessionStore';
 import { usePeer } from '../../../lib/hooks/usePeer';
 import { supabase } from '../../../lib/supabase';
 import { useToast } from '../../../components/ui/toast';
+import { getModerationMode } from '../../../components/ModerationGate';
 
 interface PartnerProfile {
   displayName: string;
@@ -214,10 +215,11 @@ export default function ChatRoomPage() {
           keepalive: true,
         }).catch(() => { /* best-effort analytics flush */ });
       }
+      const mode = getModerationMode();
       const res = await fetch('/api/quick-match', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-        body: JSON.stringify({ action: 'skip', currentRoomId: roomId, partnerId: partnerId || null }),
+        body: JSON.stringify({ action: 'skip', currentRoomId: roomId, partnerId: partnerId || null, mode }),
       });
       const data = await res.json();
       if (data.ok && data.data?.matchFound && data.data?.roomId) {

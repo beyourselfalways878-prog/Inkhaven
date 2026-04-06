@@ -9,6 +9,7 @@ import AuraSphere from '../../components/Profile/AuraSphere';
 import { useToast } from '../../components/ui/toast';
 import { Loader2, Users, ShieldCheck, Sparkles } from 'lucide-react';
 import MinigameHub from '../../components/NeonLounge/MinigameHub';
+import { getModerationMode } from '../../components/ModerationGate';
 
 export default function QuickMatchPage() {
   const router = useRouter();
@@ -48,10 +49,11 @@ export default function QuickMatchPage() {
 
       if (!token) throw new Error('Unable to authenticate. Please try refreshing the page.');
 
+      const mode = getModerationMode();
       const res = await fetch('/api/quick-match', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ interests: [] }),
+        body: JSON.stringify({ interests: [], mode }),
       });
 
       if (!res.ok) {
@@ -108,10 +110,11 @@ export default function QuickMatchPage() {
         const t = sd?.session?.access_token;
         if (!t || navigatedRef.current) return;
 
+        const mode = getModerationMode();
         const res = await fetch('/api/quick-match', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${t}` },
-          body:    JSON.stringify({ interests: [] }),
+          body:    JSON.stringify({ interests: [], mode }),
         });
 
         if (res.ok) {
